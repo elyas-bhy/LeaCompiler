@@ -11,8 +11,8 @@ public class Main {
     public static void main(String[] args) {
 	try {
 	    FileReader  myFile = new FileReader(args[0]);
-	    TpLexer myLex = new TpLexer(myFile);
-	    TpParser myP = new TpParser(myLex);
+	    Scanner myLex = new Scanner(myFile);
+	    Parser myP = new Parser(myLex);
 	    Symbol result=null;
 	    try {
 		result=myP.parse();

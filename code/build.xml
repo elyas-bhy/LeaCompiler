@@ -3,7 +3,7 @@
   <property name="JFlexLib" location="lib" />
   <property name="CUPLib" location="lib" />
   <property name="parser.dir" location="parser" />
-  <property name="lexer.dir" location="lexer" />
+  <property name="scanner.dir" location="scanner" />
   <property name="bin.dir" location="bin" />
   <property name="lib.dir" location="lib" />
   <property name="src.dir" location="src" />
@@ -46,7 +46,7 @@
   <!-- ================================= 
        target: projet            
        ================================= -->
-  <target name="projet" depends="parser, lexer" description="compilation du projet">
+  <target name="projet" depends="parser, scanner" description="compilation du projet">
     <mkdir dir="${bin.dir}" />
     <javac 
 	srcdir="${src.dir}"
@@ -57,16 +57,16 @@
   </target>
   
   <!-- =================================
-       target: lexer
+       target: scanner
        ================================= -->
-  <target name="lexer">
+  <target name="scanner">
     
     <taskdef name="jflex" classname="JFlex.anttask.JFlexTask">
       <classpath location="${JFlexLib}/JFlex.jar" />
     </taskdef>
     
     <jflex 
-	file="${lexer.dir}/tp.jflex" 
+	file="${scanner.dir}/scanner.jflex" 
 	destdir="${src.dir}"/>
   </target>
   
@@ -80,10 +80,10 @@
     </taskdef>
     
     <cup 
-	srcfile="${parser.dir}/tp.cup"
+	srcfile="${parser.dir}/parser.cup"
 	destdir="${src.dir}"
-	parser="TpParser"
-	symbols="TpSymbol"
+	parser="Parser"
+	symbols="MySymbol"
 	dump_grammar="true"
 	dump_tables="false"
 	dump_states="false"
@@ -93,9 +93,9 @@
   </target>
 
   <target name="clean">
-    <delete file="${src.dir}/org/tp/TpLexer.java"/>
-    <delete file="${src.dir}/org/tp/TpParser.java"/>
-    <delete file="${src.dir}/org/tp/TpSymbol.java"/>
+    <delete file="${src.dir}/org/tp/Scanner.java"/>
+    <delete file="${src.dir}/org/tp/Parser.java"/>
+    <delete file="${src.dir}/org/tp/MySymbol.java"/>
     <delete dir="${bin.dir}"/>
   </target>
 </project>
