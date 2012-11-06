@@ -1,0 +1,11 @@
+Creating new environment 	0
+Creating new environment 	7
+Creating new environment 	17
+Creating new environment 	24
+succ(succ(=(variable,integer),if(<(variable,integer),
+
+	thenelse(succ(=(variable,floating),=(variable,+(variable,string))),
+
+	succ(=(variable,integer),while(<(variable,integer),
+
+	succ(=(variable,+(variable,integer)),=(variable,+(variable,string)))))))),=(variable,integer))

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="projet" default="default">
+  <property name="JFlexLib" location="lib" />
+  <property name="CUPLib" location="lib" />
+  <property name="parser.dir" location="parser" />
+  <property name="lexer.dir" location="lexer" />
+  <property name="bin.dir" location="bin" />
+  <property name="lib.dir" location="lib" />
+  <property name="src.dir" location="src" />
+
+  <regexp id="class" pattern="[a-z]*\.class" />
+  
+  <description>
+    compilation du projet Lexer
+  </description>
+  
+  <!-- ================================= 
+       target: default              
+       ================================= -->
+  <target name="default" depends="dot" description="open graph">
+    <exec executable="eog">
+      <arg value="data/ast.jpg"/>
+    </exec>
+  </target>
+
+  <target name="dot" depends="compile" description="compiling dot file">
+    <exec executable="dot">
+      <arg value="-Tjpg" />
+      <arg value="-o" />
+      <arg value="data/ast.jpg"/>
+      <arg value="data/arbreSynt.dot" />
+    </exec>
+  </target>
+
+  <target name="compile" depends="projet" description="compilation du projet tp3">
+    
+    <java 
+	classname="org.tp.Main"
+	classpath=".:${bin.dir}:${lib.dir}/java-cup-11a-runtime.jar"
+	output="data/output.txt">
+      <arg value="data/input.txt"/>
+    </java>
+    
+  </target>
+  
+  <!-- ================================= 
+       target: projet            
+       ================================= -->
+  <target name="projet" depends="parser, lexer" description="compilation du projet">
+    <mkdir dir="${bin.dir}" />
+    <javac 
+	srcdir="${src.dir}"
+	destdir="${bin.dir}" 
+	classpath="${lib.dir}/java-cup-11a-runtime.jar" 
+	debug="on" />
+    
+  </target>
+  
+  <!-- =================================
+       target: lexer
+       ================================= -->
+  <target name="lexer">
+    
+    <taskdef name="jflex" classname="JFlex.anttask.JFlexTask">
+      <classpath location="${JFlexLib}/JFlex.jar" />
+    </taskdef>
+    
+    <jflex 
+	file="${lexer.dir}/tp.jflex" 
+	destdir="${src.dir}"/>
+  </target>
+  
+  <!-- ================================= 
+       target: parser              
+       ================================= -->
+  <target name="parser" description="Compilation du parseur">
+    
+    <taskdef name="cup" classname="java_cup.anttask.CUPTask">
+      <classpath location="${CUPLib}/java-cup-11a.jar" />
+    </taskdef>
+    
+    <cup 
+	srcfile="${parser.dir}/tp.cup"
+	destdir="${src.dir}"
+	parser="TpParser"
+	symbols="TpSymbol"
+	dump_grammar="true"
+	dump_tables="false"
+	dump_states="false"
+	expect="0"
+	debug="false"
+/>
+  </target>
+
+  <target name="clean">
+    <delete file="${src.dir}/org/tp/TpLexer.java"/>
+    <delete file="${src.dir}/org/tp/TpParser.java"/>
+    <delete file="${src.dir}/org/tp/TpSymbol.java"/>
+    <delete dir="${bin.dir}"/>
+  </target>
+</project>
