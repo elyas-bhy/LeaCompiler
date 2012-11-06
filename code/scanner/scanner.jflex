@@ -43,6 +43,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 	Separateurs Operateurs
    ------------------------------------------------- */
 
+\"            {/*System.out.print(yytext());*/  return symbol(MySymbol.DQUOTE); }
 "("	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LPAR); }
 ")"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.RPAR); }
 "{"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LBRACE); }
@@ -56,18 +57,20 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "<="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.LE); }
 ">="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.GE); }
 "!="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.DIFF); }
-"=="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.EQ); }
+":="          {/*System.out.print(yytext());*/  return symbol(MySymbol.AFFECT); }
 "+"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.PLUS); }
 "-"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.MINUS); }
 "*"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.MULT); }
 "/"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.DIV); }
+"."           {/*System.out.print(yytext());*/  return symbol(MySymbol.DOT); }
 ";"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.SEMIC); }
 ":"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.COLON); }
-"="	          {/*System.out.print(yytext());*/  return symbol(MySymbol.AFF); }
+"="	          {/*System.out.print(yytext());*/  return symbol(MySymbol.EQ); }
 "if"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.IF); }
 "then"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.THEN); }
 "else"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.ELSE); }
-"while"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.WHILE); }
+"while"       {/*System.out.print(yytext());*/  return symbol(MySymbol.WHILE); }
+"for"         {/*System.out.print(yytext());*/  return symbol(MySymbol.FOR); }
 "do"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.DO); }
 "var"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.VAR); }
 "int"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.INT); }
@@ -77,6 +80,10 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "array"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.ARRAY); }
 "of"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.OF); }
 "pointer"	    {/*System.out.print(yytext());*/  return symbol(MySymbol.POINTER); }
+"repeat"      {/*System.out.print(yytext());*/  return symbol(MySymbol.REPEAT); }
+"bool"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL); }
+"return"      {/*System.out.print(yytext());*/  return symbol(MySymbol.RETURN); }
+"struct"      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRUCT); }
 
 /* -------------------------------------------------
 	Variables, Entiers
