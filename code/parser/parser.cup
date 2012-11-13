@@ -8,13 +8,13 @@ import org.tp.*;
 terminal IF, THEN, ELSE, WHILE, DO,
     VAR, ARRAY, POINTER, OF, 
     LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
-    SEMIC, COLON,
+    SEMIC, COLON, COMMA, TRUE, FALSE,
     AFF, AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV, INT, FLOAT, STRING, CHAR;
-terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP;
+terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOLEAN;
 
 non terminal AST axiom, instr, instrs, expr, variable, block;
 non terminal Type type;
-non terminal decl, decls;
+non terminal decl, decls, expr_list;
 
 precedence right ELSE;
 precedence left AND;
@@ -35,7 +35,7 @@ axiom ::=
 block ::=
 	LBRACE VAR {: 
 		Env n = new Env(Main.currentEnv);
-		System.out.println("Creating new environment 	" + n.getNum());
+		if (Main.DEBUG) System.out.println("Creating new environment 	" + n.getNum());
 		if (Main.firstEnv == null){
       Main.firstEnv = Main.currentEnv = n;
 		} else {
@@ -81,6 +81,11 @@ instrs ::=
 	| instr:i  {: RESULT = i; :}
 	;
 
+expr_list ::=
+  expr_list expr
+  | 
+  ;
+
 expr ::=
 	expr:e1 AND expr:e2 {: RESULT = new AST(e1, e2, EnumTag.AND); :} 
 	|expr:e1 OR expr:e2 {: RESULT = new AST(e1, e2, EnumTag.OR); :} 
@@ -89,13 +94,16 @@ expr ::=
 	|expr:e1 LE expr:e2 {: RESULT = new AST(e1, e2, EnumTag.LE); :} 
 	|expr:e1 GE expr:e2 {: RESULT = new AST(e1, e2, EnumTag.GE); :} 
 	|expr:e1 EQ expr:e2 {: RESULT = new AST(e1, e2, EnumTag.EQ); :} 
-	|expr:e1 DIFF expr:e2 {: RESULT = new AST(e1, e2, EnumTag.DIFF); :} 
+	|expr:e1 DIFF expr:e2 {: RESULT = new AST(e1, e2, EnumTag.DIFF); :}
 	|expr:e1 PLUS expr:e2 {: RESULT = new AST(e1, e2, EnumTag.PLUS, e1.getType()); :} 
 	|expr:e1 MINUS expr:e2 {: RESULT = new AST(e1, e2, EnumTag.MINUS); :} 
-	|MINUS expr:e {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U 
 	|expr:e1 MULT expr:e2 {: RESULT = new AST(e1, e2, EnumTag.MULT); :} 
 	|expr:e1 DIV expr:e2 {: RESULT = new AST(e1, e2, EnumTag.DIV); :} 
+	|MINUS expr:e {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U 
 	|LPAR expr:e RPAR {: RESULT = e; :}
+	|LBRACKET expr_list RBRACKET {:
+		//TODO type of expression: list of type Ei
+		:}
 	|INTEGER:it {: 
 		RESULT = new AST(EnumTag.INTEGER, it, new Type(EnumType.INT)); 
 		:}
@@ -105,9 +113,13 @@ expr ::=
 	|STRINGEXP:st {: 
 		RESULT = new AST(EnumTag.STRING, st, new Type(EnumType.STRING));  
 		:}
-	|variable:v {: RESULT = v; :}
-	;
-
-variable ::=
-    	IDENTIFIER:id {: RESULT = new AST(EnumTag.VAR, id); :}
+	|CHAREXP:ch {:
+	  RESULT = new AST(EnumTag.CHAR, ch, new Type(EnumType.CHAR));
+	  :}
+	|BOOLEAN:b {:
+		RESULT = new AST(EnumTag.BOOLEAN, b);
+	  :}
+	|IDENTIFIER:id {: 
+		RESULT = new AST(EnumTag.VAR, id);
+		:}
 	;

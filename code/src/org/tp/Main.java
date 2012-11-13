@@ -7,6 +7,7 @@ public class Main {
 	
     static Env firstEnv=null;
     static Env currentEnv=null;
+    static Boolean DEBUG = true;
 
     public static void main(String[] args) {
 	try {

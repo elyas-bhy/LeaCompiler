@@ -52,6 +52,7 @@ public class Type {
 	case INT:
     case FLOAT:
 	case STRING:
+    case CHAR:
 	case BOOLEAN:
 		result += type.toString();break;
 	case ARRAY:result += "ARRAY ["+integer+"] OF "+left.toString(); break;

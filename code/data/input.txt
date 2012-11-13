@@ -1,28 +1,13 @@
+
+function main(argn : int , argv : list of string) : int
 {
-  var
-  G: int;
-  B: string;
-  Z: array [100] of int;
-  A: array [12] of array [10] of pointer of string;
-  G=1;
-  if (A<5) then {
-     var
-     T: float;
-     T=3.0e-10;
-     B=B+"azertyuiop";
-    } else {
-    var
-    C: int;
-    X: int;
-    Z: int;
-    Y: int;
-    X=0;
-    while (X < 100) do {
-    var
-	  A: string;
-	X=X+1;
-	A=A+"Hello";
-      }
-  }
-  A = 8;
+  x : int;
+  y : int;
+  z : int;
+
+  x := 1;
+  y := 2;
+  z := x + y;
+
+  return z;
 }

@@ -25,6 +25,7 @@ LineTerminator = \r|\n|\r\n
 WhiteSpace	   = {LineTerminator} | [ \t\f]
 Integer		     = [0-9]+
 String		     = \"[^\"]*\"
+Char           = \'.?\'
 
 Num = [0-9]+
 Type = [fFlL]?
@@ -56,20 +57,21 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "<="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.LE); }
 ">="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.GE); }
 "!="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.DIFF); }
-"=="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.EQ); }
+":="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.AFF); }
 "+"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.PLUS); }
 "-"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.MINUS); }
 "*"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.MULT); }
 "/"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.DIV); }
+","           {/*System.out.print(yytext());*/  return symbol(MySymbol.COMMA); }
 ";"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.SEMIC); }
 ":"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.COLON); }
-"="	          {/*System.out.print(yytext());*/  return symbol(MySymbol.AFF); }
+"="	          {/*System.out.print(yytext());*/  return symbol(MySymbol.EQ); }
 "if"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.IF); }
 "then"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.THEN); }
 "else"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.ELSE); }
 "while"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.WHILE); }
 "do"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.DO); }
-"var"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.VAR); }
+"bool"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOLEAN); }
 "int"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.INT); }
 "float"       {/*System.out.print(yytext());*/  return symbol(MySymbol.FLOAT); }
 "char"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAR); }
@@ -77,15 +79,18 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "array"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.ARRAY); }
 "of"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.OF); }
 "pointer"	    {/*System.out.print(yytext());*/  return symbol(MySymbol.POINTER); }
+"True"     {/*System.out.print(yytext());*/  return symbol(MySymbol.TRUE); }
+"False"     {/*System.out.print(yytext());*/  return symbol(MySymbol.FALSE); }
 
 /* -------------------------------------------------
 	Variables, Entiers
    ------------------------------------------------- */
 
 {Identifier}  {/*System.out.print(yytext());*/  return symbol(MySymbol.IDENTIFIER, yytext()); }
-{Floating}       {/*System.out.print(yytext());*/  return symbol(MySymbol.FLOATING, yytext()); }
+{Floating}    {/*System.out.print(yytext());*/  return symbol(MySymbol.FLOATING, yytext()); }
 {Integer}     {/*System.out.print(yytext());*/  return symbol(MySymbol.INTEGER, yytext()); }
 {String}      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRINGEXP, yytext().substring(1, yytext().length()-1)); }
+{Char}        {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAREXP, yytext().substring(1, yytext().length()-1)); }
 
 /* -------------------------------------------------
 	Commentaires - Caracteres non pris en compte

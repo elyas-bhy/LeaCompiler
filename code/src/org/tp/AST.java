@@ -109,6 +109,7 @@ public class AST {
         case INTEGER:
         case FLOATING:
         case STRING:
+        case CHAR:
         case VAR:      
           str.append(": "+this.str); 
           break;

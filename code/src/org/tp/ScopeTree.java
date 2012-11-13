@@ -80,7 +80,7 @@ public class ScopeTree {
 	else if (s.compareTo(a.tag) > 0)
 	    return new ScopeTree(a.left, add(s, t, a.right), a.tag, a.type);
 	else
-	    return new ScopeTree(a.left, a.right, a.tag, a.type);
+	    return new ScopeTree(a.left, a.right, s, t);
     }
 
     public String toString() {

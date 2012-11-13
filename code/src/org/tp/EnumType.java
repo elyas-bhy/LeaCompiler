@@ -6,6 +6,7 @@ public enum EnumType {
 	STRING ("string"), 
 	BOOLEAN ("bool"), 
 	ARRAY ("array"), 
+  LIST ("list"),
 	POINTER ("pointer"), 
 	ERROR ("error");
 	

@@ -18,10 +18,12 @@ public enum EnumTag {
 	MINUS_U ("-"), 
 	MULT ("*"), 
 	DIV ("/"), 
-	VAR ("variable"),
+  VAR ("variable"),
+	BOOLEAN ("boolean"),
 	INTEGER ("integer"), 
 	FLOATING ("floating"), 
 	STRING("string"),
+  CHAR("char"),
 	SUCC("succ");
 	
 	
