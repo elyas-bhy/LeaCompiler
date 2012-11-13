@@ -16,7 +16,7 @@ public class Main {
 	    Parser myP = new Parser(myLex);
 	    Symbol result=null;
 	    try {
-		result=myP.parse();
+		result=myP.debug_parse();
 		try {
 		    AST root=(AST)result.value;
 		    System.out.println(root.toString());

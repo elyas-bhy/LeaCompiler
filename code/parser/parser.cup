@@ -5,14 +5,14 @@ import java.io.*;
 import java.lang.*;
 import org.tp.*;
 
-terminal IF, THEN, ELSE, WHILE, DO,
-    VAR, ARRAY, POINTER, OF, 
+terminal IF, THEN, ELSE, WHILE, REPEAT, STRUCT, FUNCTION, FOR, IN,
+		ARRAY, POINTER, OF, 
     LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
-    SEMIC, COLON, COMMA, TRUE, FALSE,
+    SEMIC, COLON, COMMA, TRUE, FALSE, DOT, DQUOTE, DO, RETURN, 
     AFF, AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV, INT, FLOAT, STRING, CHAR;
 terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOLEAN;
 
-non terminal AST axiom, instr, instrs, expr, variable, block;
+non terminal AST axiom, instr, instrs, expr, ident, block, params, typeDef, funcDef, range, list, decVar;
 non terminal Type type;
 non terminal decl, decls, expr_list;
 
@@ -35,8 +35,7 @@ axiom ::=
 	;
 
 block ::=
-	LBRACE VAR
-		{: 
+	LBRACE decls instrs:i {:
 			Env n = new Env(Main.currentEnv);
 			System.out.println("Creating new environment 	" + n.getNum());
 			if (Main.firstEnv == null){
@@ -46,7 +45,7 @@ block ::=
 				Main.currentEnv = n;
 			}
 		:}
-	decls instrs:i RBRACE
+	RBRACE
 		{:
 			Main.currentEnv = Main.currentEnv.getPrev();
 		  RESULT = i;
@@ -57,14 +56,31 @@ block ::=
 	  {: RESULT = i; :}
 	;
 
+typeDef ::=
+  ident EQ STRUCT LBRACE decls RBRACE
+  ;
+
+funcDef ::=
+  FUNCTION ident LPAR params:p RPAR COLON type:t
+  ;
+
+params ::=
+  params COMMA decVar
+  | decVar
+  ;
+
+decVar ::=
+  ident:id COLON type:t
+  ;
+
 decls ::=
 	decls decl
 	| decl
 	;
 
 decl ::=
-	IDENTIFIER:id COLON type:t SEMIC
-		{: Main.currentEnv.add(id, t); :}
+	decVar SEMIC
+		{: //Main.currentEnv.add(id, t); :}
 	;
 
 type ::=
@@ -83,14 +99,27 @@ type ::=
 	;
 
 instr ::= 
-	IF expr:e THEN block:i1 ELSE block:i2
-	  {: RESULT = new AST(e, new AST(i1, i2, EnumTag.THENELSE), EnumTag.IF); :}
-	| WHILE expr:e DO block:i
-	  {: RESULT = new AST(e, i, EnumTag.WHILE); :}
-	| IF expr:e THEN block:i
-	  {: RESULT = new AST(e, new AST(i, null, EnumTag.THENELSE), EnumTag.IF); :}
-	| variable:v AFF expr:e SEMIC
+	IF expr:e THEN block:b1 ELSE block:b2
+	  {: RESULT = new AST(e, new AST(b1, b2, EnumTag.THENELSE), EnumTag.IF); :}
+	| REPEAT block:b WHILE expr:e
+	  {: RESULT = new AST(e, b, EnumTag.WHILE); :}
+	| FOR ident IN range:r block:b
+	| IF expr:e THEN block:b
+	  {: RESULT = new AST(e, new AST(b, null, EnumTag.THENELSE), EnumTag.IF); :}
+	| ident:v AFF expr:e SEMIC
 	  {: RESULT = new AST(v, e, EnumTag.AFF); :}
+	;
+
+range ::=
+  LBRACKET expr:e1 DOT DOT expr:e2 RBRACKET
+  | LBRACKET list:l RBRACKET
+  | LBRACE list:l RBRACE
+  | ident:v
+  ;
+
+list ::=
+	list:l COMMA expr:e
+	| expr:e
 	;
 
 instrs ::= 
@@ -102,7 +131,7 @@ instrs ::=
 
 expr_list ::=
   expr_list expr
-  | 
+  | expr
   ;
 
 expr ::=
@@ -138,7 +167,14 @@ expr ::=
 	|BOOLEAN:b {:
 		RESULT = new AST(EnumTag.BOOLEAN, b);
 	  :}
-	|IDENTIFIER:id {: 
-		RESULT = new AST(EnumTag.VAR, id);
+	|ident:v {:
+		RESULT = v;
 		:}
 	;
+
+ident ::=
+	IDENTIFIER:id {: 
+		RESULT = new AST(EnumTag.VAR, id);
+	  :}
+	;
+
