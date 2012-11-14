@@ -20,6 +20,8 @@ private Symbol symbol (int type, Object value) {
 }
 %}
 
+
+
 Identifier	   = [a-zA-Z][a-zA-Z0-9_]*
 LineTerminator = \r|\n|\r\n
 WhiteSpace	   = {LineTerminator} | [ \t\f]
@@ -90,6 +92,8 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "repeat"      {/*System.out.print(yytext());*/  return symbol(MySymbol.REPEAT); }
 "return"      {/*System.out.print(yytext());*/  return symbol(MySymbol.RETURN); }
 "struct"      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRUCT); }
+"function"    {/*System.out.print(yytext());*/  return symbol(MySymbol.FUNCTION); }
+"procedure"   {/*System.out.print(yytext());*/  return symbol(MySymbol.PROCEDURE); }
 
 /* -------------------------------------------------
 	Variables, Entiers

@@ -7,16 +7,17 @@ import org.tp.*;
 
 
 terminal IF, THEN, ELSE,
-    WHILE, REPEAT, FUNCTION, FOR, IN,
+    WHILE, REPEAT, FUNCTION, FOR, IN, PROCEDURE,
     VAR, ARRAY, POINTER, OF, LIST, SET, MAP, STRUCT,
     LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
-    SEMIC, COLON, COMMA, TRUE, FALSE, DOT, DQUOTE, DO, RETURN, 
-    AFF, AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV, INT, FLOAT, STRING, CHAR;
+    SEMIC, COLON, COMMA, TRUE, FALSE, DOT, DQUOTE, DO, RETURN,
+    AFF, AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV,
+    INT, FLOAT, STRING, CHAR;
 terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOLEAN;
 
-non terminal AST axiom, instr, instrs, expr, ident, block, params, typeDef, funcDef, range, list, decVar;
+non terminal program, instr, instrs, expr, ident, block, params, typeDef, funcDef, range, list, decVar;
 non terminal Type type;
-non terminal decl, decls, expr_list;
+non terminal decl, decls, expr_list, globalDecs, globalDec, definition, funcList;
 
 precedence right ELSE;
 precedence left AND;
@@ -26,44 +27,62 @@ precedence left PLUS, MINUS;
 precedence left MULT, DIV;
 precedence left MINUS_U;
 
-start with axiom;
-
-axiom ::=
-  block:b
-    {: 
-      b.toDot("data/arbreSynt"); 
-      RESULT=b;
-    :}
+program ::=
+	globalDecs funcList
+	| funcList
+    {: System.out.println("Finished parsing funcList");:}
 	;
+
+globalDecs ::=
+  globalDecs globalDec
+  | globalDec
+  ;
+
+
+globalDec ::=
+  ident EQ definition
+  ;
+
+definition ::=
+  expr SEMIC
+  | STRUCT LBRACE decls RBRACE
+  ;
+
+funcList ::=
+  funcList funcDef
+  | funcDef
+  ;
+
 
 block ::=
 	LBRACE decls instrs:i {:
-			Env n = new Env(Main.currentEnv);
-			System.out.println("Creating new environment 	" + n.getNum());
-			if (Main.firstEnv == null){
+			//Env n = new Env(Main.currentEnv);
+			System.out.println("Creating new environment 	" /*+ n.getNum()*/);
+			/*if (Main.firstEnv == null){
 	      Main.firstEnv = Main.currentEnv = n;
 			} else {
 				Main.currentEnv.putNext(n);
 				Main.currentEnv = n;
-			}
+			}*/
 		:}
 	RBRACE
 		{:
-			Main.currentEnv = Main.currentEnv.getPrev();
-		  RESULT = i;
+			//Main.currentEnv = Main.currentEnv.getPrev();
+			System.out.println("Closing environment");
+		  //RESULT = i;
 		:}
 	| LBRACE instrs:i RBRACE
-	  {: RESULT = i; :}
+	  {: //RESULT = i; :}
 	| instr:i
-	  {: RESULT = i; :}
+	  {: //RESULT = i; :}
 	;
 
-typeDef ::=
-  ident EQ STRUCT LBRACE decls RBRACE
-  ;
 
 funcDef ::=
-  FUNCTION ident LPAR params:p RPAR COLON type:t
+  FUNCTION ident LPAR params:p RPAR COLON type:t 
+  {: System.out.println("Entering func block definition"); :} block
+  {: System.out.println("Finished func block def");:}
+  | PROCEDURE ident LPAR params:p RPAR block
   ;
 
 params ::=
@@ -96,20 +115,24 @@ type ::=
 		{: RESULT = new Type(EnumType.STRING); :}
 	| ARRAY LBRACKET INTEGER:i RBRACKET OF type:t
 		{: RESULT = new Type(t, null, new Integer(i), EnumType.ARRAY); :}
-	| POINTER OF type:t
-		{: RESULT = new Type(t, null, EnumType.POINTER); :}
+	| LIST OF type:t
+		{: RESULT = new Type(t, null, EnumType.LIST); :}
 	;
 
 instr ::= 
-	IF expr:e THEN block:b1 ELSE block:b2
-	  {: RESULT = new AST(e, new AST(b1, b2, EnumTag.THENELSE), EnumTag.IF); :}
+	IF expr:e block:b1 ELSE block:b2
+	  {: //RESULT = new AST(e, new AST(b1, b2, EnumTag.THENELSE), EnumTag.IF); :}
 	| REPEAT block:b WHILE expr:e
-	  {: RESULT = new AST(e, b, EnumTag.WHILE); :}
+	  {: //RESULT = new AST(e, b, EnumTag.WHILE); :}
 	| FOR ident IN range:r block:b
-	| IF expr:e THEN block:b
-	  {: RESULT = new AST(e, new AST(b, null, EnumTag.THENELSE), EnumTag.IF); :}
+	| IF expr:e block:b
+	  {: //RESULT = new AST(e, new AST(b, null, EnumTag.THENELSE), EnumTag.IF); :}
 	| ident:v AFF expr:e SEMIC
-	  {: RESULT = new AST(v, e, EnumTag.AFF); :}
+	  {: System.out.println("Reduced AFF symbol");
+    //RESULT = new AST(v, e, EnumTag.AFF); :}
+	| RETURN expr:e SEMIC
+	  {: //RESULT = null;
+	  	System.out.println("Reduced RETURN symbol");:}
 	;
 
 range ::=
@@ -126,9 +149,9 @@ list ::=
 
 instrs ::= 
 	instrs:i1 instr:i2
-	  {: RESULT = new AST(i1, i2, EnumTag.SUCC); :}
+	  {: //RESULT = new AST(i1, i2, EnumTag.SUCC); :}
 	| instr:i
-	  {: RESULT = i; :}
+	  {: //RESULT = i; :}
 	;
 
 expr_list ::=
@@ -137,46 +160,46 @@ expr_list ::=
   ;
 
 expr ::=
-	expr:e1 AND expr:e2 {: RESULT = new AST(e1, e2, EnumTag.AND); :} 
-	|expr:e1 OR expr:e2 {: RESULT = new AST(e1, e2, EnumTag.OR); :} 
-	|expr:e1 LT expr:e2 {: RESULT = new AST(e1, e2, EnumTag.LT); :} 
-	|expr:e1 GT expr:e2 {: RESULT = new AST(e1, e2, EnumTag.GT); :} 
-	|expr:e1 LE expr:e2 {: RESULT = new AST(e1, e2, EnumTag.LE); :} 
-	|expr:e1 GE expr:e2 {: RESULT = new AST(e1, e2, EnumTag.GE); :} 
-	|expr:e1 EQ expr:e2 {: RESULT = new AST(e1, e2, EnumTag.EQ); :} 
-	|expr:e1 DIFF expr:e2 {: RESULT = new AST(e1, e2, EnumTag.DIFF); :}
-	|expr:e1 PLUS expr:e2 {: RESULT = new AST(e1, e2, EnumTag.PLUS, e1.getType()); :} 
-	|expr:e1 MINUS expr:e2 {: RESULT = new AST(e1, e2, EnumTag.MINUS); :} 
-	|expr:e1 MULT expr:e2 {: RESULT = new AST(e1, e2, EnumTag.MULT); :} 
-	|expr:e1 DIV expr:e2 {: RESULT = new AST(e1, e2, EnumTag.DIV); :} 
-	|MINUS expr:e {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U 
-	|LPAR expr:e RPAR {: RESULT = e; :}
+	expr:e1 AND expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.AND); :} 
+	|expr:e1 OR expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.OR); :} 
+	|expr:e1 LT expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.LT); :} 
+	|expr:e1 GT expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.GT); :} 
+	|expr:e1 LE expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.LE); :} 
+	|expr:e1 GE expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.GE); :} 
+	|expr:e1 EQ expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.EQ); :} 
+	|expr:e1 DIFF expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.DIFF); :}
+	|expr:e1 PLUS expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.PLUS, e1.getType()); :} 
+	|expr:e1 MINUS expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.MINUS); :} 
+	|expr:e1 MULT expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.MULT); :} 
+	|expr:e1 DIV expr:e2 {: //RESULT = new AST(e1, e2, EnumTag.DIV); :} 
+	|MINUS expr:e {: //RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U 
+	|LPAR expr:e RPAR {: //RESULT = e; :}
 	|LBRACKET expr_list RBRACKET {:
 		//TODO type of expression: list of type Ei
 		:}
 	|INTEGER:it {: 
-		RESULT = new AST(EnumTag.INTEGER, it, new Type(EnumType.INT)); 
+		//RESULT = new AST(EnumTag.INTEGER, it, new Type(EnumType.INT)); 
 		:}
 	|FLOATING:f {: 
-		RESULT = new AST(EnumTag.FLOATING, f, new Type(EnumType.FLOAT));
+		//RESULT = new AST(EnumTag.FLOATING, f, new Type(EnumType.FLOAT));
 		:}
 	|STRINGEXP:st {: 
-		RESULT = new AST(EnumTag.STRING, st, new Type(EnumType.STRING));  
+		//RESULT = new AST(EnumTag.STRING, st, new Type(EnumType.STRING));  
 		:}
 	|CHAREXP:ch {:
-	  RESULT = new AST(EnumTag.CHAR, ch, new Type(EnumType.CHAR));
+	  //RESULT = new AST(EnumTag.CHAR, ch, new Type(EnumType.CHAR));
 	  :}
 	|BOOLEAN:b {:
-		RESULT = new AST(EnumTag.BOOLEAN, b);
+		//RESULT = new AST(EnumTag.BOOLEAN, b);
 	  :}
 	|ident:v {:
-		RESULT = v;
+		//RESULT = v;
 		:}
 	;
 
 ident ::=
 	IDENTIFIER:id {: 
-		RESULT = new AST(EnumTag.VAR, id);
+		//RESULT = new AST(EnumTag.VAR, id);
 	  :}
 	;
 

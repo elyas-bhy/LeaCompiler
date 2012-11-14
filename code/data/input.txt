@@ -1,13 +1,4 @@
-
-function main(argn : int , argv : list of string) : int
+procedure main(argn : int)
 {
-  x : int;
-  y : int;
-  z : int;
-
-  x := 1;
-  y := 2;
-  z := x + y;
-
-  return z;
+  return 452;
 }
