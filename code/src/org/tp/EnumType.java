@@ -1,6 +1,7 @@
 package org.tp;
+
 public enum EnumType {
-	CHAR ("char"), 
+  CHAR ("char"), 
 	INT ("int"), 
 	FLOAT ("float"),
 	STRING ("string"), 
@@ -10,14 +11,13 @@ public enum EnumType {
 	POINTER ("pointer"), 
 	ERROR ("error");
 	
-    private final String tag;
+  private final String tag;
 
-    EnumType(String s){
-            tag = s;
-    }
+  EnumType(String s) {
+    tag = s;
+  }
 
-    public String toString(){
-            return tag;
-    }
-
+  public String toString() {
+    return tag;
+  }
 }

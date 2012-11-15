@@ -1,8 +1,8 @@
 package org.tp;
+
 public enum EnumTag { 
-	
-	WHILE ("while"), 
-	AFF ("="), 
+
+	AFF (":="), 
 	AND ("&&"), 
 	OR ("||"), 
 	LT ("<"), 
@@ -16,6 +16,7 @@ public enum EnumTag {
 	MINUS_U ("-"), 
 	MULT ("*"), 
 	DIV ("/"), 
+
   VAR ("variable"),
 	BOOLEAN ("boolean"),
 	INTEGER ("integer"), 
@@ -23,42 +24,44 @@ public enum EnumTag {
 	STRING("string"),
   CHAR("char"),
 	SUCC("succ"),
-  EXPRLIST("expression_list"),
   RANGE("range"),
   LIST("list"),
   BLOCK("block"),
+  RETURN("return"),
+  EXPRLIST("expression_list"),
 
   IF ("if"), 
   THENELSE ("thenelse"), 
 
   FOR("for"),
-  FOR_RANGE("for i in range"),
+  FOR_RANGE("for_i_in_range"),
+  WHILE ("while"), 
 
-  PARAMS("multiple params"),
-  DECSVAR("var decls"),
-  DECVAR("var decl"),
+  PARAM("param"),
+  PARAMS("params"),
+  DECSVAR("var_decls"),
+  DECVAR("var_decl"),
 
-  GLOBAL_DECS("global decs"),
-  GLOBAL_DEC("global dec"),
+  GLOBAL_DECS("global_decs"),
+  GLOBAL_DEC("global_dec"),
 
-  FUNCTIONS("functions"),
+  PROCEDURE("procedure"),
   FUNCTION("function"),
-  FUNCTION_TYPE("function type"),
-  FUNCTION_PARAMS("function params"),
+  FUNCTIONS("functions"),
+  FUNCTION_TYPE("function_type"),
+  FUNCTION_CORE("function_core"),
 
   PROGRAM("function program");
 	
 	
-    private final String tag;
+  private final String tag;
 
-    EnumTag(String s){
-            tag = s;
-    }
+  EnumTag(String s) {
+    tag = s;
+  }
 
-    public String toString(){
-            return tag;
-    }
-
-
+  public String toString() {
+    return tag;
+  }
 }
 

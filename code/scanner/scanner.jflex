@@ -87,11 +87,11 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "map"         {/*System.out.print(yytext());*/  return symbol(MySymbol.MAP); }
 "list"        {/*System.out.print(yytext());*/  return symbol(MySymbol.LIST); }
 "struct"      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRUCT); }
+"void"        {/*System.out.print(yytext());*/  return symbol(MySymbol.VOID); }
 "True"        {/*System.out.print(yytext());*/  return symbol(MySymbol.TRUE); }
 "False"       {/*System.out.print(yytext());*/  return symbol(MySymbol.FALSE); }
 "repeat"      {/*System.out.print(yytext());*/  return symbol(MySymbol.REPEAT); }
 "return"      {/*System.out.print(yytext());*/  return symbol(MySymbol.RETURN); }
-"struct"      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRUCT); }
 "function"    {/*System.out.print(yytext());*/  return symbol(MySymbol.FUNCTION); }
 "procedure"   {/*System.out.print(yytext());*/  return symbol(MySymbol.PROCEDURE); }
 
