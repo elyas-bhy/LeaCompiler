@@ -23,7 +23,7 @@ public class Main {
 		    //root.toDot("detruire");
 		}	
 		catch (Exception e) {
-		    System.out.println("result error");
+		    System.out.println("result error: " + e);
 		}
 	    }
 	    catch (Exception e) {

@@ -4,67 +4,67 @@
 # Current token is #52
 # Shift under term #52 to state #7
 # Current token is #19
-# Reduce with prod #66 [NT=4, SZ=1]
-# Reduce rule: top state 4, lhs sym 4 -> state 137
-# Goto state #137
-# Shift under term #19 to state #138
+# Reduce with prod #64 [NT=2, SZ=1]
+# Reduce rule: top state 4, lhs sym 2 -> state 131
+# Goto state #131
+# Shift under term #19 to state #132
 # Current token is #52
 # Shift under term #52 to state #7
 # Current token is #26
-# Reduce with prod #66 [NT=4, SZ=1]
-# Reduce rule: top state 138, lhs sym 4 -> state 13
+# Reduce with prod #64 [NT=2, SZ=1]
+# Reduce rule: top state 132, lhs sym 2 -> state 13
 # Goto state #13
-# Shift under term #26 to state #118
+# Shift under term #26 to state #112
 # Current token is #48
 # Shift under term #48 to state #23
 # Current token is #20
-# Reduce with prod #23 [NT=12, SZ=1]
-# Reduce rule: top state 118, lhs sym 12 -> state 119
-# Goto state #119
-# Reduce with prod #19 [NT=11, SZ=3]
-# Reduce rule: top state 138, lhs sym 11 -> state 12
+# Reduce with prod #22 [NT=3, SZ=1]
+# Reduce rule: top state 112, lhs sym 3 -> state 113
+# Goto state #113
+# Reduce with prod #21 [NT=17, SZ=3]
+# Reduce rule: top state 132, lhs sym 17 -> state 12
 # Goto state #12
-# Reduce with prod #18 [NT=6, SZ=1]
-# Reduce rule: top state 138, lhs sym 6 -> state 139
-# Goto state #139
-# Shift under term #20 to state #140
+# Reduce with prod #17 [NT=16, SZ=1]
+# Reduce rule: top state 132, lhs sym 16 -> state 133
+# Goto state #133
+# Shift under term #20 to state #134
 # Current token is #21
-# Shift under term #21 to state #32
+# Shift under term #21 to state #31
 # Current token is #33
-# Shift under term #33 to state #37
+# Shift under term #33 to state #36
 # Current token is #53
-# Shift under term #53 to state #40
+# Shift under term #53 to state #39
 # Current token is #25
-# Reduce with prod #60 [NT=3, SZ=1]
-# Reduce rule: top state 37, lhs sym 3 -> state 46
-# Goto state #46
-# Shift under term #25 to state #77
+# Reduce with prod #58 [NT=1, SZ=1]
+# Reduce rule: top state 36, lhs sym 1 -> state 45
+# Goto state #45
+# Shift under term #25 to state #49
 # Current token is #22
 Reduced RETURN symbol
-# Reduce with prod #34 [NT=1, SZ=3]
-# Reduce rule: top state 32, lhs sym 1 -> state 111
-# Goto state #111
-# Reduce with prod #42 [NT=2, SZ=1]
-# Reduce rule: top state 32, lhs sym 2 -> state 108
-# Goto state #108
-# Shift under term #22 to state #120
+# Reduce with prod #33 [NT=6, SZ=3]
+# Reduce rule: top state 31, lhs sym 6 -> state 105
+# Goto state #105
+# Reduce with prod #41 [NT=7, SZ=1]
+# Reduce rule: top state 31, lhs sym 7 -> state 102
+# Goto state #102
+# Shift under term #22 to state #114
 # Current token is #0
-# Reduce with prod #12 [NT=5, SZ=3]
-# Reduce rule: top state 140, lhs sym 5 -> state 141
-# Goto state #141
-# Reduce with prod #16 [NT=8, SZ=6]
-# Reduce rule: top state 0, lhs sym 8 -> state 9
+# Reduce with prod #14 [NT=8, SZ=3]
+# Reduce rule: top state 134, lhs sym 8 -> state 135
+# Goto state #135
+# Reduce with prod #11 [NT=10, SZ=6]
+# Reduce rule: top state 0, lhs sym 10 -> state 9
 # Goto state #9
-# Reduce with prod #9 [NT=19, SZ=1]
-# Reduce rule: top state 0, lhs sym 19 -> state 1
+# Reduce with prod #9 [NT=5, SZ=1]
+# Reduce rule: top state 0, lhs sym 5 -> state 1
 # Goto state #1
-Finished parsing funcList
+Finished parsing funcs: function(variable,function params(var decl(variable)))
 # Reduce with prod #2 [NT=0, SZ=1]
 # Reduce rule: top state 0, lhs sym 0 -> state 6
 # Goto state #6
-# Shift under term #0 to state #128
+# Shift under term #0 to state #122
 # Current token is #0
 # Reduce with prod #1 [NT=0, SZ=2]
 # Reduce rule: top state 0, lhs sym 0 -> state 6
 # Goto state #6
-result error
+function(variable,function params(var decl(variable)))

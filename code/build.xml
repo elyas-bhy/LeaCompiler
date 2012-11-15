@@ -86,7 +86,7 @@
 	symbols="MySymbol"
 	dump_grammar="false"
 	dump_tables="false"
-	dump_states="true"
+	dump_states="false"
 	expect="0"
 	debug="false"
 />

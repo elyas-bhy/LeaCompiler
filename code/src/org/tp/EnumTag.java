@@ -1,8 +1,6 @@
 package org.tp;
 public enum EnumTag { 
 	
-	IF ("if"), 
-	THENELSE ("thenelse"), 
 	WHILE ("while"), 
 	AFF ("="), 
 	AND ("&&"), 
@@ -24,7 +22,31 @@ public enum EnumTag {
 	FLOATING ("floating"), 
 	STRING("string"),
   CHAR("char"),
-	SUCC("succ");
+	SUCC("succ"),
+  EXPRLIST("expression_list"),
+  RANGE("range"),
+  LIST("list"),
+  BLOCK("block"),
+
+  IF ("if"), 
+  THENELSE ("thenelse"), 
+
+  FOR("for"),
+  FOR_RANGE("for i in range"),
+
+  PARAMS("multiple params"),
+  DECSVAR("var decls"),
+  DECVAR("var decl"),
+
+  GLOBAL_DECS("global decs"),
+  GLOBAL_DEC("global dec"),
+
+  FUNCTIONS("functions"),
+  FUNCTION("function"),
+  FUNCTION_TYPE("function type"),
+  FUNCTION_PARAMS("function params"),
+
+  PROGRAM("function program");
 	
 	
     private final String tag;
