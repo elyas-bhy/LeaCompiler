@@ -18,10 +18,17 @@ public class Main {
 	    Symbol result = null;
 
       try {
-        result = myP.debug_parse();
+        //result = myP.debug_parse();
+        result = myP.parse();
         try {
           AST root = (AST) result.value;
+          CodeGenerator cg = new CodeGenerator(root);
+          System.out.println("");
           System.out.println(root.toString());
+          System.out.println("\n-------------------");
+          System.out.println("Generating code:");
+          System.out.println("-------------------\n");
+          cg.generateCode();
           //root.toDot("detruire");
         }	catch (Exception e) {
 		    System.out.println("Result error: " + e);

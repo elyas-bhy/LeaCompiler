@@ -17,7 +17,7 @@
   <!-- ================================= 
        target: default              
        ================================= -->
-  <target name="default" depends="dot" description="open graph">
+  <!--<target name="default" depends="dot" description="open graph">
     <exec executable="eog">
       <arg value="data/ast.jpg"/>
     </exec>
@@ -30,9 +30,9 @@
       <arg value="data/ast.jpg"/>
       <arg value="data/arbreSynt.dot" />
     </exec>
-  </target>
+  </target>-->
 
-  <target name="compile" depends="projet" description="compilation du projet tp3">
+  <target name="default" depends="projet" description="compilation du projet tp3">
     
     <java 
 	classname="org.tp.Main"

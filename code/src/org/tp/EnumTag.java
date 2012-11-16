@@ -26,7 +26,6 @@ public enum EnumTag {
 	SUCC("succ"),
   RANGE("range"),
   LIST("list"),
-  BLOCK("block"),
   RETURN("return"),
   EXPRLIST("expression_list"),
 
@@ -36,11 +35,12 @@ public enum EnumTag {
   FOR("for"),
   FOR_RANGE("for_i_in_range"),
   WHILE ("while"), 
+  BLOCK("block"),
 
   PARAM("param"),
   PARAMS("params"),
-  DECSVAR("var_decls"),
   DECVAR("var_decl"),
+  DECSVAR("var_decls"),
 
   GLOBAL_DECS("global_decs"),
   GLOBAL_DEC("global_dec"),
@@ -51,7 +51,7 @@ public enum EnumTag {
   FUNCTION_TYPE("function_type"),
   FUNCTION_CORE("function_core"),
 
-  PROGRAM("function program");
+  PROGRAM("function_program");
 	
 	
   private final String tag;

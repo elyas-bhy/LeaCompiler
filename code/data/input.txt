@@ -1,4 +1,4 @@
-function main(argn : int, argv : list of string) : int
+function test(argn : int, argv : string) : int
 {
   x : int;
   y : int;

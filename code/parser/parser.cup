@@ -54,8 +54,8 @@ funcs ::=
 
 funcDef ::=
   FUNCTION ident:i LPAR params:p RPAR COLON type:t block:b {: 
-  	AST params = new AST(p, b, EnumTag.FUNCTION_CORE, t);
-    RESULT = new AST(i, params, EnumTag.FUNCTION);
+  	AST params = new AST(p, b, EnumTag.FUNCTION_CORE);
+    RESULT = new AST(i, params, EnumTag.FUNCTION, t);
    :}
   | PROCEDURE ident:i LPAR params:p RPAR block:b {:
   	 AST params = new AST(p, b, EnumTag.FUNCTION_CORE);
