@@ -11,10 +11,10 @@ public class Type {
     
 
   public Type(Type left, Type right, Integer i, EnumType type) {
-    this.left=left;
-    this.right=right;
-    this.integer=i;
-    this.type=type;
+    this.left = left;
+    this.right = right;
+    this.integer = i;
+    this.type = type;
   }
     
   public Type(Type left, Type right, EnumType type) {
@@ -57,10 +57,7 @@ public class Type {
         result += type.toString();
         break;
       case ARRAY:
-        result += "ARRAY ["+integer+"] OF "+left.toString();
-        break;
-      case POINTER:
-        result += "POINTER OF "+left.toString();
+        result += "ARRAY [" + integer + "] OF " + left.toString();
         break;
 	    //case ERROR:result += "ERROR"; break;
 	  };

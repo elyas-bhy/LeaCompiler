@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 // Abstract Syntax Tree
-// decorated with attributs 
+// decorated with attributes 
 // tag: node label (cf EnumTag)
 
 
@@ -15,7 +15,7 @@ public class AST {
     private AST right;
     private EnumTag tag;    // node labelynt
     private String str;     // used for identifiers
-    private Env env;        // current environnement
+    private Env env;        // current environment
     private Type type;
     
     public AST(AST left, AST right, EnumTag tag, Type t) {
@@ -78,7 +78,7 @@ public class AST {
     
     public Env getEnv() throws EnvException {
       if (env == null)
-        throw new EnvException("current environnement is null");
+        throw new EnvException("Current environment is null");
       else
         return env;
     }
