@@ -1,9 +1,11 @@
-Creating new environment 	30
+Creating new environment 	56
 Closing environment
 
 function(variable,function_core(params(param(variable),param(variable)),block(var_decls(var_decl(variable),var_decls(var_decl(variable),var_decl(variable))),
 
-	succ(succ(succ(:=(variable,Integer),:=(variable,Integer)),:=(variable,+(variable,variable))),return(variable)))))
+	succ(succ(succ(succ(=(variable,Integer),=(variable,Integer)),=(variable,+(variable,variable))),if(>=(variable,Integer),
+
+	thenelse(succ(=(variable,*(variable,+(Integer,variable))),=(variable,+(variable,Integer))),=(variable,-(variable,Integer))))),return(+(variable,Integer))))))
 
 -------------------
 Generating code:
@@ -24,7 +26,13 @@ public class Main {
 		x = 452;
 		y = 1;
 		z = x + y;
-		return z;
+		if (z >= 10) {
+			x = y * 2 + z;
+			y = y + 10;
+		} else {
+			y = y - 1;
+		}
+		return z + 4;
 	}
 
 }

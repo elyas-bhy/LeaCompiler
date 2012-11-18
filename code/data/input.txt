@@ -7,5 +7,13 @@ function test(argn : int, argv : string) : int
   x := 452;
   y := 1;
   z := x + y;
-  return z;
+
+  if (z >= 10) {
+  	x := y * (2 + z);
+  	y := y + 10;
+  }
+  else {
+  	y := y - 1;
+  }
+  return z+4;
 }

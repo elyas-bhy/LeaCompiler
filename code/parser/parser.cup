@@ -127,7 +127,7 @@ instr ::=
 	| REPEAT block:b WHILE expr:e
 	  {: RESULT = new AST(e, b, EnumTag.WHILE); :}
 	| FOR ident:i IN range:r block:b
-    {: RESULT = new AST(new AST(i, r, EnumTag.FOR_RANGE), b, EnumTag.FOR); :}
+      {: RESULT = new AST(new AST(i, r, EnumTag.FOR_RANGE), b, EnumTag.FOR); :}
 	| IF expr:e block:b
 	  {: RESULT = new AST(e, new AST(b, null, EnumTag.THENELSE), EnumTag.IF); :}
 	| ident:v AFF expr:e SEMIC

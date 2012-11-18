@@ -2,20 +2,20 @@ package org.tp;
 
 public enum EnumTag { 
 
-	AFF (":="), 
-	AND ("&&"), 
-	OR ("||"), 
-	LT ("<"), 
-	GT (">"), 
-	LE ("<="), 
-	GE (">="), 
-	EQ ("=="), 
-	DIFF ("!=") , 
-	PLUS ("+"), 
-	MINUS ("-"), 
-	MINUS_U ("-"), 
-	MULT ("*"), 
-	DIV ("/"), 
+  PLUS ("+"),
+  MINUS ("-"),
+  MINUS_U ("-"),
+  MULT ("*"),
+  DIV ("/"),
+  AFF ("="),
+  EQ ("=="),
+  DIFF ("!=") ,
+  AND ("&&"),
+  OR ("||"),
+  LT ("<"),
+  GT (">"),
+  LE ("<="),
+  GE (">="),
 
   VAR ("variable"),
 	BOOLEAN ("Boolean"),
@@ -30,7 +30,7 @@ public enum EnumTag {
   EXPRLIST("expression_list"),
 
   IF ("if"), 
-  THENELSE ("thenelse"), 
+  THENELSE ("thenelse"),
 
   FOR("for"),
   FOR_RANGE("for_i_in_range"),
