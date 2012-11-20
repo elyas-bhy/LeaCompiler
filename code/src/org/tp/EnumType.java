@@ -1,7 +1,7 @@
 package org.tp;
 
 public enum EnumType {
-  CHAR ("Char"), 
+  CHAR ("Character"), 
 	INT ("Integer"), 
 	FLOAT ("Float"),
 	STRING ("String"), 

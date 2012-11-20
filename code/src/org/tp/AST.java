@@ -19,13 +19,13 @@ public class AST {
     private Type type;
     
     public AST(AST left, AST right, EnumTag tag, Type t) {
-      this.left=left;
-      this.right=right;
-      this.id=Env.num++;
-      this.tag=tag;
-      this.str="";
-      this.env=Main.currentEnv;
-      this.type=t;
+      this.left = left;
+      this.right = right;
+      this.id = Env.num++;
+      this.tag = tag;
+      this.str = "";
+      this.env = Main.currentEnv;
+      this.type = t;
       //System.out.print(toString()+"\n"); 
     }
     
@@ -40,12 +40,12 @@ public class AST {
     
     public AST(EnumTag tag, String str, Type type) {
       this(null, null, tag, type);    
-      this.str=str;
+      this.str = str;
     }
     
     public AST(EnumTag tag, String str) {
         this(null, null, tag, null);    
-        this.str=str;
+        this.str = str;
     }
     
     public AST getLeft() {
@@ -83,6 +83,18 @@ public class AST {
         return env;
     }
 
+
+    public String tab() {
+      String s = new String();
+      for (int i = 0; i < CodeGenerator.tabLevel; i++)
+        s += "\t";
+    return s;
+    }
+
+    public String toJava() {
+      return "";
+    }
+
     
     public String toString() {
       String result = new String();
@@ -110,7 +122,7 @@ public class AST {
         case FLOATING:
         case STRING:
         case CHAR:
-        case VAR:      
+        case IDENT:      
           str.append(": "+this.str); 
           break;
         }
@@ -129,7 +141,7 @@ public class AST {
           str.append(this.id+" -> "+right.id+";\n");
         }
         if (env != null && env.getRoot()!=null) {
-          if (tag==EnumTag.VAR) {
+          if (tag==EnumTag.IDENT) {
             str.append(env.getNum()+" [shape=\"box\", label=\"s"+env.getNum()+"\"];\n");
             str.append(this.id+" -> "+env.getNum()+" [color=\"blue\"];\n");
         }

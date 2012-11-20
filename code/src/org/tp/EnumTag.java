@@ -17,7 +17,7 @@ public enum EnumTag {
   LE ("<="),
   GE (">="),
 
-  VAR ("variable"),
+  IDENT ("identifier"),
 	BOOLEAN ("Boolean"),
 	INTEGER ("Integer"), 
 	FLOATING ("Float"), 
@@ -40,8 +40,8 @@ public enum EnumTag {
 
   PARAM("param"),
   PARAMS("params"),
-  DECVAR("var_decl"),
-  DECSVAR("var_decls"),
+  VARDEC("var_decl"),
+  VARDECS("var_decls"),
   DECLOPT("decl_opt"),
 
   GLOBAL_DECS("global_decs"),

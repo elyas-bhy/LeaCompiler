@@ -1,13 +1,13 @@
 Creating new environment 	34
-Creating new environment 	61
+Creating new environment 	64
 Closing environment
 Closing environment
 
-function_program(global_decs(global_decs(global_decs(global_decs(global_dec(variable,Integer),global_dec(variable,String)),global_dec(variable,Char)),global_dec(variable,var_decls(var_decl(variable),var_decl(variable)))),global_dec(variable,var_decls(var_decl(variable),var_decl(variable)))),function(header(variable,params(param(variable),param(variable))),block(decl_opt(var_decl(variable),decl_opt(var_decl(variable),decl_opt)),
+function_program(global_decs(global_decs(global_decs(global_decs(global_dec(identifier,Integer),global_dec(identifier,String)),global_dec(identifier,Char)),global_dec(identifier,var_decls(var_decl(identifier),var_decl(identifier)))),global_dec(identifier,var_decls(var_decl(identifier),var_decl(identifier)))),function(header(identifier,params(param(identifier),param(identifier))),block(decl_opt(var_decl(identifier),decl_opt(var_decl(identifier),decl_opt(var_decl(identifier),decl_opt))),
 
-	succ(succ(succ(succ(=(variable,Integer),=(variable,Integer)),=(variable,+(variable,variable))),for(for_i_in_range(variable,range(Integer,+(variable,Integer))),block(decl_opt,
+	succ(succ(succ(succ(=(identifier,Integer),=(identifier,Integer)),=(identifier,+(identifier,identifier))),for(for_i_in_range(identifier,range(Integer,+(identifier,Integer))),block(decl_opt,
 
-	succ(=(variable,*(variable,+(Integer,variable))),=(variable,+(variable,Integer)))))),return(+(variable,Integer))))))
+	succ(=(identifier,*(identifier,+(Integer,identifier))),=(identifier,+(identifier,Integer)))))),return(+(identifier,Integer))))))
 
 -------------------
 Generating code:
@@ -32,19 +32,21 @@ public class Main {
 
 	public Integer MAX = new Integer(500);
 	public String hello = new String("coucou");
-	public Char b = new Char('c');
+	public Character b = new Character('c');
 
-	public null 		;
-
+	public Integer test(Integer argn, String argv) {
+		Integer z = new Integer();
+		Integer y = new Integer();
+		Integer x = new Integer();
+		
 		x = 452;
 		y = 1;
 		z = x + y;
-		for (int j = 0; j < z + 2; j++ ) {
-				;
-
-				x = y * 2 + z;
-				y = y + 10;
-			}
-			return z + 4;
+		for (int j = 0; j < z + 2; j++ ) {			
+			x = y * 2 + z;
+			y = y + 10;
+		}
+		return z + 4;
+	}
 
 }

@@ -8,6 +8,7 @@ public class Main {
   static Env firstEnv = null;
   static Env currentEnv = null;
   static Boolean DEBUG = true;
+  static StringBuffer globals = new StringBuffer();
 
 
   public static void main(String[] args) {
@@ -16,13 +17,14 @@ public class Main {
 	    Scanner myLex = new Scanner(myFile);
 	    Parser myP = new Parser(myLex);
 	    Symbol result = null;
+      CodeGenerator cg = new CodeGenerator();
 
       try {
         //result = myP.debug_parse();
         result = myP.parse();
         try {
           AST root = (AST) result.value;
-          CodeGenerator cg = new CodeGenerator(root);
+          cg.setRoot(root);
           System.out.println("");
           System.out.println(root.toString());
           System.out.println("\n-------------------");

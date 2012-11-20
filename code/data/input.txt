@@ -19,6 +19,7 @@ function test(argn : int, argv : string) : int
 
   x : int;
   y : int;
+  z : int;
 
   x := 452;
   y := 1;
