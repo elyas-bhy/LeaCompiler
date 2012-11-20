@@ -40,11 +40,28 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
         | {Num}\.{Type} 
         | \.{NumType} 
 
+%xstates MONO_COMMENT, MULTI_COMMENT
+
 %%
+
+<MONO_COMMENT> {
+  {LineTerminator}      {yybegin(YYINITIAL);}
+  .                     {}
+}
+
+<MULTI_COMMENT> {
+  \*\/                  {yybegin(YYINITIAL);}
+  . | {LineTerminator}  {}
+}
+
+<YYINITIAL> {
 
 /* -------------------------------------------------
 	Separateurs Operateurs
    ------------------------------------------------- */
+
+\/\/          {yybegin(MONO_COMMENT); }
+\/\*          {yybegin(MULTI_COMMENT); }
 
 \"            {/*System.out.print(yytext());*/  return symbol(MySymbol.DQUOTE); }
 "("	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LPAR); }
@@ -75,6 +92,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "else"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.ELSE); }
 "while"       {/*System.out.print(yytext());*/  return symbol(MySymbol.WHILE); }
 "for"         {/*System.out.print(yytext());*/  return symbol(MySymbol.FOR); }
+"in"          {/*System.out.print(yytext());*/  return symbol(MySymbol.IN); }
 "do"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.DO); }
 "bool"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOLEAN); }
 "int"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.INT); }
@@ -102,8 +120,8 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 {Identifier}  {/*System.out.print(yytext());*/  return symbol(MySymbol.IDENTIFIER, yytext()); }
 {Floating}    {/*System.out.print(yytext());*/  return symbol(MySymbol.FLOATING, yytext()); }
 {Integer}     {/*System.out.print(yytext());*/  return symbol(MySymbol.INTEGER, yytext()); }
-{String}      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRINGEXP, yytext().substring(1, yytext().length()-1)); }
-{Char}        {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAREXP, yytext().substring(1, yytext().length()-1)); }
+{String}      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRINGEXP, yytext()); }
+{Char}        {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAREXP, yytext()); }
 
 /* -------------------------------------------------
 	Commentaires - Caracteres non pris en compte
@@ -114,3 +132,5 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 	Autres signes
    ------------------------------------------------- */
 .	            {/* ignore */ }
+
+}

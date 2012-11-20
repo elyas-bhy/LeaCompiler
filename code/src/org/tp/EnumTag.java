@@ -35,6 +35,7 @@ public enum EnumTag {
   FOR("for"),
   FOR_RANGE("for_i_in_range"),
   WHILE ("while"), 
+  DOWHILE ("while"), 
   BLOCK("block"),
 
   PARAM("param"),
@@ -45,6 +46,8 @@ public enum EnumTag {
   GLOBAL_DECS("global_decs"),
   GLOBAL_DEC("global_dec"),
 
+  HEADER("header"),
+  PROTOTYPE("prototype"),
   PROCEDURE("procedure"),
   FUNCTION("function"),
   FUNCTIONS("functions"),

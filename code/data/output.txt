@@ -1,4 +1,57 @@
+<<<<<<< HEAD
 Creating new environment 	43
 Closing environment
 
 Result error: java.lang.NullPointerException
+=======
+Creating new environment 	81
+Closing environment
+
+function_program(global_decs(global_decs(global_decs(global_decs(global_dec(variable,Integer),global_dec(variable,var_decls(var_decl(variable),var_decl(variable)))),global_dec(variable,String)),global_dec(variable,Char)),global_dec(variable,var_decls(var_decl(variable),var_decl(variable)))),function(variable,function_core(params(param(variable),param(variable)),block(var_decls(var_decl(variable),var_decls(var_decl(variable),var_decl(variable))),
+
+	succ(succ(succ(succ(=(variable,Integer),=(variable,Integer)),=(variable,+(variable,variable))),for(for_i_in_range(variable,range(Integer,+(variable,Integer))),
+
+	succ(=(variable,*(variable,+(Integer,variable))),=(variable,+(variable,Integer))))),return(+(variable,Integer)))))))
+
+-------------------
+Generating code:
+-------------------
+
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+
+
+class test {
+ 	Integer a = new Integer();
+	String b = new String();
+}
+
+class test2 {
+ 	Integer c = new Integer();
+	Integer d = new Integer();
+}
+
+public class Main {
+
+	public Integer MAX = new Integer(500);
+	public String coucou = new String("coucou");
+	public Char b = new Char('c');
+
+	public Integer test(Integer argn, String argv) {
+		Integer x = new Integer();
+		Integer y = new Integer();
+		Integer z = new Integer();
+
+		x = 452;
+		y = 1;
+		z = x + y;
+		for (int j = 0; j < z + 2; j++ ) {
+			x = y * 2 + z;
+			y = y + 10;
+		}
+		return z + 4;
+	}
+
+}
+>>>>>>> fed090ca1e84c9c0938ef3120b61d7f40bdd1295

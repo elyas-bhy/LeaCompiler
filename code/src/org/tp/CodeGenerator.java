@@ -4,10 +4,12 @@ public class CodeGenerator {
 	
 	private AST mRoot;
 	private int tabLevel;
+  private StringBuffer global_var;
 
 	public CodeGenerator(AST root) {
 		mRoot = root;
 		tabLevel = 1;
+    global_var = new StringBuffer();
 	}
 
 	public void prologue() {
@@ -16,7 +18,6 @@ public class CodeGenerator {
 		sb.append("import java.io.*;\n");
 		sb.append("import java.lang.*;\n");
 		sb.append("import java.util.*;\n\n");
-		sb.append("public class Main {\n\n");
 		System.out.println(sb);
 	}
 
@@ -35,7 +36,26 @@ public class CodeGenerator {
 
 	public String translate(AST node) {
 		StringBuffer sb;
+    String tmp;
+    EnumTag tag;
+    if (node == null)
+      return "";
+
 		switch(node.getTag()) {
+      case PROGRAM:
+        return translate(node.getLeft()) + "public class Main {\n\n" + global_var + "\n" + translate(node.getRight());
+
+      case GLOBAL_DECS:
+        return translate(node.getLeft()) + translate(node.getRight());
+
+      case GLOBAL_DEC:
+        if (node.getRight().getTag().equals(EnumTag.DECSVAR)) // struct declaration
+          return "class " + translate(node.getLeft()) + " {\n " + tab() + translate(node.getRight()) + ";\n}\n\n";
+        // implicit else : global declaration
+        global_var.append("\tpublic " + node.getRight().getType() + " " + translate(node.getLeft()) +
+                          " = new " + node.getRight().getType() + "(" + translate(node.getRight()) + ");\n");
+        return "";
+        
 			case FUNCTION:
 				return tab() + "public " + node.getType() + " " + translate(node.getLeft()) + translate(node.getRight());
 			
@@ -64,7 +84,8 @@ public class CodeGenerator {
 				return translate(node.getRight()) + ";\n" + tab() + translate(node.getLeft());
 			
       case SUCC:
-        if (node.getLeft().getRight().getTag().equals(EnumTag.IF))
+        tag = node.getLeft().getRight().getTag();
+        if (tag.equals(EnumTag.IF) || tag.equals(EnumTag.WHILE) || tag.equals(EnumTag.FOR))
           return translate(node.getLeft()) + "\n" + translate(node.getRight());
         return translate(node.getLeft()) + ";\n" + translate(node.getRight());
 			
@@ -92,6 +113,22 @@ public class CodeGenerator {
         }
         return sb.toString();
 
+      case WHILE:
+      case FOR:
+        sb = new StringBuffer();
+        sb.append(tab() + node.getTag() + " (" + translate(node.getLeft()) + " ) {\n");
+        tabLevel++;
+        sb.append(translate(node.getRight()) + ";\n");
+        tabLevel--;
+        sb.append(tab() + "}");
+        return sb.toString();
+
+
+      case FOR_RANGE:
+        tmp = translate(node.getLeft());
+        return "int " + tmp + " = " + translate(node.getRight().getLeft()) + "; " +
+               tmp + " < " + translate(node.getRight().getRight()) + "; " + tmp + "++";
+
 			case PLUS:
 			case MINUS:
 			case MULT:
@@ -110,6 +147,7 @@ public class CodeGenerator {
 			case INTEGER:
 			case FLOATING:
 			case STRING:
+      case CHAR:
 				return node.getName();
 
 			default:

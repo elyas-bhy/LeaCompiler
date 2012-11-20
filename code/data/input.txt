@@ -1,3 +1,18 @@
+MAX = 500;
+
+test = struct {
+  a : int;
+  b : string;
+}
+
+coucou = "coucou";
+b = 'c';
+
+test2 = struct {
+  c : int;
+  d : int;
+}
+
 function test(argn : int, argv : string) : int
 {
   x : int;
@@ -8,6 +23,10 @@ function test(argn : int, argv : string) : int
   y := 1;
   z := x + y;
 
-  z := {(1, a), (2, a)};
+  for j in [0 .. z+2] {
+  	x := y * (2 + z);
+  	y := y + 10;
+  }
+
   return z+4;
 }
