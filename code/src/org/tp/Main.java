@@ -34,7 +34,7 @@ public class Main {
 		    System.out.println("Result error: " + e);
         }
 	    } catch (Exception e) {
-        System.out.println("Parse error");
+        System.out.println("Parse error: " + e);
 	    }
     } catch (Exception e) {
 	    System.out.println("Invalid file");

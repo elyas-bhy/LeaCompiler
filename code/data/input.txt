@@ -1,23 +1,24 @@
 MAX = 500;
 
-test = struct {
+hello = "coucou";
+b = 'c';
+
+
+Foo = struct {
   a : int;
   b : string;
 }
 
-coucou = "coucou";
-b = 'c';
-
-test2 = struct {
+Bar = struct {
   c : int;
   d : int;
 }
 
 function test(argn : int, argv : string) : int
 {
+
   x : int;
   y : int;
-  z : int;
 
   x := 452;
   y := 1;

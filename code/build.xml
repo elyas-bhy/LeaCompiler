@@ -84,7 +84,7 @@
 	destdir="${src.dir}"
 	parser="Parser"
 	symbols="MySymbol"
-	dump_grammar="false"
+	dump_grammar="true"
 	dump_tables="false"
 	dump_states="false"
 	expect="0"

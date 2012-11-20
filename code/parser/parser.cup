@@ -18,10 +18,11 @@ terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOLEAN;
 non terminal Type type;
 non terminal AST program, expr, ident, expr_list, funcs, instr, instrs,
                  block, funcDef, range, list, globalDecs, globalDec,
-                 definition, param, params, decl, decls, map_of, map_of_list, fheader;
+                 definition, param, params, decl, decls, map_of, map_of_list, fheader, decls_opt;
 
 
-precedence right ELSE;
+precedence nonassoc ELSE;
+precedence nonassoc IF;
 precedence left AND;
 precedence left OR;
 precedence left LT, GT, LE, GE, EQ, DIFF;
@@ -74,24 +75,20 @@ fheader ::=
   ;
 
 block ::=
-	LBRACE decls:ds instrs:i {:
+	LBRACE {:
 			Env n = new Env(Main.currentEnv);
 			System.out.println("Creating new environment 	" + n.getNum());
-			if (Main.firstEnv == null){
+			if (Main.firstEnv == null) {
 	      Main.firstEnv = Main.currentEnv = n;
 			} else {
 				Main.currentEnv.putNext(n);
 				Main.currentEnv = n;
 			}
-		:}
-	RBRACE
-		{:
+		:} decls_opt:ds instrs:i RBRACE {:
 			Main.currentEnv = Main.currentEnv.getPrev();
 			System.out.println("Closing environment");
 		  RESULT = new AST(ds, i, EnumTag.BLOCK);
 		:}
-	| LBRACE instrs:i RBRACE
-	  {: RESULT = i; :}
 	| instr:i
 	  {: RESULT = i; :}
 	;
@@ -104,6 +101,13 @@ params ::=
 param ::=
   ident:id COLON type:t {: RESULT = new AST(id, null, EnumTag.PARAM, t); :}
   //| VOID {: RESULT = new AST(null, null, EnumTag.PARAM); :}
+  ;
+
+decls_opt ::=
+  decls_opt:dco decl:d
+    {: RESULT = new AST(d, dco, EnumTag.DECLOPT); :}
+  | 
+    {: RESULT = new AST(null, null, EnumTag.DECLOPT); :}
   ;
 
 decls ::=
@@ -131,17 +135,21 @@ type ::=
 		{: RESULT = new Type(t, null, EnumType.LIST); :}
 	;
 
+if_instr ::=
+  IF LPAR expr:e RPAR block:b1
+  ;
+
 instr ::= 
 	IF LPAR expr:e RPAR block:b1 ELSE block:b2
 	  {: RESULT = new AST(e, new AST(b1, b2, EnumTag.THENELSE), EnumTag.IF); :}
+	| IF LPAR expr:e RPAR block:b
+	  {: RESULT = new AST(e, new AST(b, null, EnumTag.THENELSE), EnumTag.IF); :}
   | WHILE LPAR expr:e RPAR block:b
     {: RESULT = new AST(e, b, EnumTag.WHILE); :}
   | REPEAT block:b WHILE expr:e
     {: RESULT = new AST(e, b, EnumTag.DOWHILE); :}
-	| FOR ident:v IN range:r block:b
+  | FOR ident:v IN range:r block:b
       {: RESULT = new AST(new AST(v, r, EnumTag.FOR_RANGE), b, EnumTag.FOR); :}
-	| IF LPAR expr:e RPAR block:b
-	  {: RESULT = new AST(e, new AST(b, null, EnumTag.THENELSE), EnumTag.IF); :}
 	| ident:v AFF expr:e SEMIC
 	  {: RESULT = new AST(v, e, EnumTag.AFF); :}
 	| RETURN expr:e SEMIC

@@ -42,6 +42,7 @@ public enum EnumTag {
   PARAMS("params"),
   DECVAR("var_decl"),
   DECSVAR("var_decls"),
+  DECLOPT("decl_opt"),
 
   GLOBAL_DECS("global_decs"),
   GLOBAL_DEC("global_dec"),
