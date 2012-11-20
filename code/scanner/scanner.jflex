@@ -40,11 +40,28 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
         | {Num}\.{Type} 
         | \.{NumType} 
 
+%xstates MONO_COMMENT, MULTI_COMMENT
+
 %%
+
+<MONO_COMMENT> {
+  {LineTerminator}      {yybegin(YYINITIAL);}
+  .                     {}
+}
+
+<MULTI_COMMENT> {
+  \*\/                  {yybegin(YYINITIAL);}
+  . | {LineTerminator}  {}
+}
+
+<YYINITIAL> {
 
 /* -------------------------------------------------
 	Separateurs Operateurs
    ------------------------------------------------- */
+
+\/\/          {yybegin(MONO_COMMENT); }
+\/\*          {yybegin(MULTI_COMMENT); }
 
 \"            {/*System.out.print(yytext());*/  return symbol(MySymbol.DQUOTE); }
 "("	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LPAR); }
@@ -115,3 +132,5 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 	Autres signes
    ------------------------------------------------- */
 .	            {/* ignore */ }
+
+}
