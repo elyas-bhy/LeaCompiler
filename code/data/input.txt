@@ -1,3 +1,18 @@
+MAX = 500;
+
+test = struct {
+  a : int;
+  b : string;
+}
+
+coucou = "coucou";
+b = 'c';
+
+test2 = struct {
+  c : int;
+  d : int;
+}
+
 function test(argn : int, argv : string) : int
 {
   x : int;

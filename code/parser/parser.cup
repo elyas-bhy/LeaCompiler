@@ -31,7 +31,7 @@ precedence left MINUS_U;
 
 program ::=
 	globalDecs:ds funcs:fs {: RESULT = new AST(ds, fs, EnumTag.PROGRAM); :}
-	| funcs:f {: RESULT = f;:}
+	| funcs:f {: RESULT = new AST(null, f, EnumTag.PROGRAM); :}
 	;
 
 globalDecs ::=
