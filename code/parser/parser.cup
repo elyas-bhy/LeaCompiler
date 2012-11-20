@@ -18,7 +18,7 @@ terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOLEAN;
 non terminal Type type;
 non terminal AST program, expr, ident, expr_list, funcs, instr, instrs,
                  block, funcDef, range, list, globalDecs, globalDec,
-                 definition, param, params, decl, decls, map_of, map_of_list;
+                 definition, param, params, decl, decls, map_of, map_of_list, fheader;
 
 
 precedence right ELSE;
@@ -54,14 +54,23 @@ funcs ::=
   ;
 
 funcDef ::=
-  FUNCTION ident:i LPAR params:p RPAR COLON type:t block:b {: 
-  	AST params = new AST(p, b, EnumTag.FUNCTION_CORE);
-    RESULT = new AST(i, params, EnumTag.FUNCTION, t);
+  fheader:h block:b {: 
+  	//AST params = new AST(p, b, EnumTag.FUNCTION_CORE);
+    //RESULT = new AST(i, params, EnumTag.FUNCTION, t);
+    RESULT = new AST(h, b, EnumTag.FUNCTION);
    :}
-  | PROCEDURE ident:i LPAR params:p RPAR block:b {:
-  	 AST params = new AST(p, b, EnumTag.FUNCTION_CORE);
-     RESULT = new AST(i, params, EnumTag.PROCEDURE);
+  | fheader:h SEMIC {:
+  	// AST params = new AST(p, b, EnumTag.FUNCTION_CORE);
+     //RESULT = new AST(i, params, EnumTag.PROCEDURE);
+    RESULT = new AST(h, null, EnumTag.PROTOTYPE);
    :}
+  ;
+
+fheader ::=
+  FUNCTION ident:i LPAR params:p RPAR COLON type:t
+  {: RESULT = new AST(i, p, EnumTag.HEADER, t); :}
+  | PROCEDURE ident:i LPAR params:p RPAR
+  {: RESULT = new AST(i, p, EnumTag.HEADER); :}
   ;
 
 block ::=

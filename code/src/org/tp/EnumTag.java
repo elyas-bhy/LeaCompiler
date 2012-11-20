@@ -46,6 +46,8 @@ public enum EnumTag {
   GLOBAL_DECS("global_decs"),
   GLOBAL_DEC("global_dec"),
 
+  HEADER("header"),
+  PROTOTYPE("prototype"),
   PROCEDURE("procedure"),
   FUNCTION("function"),
   FUNCTIONS("functions"),
