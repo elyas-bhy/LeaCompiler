@@ -75,6 +75,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "else"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.ELSE); }
 "while"       {/*System.out.print(yytext());*/  return symbol(MySymbol.WHILE); }
 "for"         {/*System.out.print(yytext());*/  return symbol(MySymbol.FOR); }
+"in"          {/*System.out.print(yytext());*/  return symbol(MySymbol.IN); }
 "do"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.DO); }
 "bool"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOLEAN); }
 "int"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.INT); }

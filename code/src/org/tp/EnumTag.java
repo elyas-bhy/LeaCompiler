@@ -35,6 +35,7 @@ public enum EnumTag {
   FOR("for"),
   FOR_RANGE("for_i_in_range"),
   WHILE ("while"), 
+  DOWHILE ("while"), 
   BLOCK("block"),
 
   PARAM("param"),

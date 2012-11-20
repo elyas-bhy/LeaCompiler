@@ -17,8 +17,9 @@ terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOLEAN;
 
 non terminal Type type;
 non terminal AST program, expr, ident, expr_list, funcs, instr, instrs,
-                 block, typeDef, funcDef, range, list, globalDecs, globalDec,
+                 block, funcDef, range, list, globalDecs, globalDec,
                  definition, param, params, decl, decls, map_of, map_of_list;
+
 
 precedence right ELSE;
 precedence left AND;
@@ -122,13 +123,15 @@ type ::=
 	;
 
 instr ::= 
-	IF expr:e block:b1 ELSE block:b2
+	IF LPAR expr:e RPAR block:b1 ELSE block:b2
 	  {: RESULT = new AST(e, new AST(b1, b2, EnumTag.THENELSE), EnumTag.IF); :}
-	| REPEAT block:b WHILE expr:e
-	  {: RESULT = new AST(e, b, EnumTag.WHILE); :}
-	| FOR ident:i IN range:r block:b
-      {: RESULT = new AST(new AST(i, r, EnumTag.FOR_RANGE), b, EnumTag.FOR); :}
-	| IF expr:e block:b
+  | WHILE LPAR expr:e RPAR block:b
+    {: RESULT = new AST(e, b, EnumTag.WHILE); :}
+  | REPEAT block:b WHILE expr:e
+    {: RESULT = new AST(e, b, EnumTag.DOWHILE); :}
+	| FOR ident:v IN range:r block:b
+      {: RESULT = new AST(new AST(v, r, EnumTag.FOR_RANGE), b, EnumTag.FOR); :}
+	| IF LPAR expr:e RPAR block:b
 	  {: RESULT = new AST(e, new AST(b, null, EnumTag.THENELSE), EnumTag.IF); :}
 	| ident:v AFF expr:e SEMIC
 	  {: RESULT = new AST(v, e, EnumTag.AFF); :}

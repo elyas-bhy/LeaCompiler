@@ -1,9 +1,11 @@
-Creating new environment 	35
+Creating new environment 	54
 Closing environment
 
 function(variable,function_core(params(param(variable),param(variable)),block(var_decls(var_decl(variable),var_decls(var_decl(variable),var_decl(variable))),
 
-	succ(succ(succ(succ(=(variable,Integer),=(variable,Integer)),=(variable,+(variable,variable))),=(variable)),return(+(variable,Integer))))))
+	succ(succ(succ(succ(=(variable,Integer),=(variable,Integer)),=(variable,+(variable,variable))),for(for_i_in_range(variable,range(Integer,+(variable,Integer))),
+
+	succ(=(variable,*(variable,+(Integer,variable))),=(variable,+(variable,Integer))))),return(+(variable,Integer))))))
 
 -------------------
 Generating code:
@@ -16,4 +18,19 @@ import java.util.*;
 public class Main {
 
 
-Result error: java.lang.NullPointerException
+	public Integer test(Integer argn, String argv) {
+		Integer x = new Integer();
+		Integer y = new Integer();
+		Integer z = new Integer();
+
+		x = 452;
+		y = 1;
+		z = x + y;
+		for (int j = 0; j < z + 2; j++ ) {
+			x = y * 2 + z;
+			y = y + 10;
+		}
+		return z + 4;
+	}
+
+}

@@ -35,6 +35,8 @@ public class CodeGenerator {
 
 	public String translate(AST node) {
 		StringBuffer sb;
+    String tmp;
+    EnumTag tag;
 		switch(node.getTag()) {
 			case FUNCTION:
 				return tab() + "public " + node.getType() + " " + translate(node.getLeft()) + translate(node.getRight());
@@ -64,7 +66,8 @@ public class CodeGenerator {
 				return translate(node.getRight()) + ";\n" + tab() + translate(node.getLeft());
 			
       case SUCC:
-        if (node.getLeft().getRight().getTag().equals(EnumTag.IF))
+        tag = node.getLeft().getRight().getTag();
+        if (tag.equals(EnumTag.IF) || tag.equals(EnumTag.WHILE) || tag.equals(EnumTag.FOR))
           return translate(node.getLeft()) + "\n" + translate(node.getRight());
         return translate(node.getLeft()) + ";\n" + translate(node.getRight());
 			
@@ -91,6 +94,22 @@ public class CodeGenerator {
           sb.append(tab() + "}");
         }
         return sb.toString();
+
+      case WHILE:
+      case FOR:
+        sb = new StringBuffer();
+        sb.append(tab() + node.getTag() + " (" + translate(node.getLeft()) + " ) {\n");
+        tabLevel++;
+        sb.append(translate(node.getRight()) + ";\n");
+        tabLevel--;
+        sb.append(tab() + "}");
+        return sb.toString();
+
+
+      case FOR_RANGE:
+        tmp = translate(node.getLeft());
+        return "int " + tmp + " = " + translate(node.getRight().getLeft()) + "; " +
+               tmp + " < " + translate(node.getRight().getRight()) + "; " + tmp + "++";
 
 			case PLUS:
 			case MINUS:
