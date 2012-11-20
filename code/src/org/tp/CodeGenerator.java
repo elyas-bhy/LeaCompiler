@@ -4,10 +4,12 @@ public class CodeGenerator {
 	
 	private AST mRoot;
 	private int tabLevel;
+  private StringBuffer global_var;
 
 	public CodeGenerator(AST root) {
 		mRoot = root;
 		tabLevel = 1;
+    global_var = new StringBuffer();
 	}
 
 	public void prologue() {
@@ -16,7 +18,6 @@ public class CodeGenerator {
 		sb.append("import java.io.*;\n");
 		sb.append("import java.lang.*;\n");
 		sb.append("import java.util.*;\n\n");
-		sb.append("public class Main {\n\n");
 		System.out.println(sb);
 	}
 
@@ -37,7 +38,24 @@ public class CodeGenerator {
 		StringBuffer sb;
     String tmp;
     EnumTag tag;
+    if (node == null)
+      return "";
+
 		switch(node.getTag()) {
+      case PROGRAM:
+        return translate(node.getLeft()) + "public class Main {\n\n" + global_var + "\n" + translate(node.getRight());
+
+      case GLOBAL_DECS:
+        return translate(node.getLeft()) + translate(node.getRight());
+
+      case GLOBAL_DEC:
+        if (node.getRight().getTag().equals(EnumTag.DECSVAR)) // struct declaration
+          return "class " + translate(node.getLeft()) + " {\n " + tab() + translate(node.getRight()) + ";\n}\n\n";
+        // implicit else : global declaration
+        global_var.append("\tpublic " + node.getRight().getType() + " " + translate(node.getLeft()) +
+                          " = new " + node.getRight().getType() + "(" + translate(node.getRight()) + ");\n");
+        return "";
+        
 			case FUNCTION:
 				return tab() + "public " + node.getType() + " " + translate(node.getLeft()) + translate(node.getRight());
 			
@@ -129,6 +147,7 @@ public class CodeGenerator {
 			case INTEGER:
 			case FLOATING:
 			case STRING:
+      case CHAR:
 				return node.getName();
 
 			default:

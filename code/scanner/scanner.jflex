@@ -103,8 +103,8 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 {Identifier}  {/*System.out.print(yytext());*/  return symbol(MySymbol.IDENTIFIER, yytext()); }
 {Floating}    {/*System.out.print(yytext());*/  return symbol(MySymbol.FLOATING, yytext()); }
 {Integer}     {/*System.out.print(yytext());*/  return symbol(MySymbol.INTEGER, yytext()); }
-{String}      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRINGEXP, yytext().substring(1, yytext().length()-1)); }
-{Char}        {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAREXP, yytext().substring(1, yytext().length()-1)); }
+{String}      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRINGEXP, yytext()); }
+{Char}        {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAREXP, yytext()); }
 
 /* -------------------------------------------------
 	Commentaires - Caracteres non pris en compte
