@@ -18,7 +18,7 @@ terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOLEAN;
 non terminal Type type;
 non terminal AST program, expr, ident, expr_list, funcs, instr, instrs,
                  block, typeDef, funcDef, range, list, globalDecs, globalDec,
-                 definition, param, params, decl, decls;
+                 definition, param, params, decl, decls, map_of, map_of_list;
 
 precedence right ELSE;
 precedence left AND;
@@ -160,6 +160,15 @@ expr_list ::=
   | expr:e {: RESULT = e; :}
   ;
 
+map_of ::=
+  LBRACE map_of_list RBRACE {: :}
+  ;
+
+map_of_list ::=
+  map_of_list COMMA LPAR INTEGER COMMA IDENTIFIER RPAR {: :}
+  | LPAR INTEGER COMMA IDENTIFIER RPAR {: :}
+  ;
+
 expr ::=
 	expr:e1 AND expr:e2 {: RESULT = new AST(e1, e2, EnumTag.AND); :} 
 	| expr:e1 OR expr:e2 {: RESULT = new AST(e1, e2, EnumTag.OR); :} 
@@ -191,6 +200,7 @@ expr ::=
       RESULT = new AST(EnumTag.BOOLEAN, b);
 	  :}
 	| ident:v {: RESULT = v; :}
+  | map_of {: :}
 	;
 
 ident ::=

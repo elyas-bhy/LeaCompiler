@@ -8,12 +8,6 @@ function test(argn : int, argv : string) : int
   y := 1;
   z := x + y;
 
-  if (z >= 10) {
-  	x := y * (2 + z);
-  	y := y + 10;
-  }
-  else {
-  	y := y - 1;
-  }
+  z := {(1, a), (2, a)};
   return z+4;
 }

@@ -1,11 +1,9 @@
-Creating new environment 	56
+Creating new environment 	35
 Closing environment
 
 function(variable,function_core(params(param(variable),param(variable)),block(var_decls(var_decl(variable),var_decls(var_decl(variable),var_decl(variable))),
 
-	succ(succ(succ(succ(=(variable,Integer),=(variable,Integer)),=(variable,+(variable,variable))),if(>=(variable,Integer),
-
-	thenelse(succ(=(variable,*(variable,+(Integer,variable))),=(variable,+(variable,Integer))),=(variable,-(variable,Integer))))),return(+(variable,Integer))))))
+	succ(succ(succ(succ(=(variable,Integer),=(variable,Integer)),=(variable,+(variable,variable))),=(variable)),return(+(variable,Integer))))))
 
 -------------------
 Generating code:
@@ -18,21 +16,4 @@ import java.util.*;
 public class Main {
 
 
-	public Integer test(Integer argn, String argv) {
-		Integer x = new Integer();
-		Integer y = new Integer();
-		Integer z = new Integer();
-
-		x = 452;
-		y = 1;
-		z = x + y;
-		if (z >= 10) {
-			x = y * 2 + z;
-			y = y + 10;
-		} else {
-			y = y - 1;
-		}
-		return z + 4;
-	}
-
-}
+Result error: java.lang.NullPointerException
