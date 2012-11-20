@@ -161,12 +161,15 @@ expr_list ::=
   ;
 
 map_of ::=
-  LBRACE map_of_list RBRACE {: :}
+  LBRACE map_of_list RBRACE {:
+     RESULT = new AST(null, null); :}
   ;
 
 map_of_list ::=
-  map_of_list COMMA LPAR INTEGER COMMA IDENTIFIER RPAR {: :}
-  | LPAR INTEGER COMMA IDENTIFIER RPAR {: :}
+  map_of_list COMMA LPAR expr COMMA expr RPAR {:
+     RESULT = new AST(null, null); :}
+  | LPAR expr COMMA expr RPAR {:
+     RESULT = new AST(null, null); :}
   ;
 
 expr ::=
@@ -200,7 +203,12 @@ expr ::=
       RESULT = new AST(EnumTag.BOOLEAN, b);
 	  :}
 	| ident:v {: RESULT = v; :}
-  | map_of {: :}
+  | map_of {:
+     RESULT = new AST(null, null); :}
+  | ident LBRACKET expr RBRACKET  {:
+     RESULT = new AST(null, null); :}
+  | expr DOT ident {:
+     RESULT = new AST(null, null); :}
 	;
 
 ident ::=
