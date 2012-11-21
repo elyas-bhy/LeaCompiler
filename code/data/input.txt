@@ -1,6 +1,6 @@
 MAX = 500;
 
-hello = "coucou";
+hello = "world";
 b = 'c';
 
 
@@ -28,8 +28,12 @@ function test(argn : int, argv : string) : int
   if (x >= y) {
     z := z + 1;
   }
+  else {
+    z := 2;
+  }
 
   z := x + y;
+  z := f(a);
 
 
   for j in [0 .. z+2] {

@@ -6,10 +6,9 @@ import java.lang.*;
 import org.tp.*;
 
 
-terminal SEMIC, COMMA, DOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
+terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
     IF, THEN, ELSE, WHILE, REPEAT, DO, FOR, IN, BOOLEAN,
-    VAR, ARRAY, OF, LIST, SET, MAP, STRUCT,
-    TRUE, FALSE, DQUOTE, RETURN,
+    VAR, ARRAY, OF, LIST, SET, MAP, STRUCT, DQUOTE, RETURN,
     AFF, AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV,
     FUNCTION, PROCEDURE, INT, FLOAT, STRING, CHAR, VOID;
 
@@ -168,7 +167,7 @@ instr ::=
   ;
 
 range ::=
-  LBRACKET expr:e1 DOT DOT expr:e2 RBRACKET {: RESULT = new AST(e1, e2, EnumTag.RANGE); :}
+  LBRACKET expr:e1 DDOT expr:e2 RBRACKET {: RESULT = new AST(e1, e2, EnumTag.RANGE); :}
   | LBRACKET list:l RBRACKET {: RESULT = l; :}
   | LBRACE list:l RBRACE {:RESULT = l; :}
   | ident:v {: RESULT = v; :}
@@ -185,42 +184,42 @@ expr_list ::=
   ;
 
 map_of ::=
-  LBRACE map_of_list RBRACE {:
-     RESULT = new AST(null, null); :}
+  LBRACE map_of_list RBRACE
+    {: RESULT = new AST(null, null); :}
   ;
 
 map_of_list ::=
-  map_of_list COMMA LPAR expr COMMA expr RPAR {:
-     RESULT = new AST(null, null); :}
-  | LPAR expr COMMA expr RPAR {:
-     RESULT = new AST(null, null); :}
+  map_of_list COMMA LPAR expr COMMA expr RPAR
+    {: RESULT = new AST(null, null); :}
+  | LPAR expr COMMA expr RPAR
+    {: RESULT = new AST(null, null); :}
   ;
 
 expr ::=
-	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND); :}                          // a && b
-	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR); :}                          // a || b
-	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT); :}                          // a < b
-	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT); :}                          // a > b
-	| expr:e1 LE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LE); :}                          // a <= b
-	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE); :}                          // a >= b
-	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ); :}                          // a = b
-	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF); :}                      // a != b
-	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, e1.getType()); :}        // a + b
-	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :}                    // a - b
-	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :}                      // a * b
-	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :}                        // a / b
-	| MINUS expr:e       {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U            // -a
-  | ident:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                               // toto(a, b, c)
-  | ident LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                              // toto[a]
-  | expr DOT ident {: RESULT = new AST(null, null); :}                                            // a.toto
-	| INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 3
-	| FLOATING:f {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}        // 3.14
-	| STRINGEXP:st {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}      // "PI"
-	| CHAREXP:ch {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}          // 'P'
-  | LPAR expr:e RPAR {: RESULT = e; :}                                                            // (a)
-  | ident:v {: RESULT = v; :}                                                                     // toto
-	| BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                       // 'True'
-  | map_of {: RESULT = new AST(null, null); :}                                                    // {(a,b),(c,d)}
+	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND); :}                         // a && b
+	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR); :}                         // a || b
+	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT); :}                         // a < b
+	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT); :}                         // a > b
+	| expr:e1 LE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LE); :}                         // a <= b
+	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE); :}                         // a >= b
+	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ); :}                         // a = b
+	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF); :}                     // a != b
+	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, e1.getType()); :}       // a + b
+	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :}                   // a - b
+	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :}                     // a * b
+	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :}                       // a / b
+	| MINUS expr:e       {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U           // -a
+  | ident:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                              // foo(a, b, c)
+  | ident LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                             // foo[a]
+  | expr DOT ident {: RESULT = new AST(null, null); :}                                           // a.foo
+	| INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 2
+	| FLOATING:f {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}       // 3.14
+	| STRINGEXP:st {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}     // "PI"
+	| CHAREXP:ch {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}           // 'P'
+  | LPAR expr:e RPAR {: RESULT = e; :}                                                           // (a)
+  | ident:v {: RESULT = v; :}                                                                    // foo
+	| BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                      // 'True'
+  | map_of {: RESULT = new AST(null, null); :}                                                   // {(a,b),(c,d)}
 	;
 
 ident ::=

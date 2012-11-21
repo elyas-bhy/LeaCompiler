@@ -28,7 +28,6 @@ WhiteSpace	   = {LineTerminator} | [ \t\f]
 Integer		     = [0-9]+
 String		     = \"[^\"]*\"
 Char           = \'.?\'
-Bool           = "True" | "False"
 
 Num = [0-9]+
 Type = [fFlL]?
@@ -71,6 +70,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "}"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.RBRACE); }
 "["	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LBRACKET); }
 "]"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.RBRACKET); }
+".."          {/*System.out.print(yytext());*/  return symbol(MySymbol.DDOT); }
 "&&"  	      {/*System.out.print(yytext());*/  return symbol(MySymbol.AND); }
 "||"  	      {/*System.out.print(yytext());*/  return symbol(MySymbol.OR); }
 "<"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LT); }
@@ -107,12 +107,12 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "list"        {/*System.out.print(yytext());*/  return symbol(MySymbol.LIST); }
 "struct"      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRUCT); }
 "void"        {/*System.out.print(yytext());*/  return symbol(MySymbol.VOID); }
-"True"        {/*System.out.print(yytext());*/  return symbol(MySymbol.TRUE); }
-"False"       {/*System.out.print(yytext());*/  return symbol(MySymbol.FALSE); }
 "repeat"      {/*System.out.print(yytext());*/  return symbol(MySymbol.REPEAT); }
 "return"      {/*System.out.print(yytext());*/  return symbol(MySymbol.RETURN); }
 "function"    {/*System.out.print(yytext());*/  return symbol(MySymbol.FUNCTION); }
 "procedure"   {/*System.out.print(yytext());*/  return symbol(MySymbol.PROCEDURE); }
+"True"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
+"False"       {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
 
 /* -------------------------------------------------
 	Variables, Entiers
@@ -123,7 +123,6 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 {Integer}     {/*System.out.print(yytext());*/  return symbol(MySymbol.INTEGER, yytext()); }
 {String}      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRINGEXP, yytext()); }
 {Char}        {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAREXP, yytext()); }
-{Bool}        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
 
 /* -------------------------------------------------
 	Commentaires - Caracteres non pris en compte
