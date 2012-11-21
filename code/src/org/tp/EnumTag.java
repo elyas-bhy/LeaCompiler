@@ -40,9 +40,11 @@ public enum EnumTag {
 
   PARAM("param"),
   PARAMS("params"),
-  VARDEC("var_decl"),
-  VARDECS("var_decls"),
-  DECLOPT("decl_opt"),
+  VAR_STRUCTDEC("struct var decl"),
+  VAR_STRUCTDECS("struct var decls"),
+  VARDEC("var decl"),
+  VARDECS("var decls"),
+  DECLOPT("decl opt"),
 
   GLOBAL_DECS("global_decs"),
   GLOBAL_DEC("global_dec"),
@@ -52,6 +54,7 @@ public enum EnumTag {
   PROCEDURE("procedure"),
   FUNCTION("function"),
   FUNCTIONS("functions"),
+  FUNCTION_CALL("function call"),
   FUNCTION_TYPE("function_type"),
   FUNCTION_CORE("function_core"),
 

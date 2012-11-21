@@ -8,7 +8,8 @@ public enum EnumType {
 	BOOLEAN ("Boolean"), 
 	ARRAY ("Array"), 
   LIST ("List"),
-	ERROR ("error");
+	ERROR ("error"),
+  STRUCT("generic type");
 	
   private final String tag;
 

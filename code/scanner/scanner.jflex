@@ -28,6 +28,7 @@ WhiteSpace	   = {LineTerminator} | [ \t\f]
 Integer		     = [0-9]+
 String		     = \"[^\"]*\"
 Char           = \'.?\'
+Bool           = "True" | "False"
 
 Num = [0-9]+
 Type = [fFlL]?
@@ -122,6 +123,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 {Integer}     {/*System.out.print(yytext());*/  return symbol(MySymbol.INTEGER, yytext()); }
 {String}      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRINGEXP, yytext()); }
 {Char}        {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAREXP, yytext()); }
+{Bool}        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
 
 /* -------------------------------------------------
 	Commentaires - Caracteres non pris en compte

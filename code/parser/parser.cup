@@ -7,17 +7,17 @@ import org.tp.*;
 
 
 terminal SEMIC, COMMA, DOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
-    IF, THEN, ELSE, WHILE, REPEAT, DO, FOR, IN, 
+    IF, THEN, ELSE, WHILE, REPEAT, DO, FOR, IN, BOOLEAN,
     VAR, ARRAY, OF, LIST, SET, MAP, STRUCT,
     TRUE, FALSE, DQUOTE, RETURN,
     AFF, AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV,
     FUNCTION, PROCEDURE, INT, FLOAT, STRING, CHAR, VOID;
 
-terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOLEAN;
+terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOL;
 
 non terminal Type type;
 non terminal AST program, expr, ident, expr_list, funcs, instr, instrs,
-                 block, funcDef, range, list, globalDecs, globalDec,
+                 block, funcDef, range, list, globalDecs, globalDec, struct_decl, struct_decls,
                  definition, param, params, decl, decls, map_of, map_of_list, fheader, decls_opt;
 
 
@@ -46,7 +46,17 @@ globalDec ::=
 
 definition ::=
   expr:e SEMIC {: RESULT = e; :}
-  | STRUCT LBRACE decls:d RBRACE {: RESULT = d; :}
+  | STRUCT LBRACE struct_decls:d RBRACE {: RESULT = d; :}
+  ;
+
+struct_decls ::=
+  struct_decls:ds struct_decl:d {: RESULT = new VarStructDeclarations(d, ds); :}
+  | struct_decl:d {: RESULT = d; :}
+  ;
+
+struct_decl ::=
+  ident:id COLON type:t SEMIC
+    {: RESULT = new VarStructDeclaration(id, null, t); :}
   ;
 
 funcs ::=
@@ -129,6 +139,8 @@ type ::=
 		{: RESULT = new Type(t, null, new Integer(i), EnumType.ARRAY); :}
 	| LIST OF type:t
 		{: RESULT = new Type(t, null, EnumType.LIST); :}
+  | ident:i
+    {: RESULT = new Type(EnumType.STRUCT, i.getName()); :}
 	;
 
 instrs ::= 
@@ -162,10 +174,10 @@ range ::=
   | ident:v {: RESULT = v; :}
   ;
 
-list ::=
-  list:l COMMA expr:e {: RESULT = new AST(l, e, EnumTag.LIST); :}
-  | expr:e {: RESULT = e; :}
-  ;
+list ::=  // use in list affectation and in function call
+	list:l COMMA expr:e {: RESULT = new AST(l, e, EnumTag.LIST); :}
+	| expr:e {: RESULT = e; :}
+	;
 
 expr_list ::=
   expr_list:e1 COMMA expr:e2 {: RESULT = new AST(e1, e2, EnumTag.EXPRLIST); :}
@@ -185,42 +197,30 @@ map_of_list ::=
   ;
 
 expr ::=
-	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND); :} 
-	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR); :} 
-	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT); :} 
-	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT); :} 
-	| expr:e1 LE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LE); :} 
-	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE); :} 
-	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ); :} 
-	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF); :}
-	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, e1.getType()); :} 
-	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :} 
-	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :} 
-	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :} 
-	| MINUS expr:e {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U 
-	| LPAR expr:e RPAR {: RESULT = e; :}
-	| INTEGER:it {:
-      RESULT = new Variable(EnumTag.INTEGER, it, new Type(EnumType.INT)); 
-		:}
-	| FLOATING:f {:
-      RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT));
-		:}
-	| STRINGEXP:st {:
-      RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING));  
-		:}
-	| CHAREXP:ch {:
-      RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR));
-	  :}
-	| BOOLEAN:b {:
-      RESULT = new Variable(EnumTag.BOOLEAN, b);
-	  :}
-	| ident:v {: RESULT = v; :}
-  | map_of {:
-     RESULT = new AST(null, null); :}
-  | ident LBRACKET expr RBRACKET  {:
-     RESULT = new AST(null, null); :}
-  | expr DOT ident {:
-     RESULT = new AST(null, null); :}
+	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND); :}                          // a && b
+	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR); :}                          // a || b
+	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT); :}                          // a < b
+	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT); :}                          // a > b
+	| expr:e1 LE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LE); :}                          // a <= b
+	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE); :}                          // a >= b
+	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ); :}                          // a = b
+	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF); :}                      // a != b
+	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, e1.getType()); :}        // a + b
+	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :}                    // a - b
+	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :}                      // a * b
+	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :}                        // a / b
+	| MINUS expr:e       {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U            // -a
+  | ident:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                               // toto(a, b, c)
+  | ident LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                              // toto[a]
+  | expr DOT ident {: RESULT = new AST(null, null); :}                                            // a.toto
+	| INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 3
+	| FLOATING:f {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}        // 3.14
+	| STRINGEXP:st {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}      // "PI"
+	| CHAREXP:ch {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}          // 'P'
+  | LPAR expr:e RPAR {: RESULT = e; :}                                                            // (a)
+  | ident:v {: RESULT = v; :}                                                                     // toto
+	| BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                       // 'True'
+  | map_of {: RESULT = new AST(null, null); :}                                                    // {(a,b),(c,d)}
 	;
 
 ident ::=

@@ -8,6 +8,7 @@ public class Type {
   private Type right;
   private EnumType type;	
   private Integer integer; // array size
+  private String genericType;
     
 
   public Type(Type left, Type right, Integer i, EnumType type) {
@@ -15,6 +16,7 @@ public class Type {
     this.right = right;
     this.integer = i;
     this.type = type;
+    this.genericType = null;
   }
     
   public Type(Type left, Type right, EnumType type) {
@@ -24,6 +26,11 @@ public class Type {
     
   public Type(EnumType type) {
     this(null,null,type);
+  }
+
+  public Type(EnumType type, String s) {
+    this(type);
+    this.genericType = s;
   }
     
   public Type getLeft() {
