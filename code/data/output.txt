@@ -1,11 +1,15 @@
 Creating new environment 	34
-Creating new environment 	64
+Creating new environment 	61
+Closing environment
+Creating new environment 	84
 Closing environment
 Closing environment
 
 function_program(global_decs(global_decs(global_decs(global_decs(global_dec(identifier,Integer),global_dec(identifier,String)),global_dec(identifier,Char)),global_dec(identifier,var_decls(var_decl(identifier),var_decl(identifier)))),global_dec(identifier,var_decls(var_decl(identifier),var_decl(identifier)))),function(header(identifier,params(param(identifier),param(identifier))),block(decl_opt(var_decl(identifier),decl_opt(var_decl(identifier),decl_opt(var_decl(identifier),decl_opt))),
 
-	succ(succ(succ(succ(=(identifier,Integer),=(identifier,Integer)),=(identifier,+(identifier,identifier))),for(for_i_in_range(identifier,range(Integer,+(identifier,Integer))),block(decl_opt,
+	succ(succ(succ(succ(succ(succ(=(identifier,Integer),=(identifier,Integer)),=(identifier,+(identifier,identifier))),if(>=(identifier,identifier),
+
+	thenelse(block(decl_opt,=(identifier,+(identifier,Integer)))))),=(identifier,+(identifier,identifier))),for(for_i_in_range(identifier,range(Integer,+(identifier,Integer))),block(decl_opt,
 
 	succ(=(identifier,*(identifier,+(Integer,identifier))),=(identifier,+(identifier,Integer)))))),return(+(identifier,Integer))))))
 
@@ -18,17 +22,17 @@ import java.lang.*;
 import java.util.*;
 
 
-class Foo {
- 	Integer a = new Integer();
-	String b = new String();
-}
-
-class Bar {
- 	Integer c = new Integer();
-	Integer d = new Integer();
-}
-
 public class Main {
+
+	class Foo {
+ 		Integer a = new Integer();
+		String b = new String();
+	}
+
+	class Bar {
+ 		Integer c = new Integer();
+		Integer d = new Integer();
+	}
 
 	public Integer MAX = new Integer(500);
 	public String hello = new String("coucou");
@@ -41,6 +45,11 @@ public class Main {
 		
 		x = 452;
 		y = 1;
+		z = x + y;
+		if (x >= y) {
+				
+				z = z + 1;
+		}
 		z = x + y;
 		for (int j = 0; j < z + 2; j++ ) {			
 			x = y * 2 + z;

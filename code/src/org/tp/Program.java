@@ -7,7 +7,7 @@ public class Program extends AST {
 	}
 
 	public String toJava() {
-		return getLeft().toJava() + "public class Main {\n\n" + Main.globals + "\n" + getRight().toJava();
+		return "public class Main {\n\n" + getLeft().toJava() + Main.globals + "\n" + getRight().toJava();
 	}
 	
 }

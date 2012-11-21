@@ -31,12 +31,12 @@ precedence left MULT, DIV;
 precedence left MINUS_U;
 
 program ::=
-	globalDecs:ds funcs:fs {: RESULT = new Program(ds, fs); :}
+	globalDecs:gds funcs:fs {: RESULT = new Program(gds, fs); :}
 	| funcs:f {: RESULT = new Program(null, f); :}
 	;
 
 globalDecs ::=
-  globalDecs:gs globalDec:g {: RESULT = new GlobalDeclarations(gs, g); :}
+  globalDecs:gds globalDec:g {: RESULT = new GlobalDeclarations(gds, g); :}
   | globalDec:g {: RESULT = g; :}
   ;
 
@@ -131,26 +131,29 @@ type ::=
 		{: RESULT = new Type(t, null, EnumType.LIST); :}
 	;
 
-if_instr ::=
-  IF LPAR expr:e RPAR block:b1
-  ;
+instrs ::= 
+	instrs:i1 instr:i2
+	  {: RESULT = new Instructions(i1, i2); :}
+	| instr:i
+	  {: RESULT = i; :}
+	;
 
 instr ::= 
-	IF LPAR expr:e RPAR block:b1 ELSE block:b2
-	  {: RESULT = new If(e, new ThenElse(b1, b2)); :}
-	| IF LPAR expr:e RPAR block:b
-	  {: RESULT = new If(e, new ThenElse(b, null)); :}
+  IF LPAR expr:e RPAR block:b1 ELSE block:b2
+    {: RESULT = new If(e, new ThenElse(b1, b2)); :}
+  | IF LPAR expr:e RPAR block:b
+    {: RESULT = new If(e, new ThenElse(b, null)); :}
   | WHILE LPAR expr:e RPAR block:b
     {: RESULT = new Loop(e, b, EnumTag.WHILE); :}
   | REPEAT block:b WHILE expr:e
     {: RESULT = new AST(e, b, EnumTag.DOWHILE); :}
   | FOR ident:v IN range:r block:b
-      {: RESULT = new Loop(new ForRange(v, r), b, EnumTag.FOR); :}
-	| ident:v AFF expr:e SEMIC
-	  {: RESULT = new Affect(v, e); :}
-	| RETURN expr:e SEMIC
-	  {: RESULT = new Return(e, null); :}
-	;
+    {: RESULT = new Loop(new ForRange(v, r), b, EnumTag.FOR); :}
+  | ident:v AFF expr:e SEMIC
+    {: RESULT = new Affect(v, e); :}
+  | RETURN expr:e SEMIC
+    {: RESULT = new Return(e, null); :}
+  ;
 
 range ::=
   LBRACKET expr:e1 DOT DOT expr:e2 RBRACKET {: RESULT = new AST(e1, e2, EnumTag.RANGE); :}
@@ -160,16 +163,9 @@ range ::=
   ;
 
 list ::=
-	list:l COMMA expr:e {: RESULT = new AST(l, e, EnumTag.LIST); :}
-	| expr:e {: RESULT = e; :}
-	;
-
-instrs ::= 
-	instrs:i1 instr:i2
-	  {: RESULT = new Instructions(i1, i2); :}
-	| instr:i
-	  {: RESULT = i; :}
-	;
+  list:l COMMA expr:e {: RESULT = new AST(l, e, EnumTag.LIST); :}
+  | expr:e {: RESULT = e; :}
+  ;
 
 expr_list ::=
   expr_list:e1 COMMA expr:e2 {: RESULT = new AST(e1, e2, EnumTag.EXPRLIST); :}

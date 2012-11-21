@@ -7,11 +7,19 @@ public class GlobalDeclaration extends AST {
 	}
 
 	public String toJava() {
-		if (getRight().getTag().equals(EnumTag.VARDECS)) // struct declaration
-          return "class " + getLeft().toJava() + " {\n " + tab() + getRight().toJava() + ";\n}\n\n";
+		if (getRight().getTag().equals(EnumTag.VARDECS)) {
+      // struct declaration
+      StringBuffer sb = new StringBuffer();
+      sb.append(tab() + "class " + getLeft().toJava() + " {\n ");
+      CodeGenerator.tabLevel++;
+      sb.append(tab() + getRight().toJava() + ";\n");
+      CodeGenerator.tabLevel--; 
+      sb.append(tab() + "}\n\n");
+      return sb.toString();
+    }
 
-    // implicit else : global declaration
-    Main.globals.append("\tpublic " + getRight().getType() + " " + getLeft().toJava() +
+    // Global declaration
+    Main.globals.append(tab() + "public " + getRight().getType() + " " + getLeft().toJava() +
                         " = new " + getRight().getType() + "(" + getRight().toJava() + ");\n");
     return "";
 	}
