@@ -7,6 +7,7 @@
   <property name="bin.dir" location="bin" />
   <property name="lib.dir" location="lib" />
   <property name="src.dir" location="src" />
+  <property name="output.dir" location="data/output" />
 
   <regexp id="class" pattern="[a-z]*\.class" />
   
@@ -32,12 +33,29 @@
     </exec>
   </target>-->
 
+  <target name="run" depends="jar">
+    <java jar="${lib.dir}/Main.jar" fork="true" />
+  </target>
+
+  <target name="jar" depends="java">
+    <jar destfile="${lib.dir}/Main.jar" basedir="${bin.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="test.Main"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="java" depends="default" description="Compiles java code produced by our compiler">
+    <javac srcdir="${output.dir}" destdir="${output.dir}/classes"/>
+  </target>
+
+
   <target name="default" depends="projet" description="compilation du projet tp3">
     
     <java 
 	classname="org.tp.Main"
 	classpath=".:${bin.dir}:${lib.dir}/java-cup-11a-runtime.jar"
-	output="data/output.txt">
+	output="${output.dir}/Main.java">
       <arg value="data/input.txt"/>
     </java>
     
@@ -92,10 +110,19 @@
 />
   </target>
 
-  <target name="clean">
+  <target name="clean" depends="clean-output,clean-code"/>
+
+  <target name="clean-output">
+    <delete file="${output.dir}/Main.java" />
+    <delete dir="${output.dir}/classes" />
+    <mkdir dir="${output.dir}/classes" />
+  </target>
+
+  <target name="clean-code">
     <delete file="${src.dir}/org/tp/Scanner.java"/>
     <delete file="${src.dir}/org/tp/Parser.java"/>
     <delete file="${src.dir}/org/tp/MySymbol.java"/>
     <delete dir="${bin.dir}"/>
   </target>
+
 </project>
