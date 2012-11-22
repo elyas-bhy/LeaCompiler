@@ -29,7 +29,6 @@ public enum EnumTag {
   RANGE("range"),
   LIST("list"),
   RETURN("return"),
-  EXPRLIST("expression_list"),
 
   IF ("if"), 
   THENELSE ("thenelse"),

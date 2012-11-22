@@ -33,6 +33,7 @@ function main(argn : int, argv : string) : int
   }
 
   z := x + y;
+  z := Foo();
 
 
   for j in [0 .. z+2] {

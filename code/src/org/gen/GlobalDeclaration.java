@@ -11,10 +11,31 @@ public class GlobalDeclaration extends AST {
 	public String toJava() {
 		if (getRight().getTag().equals(EnumTag.VAR_STRUCTDECS)) {
       // struct declaration
+      Main.structs.add(this);
       StringBuffer sb = new StringBuffer();
-      sb.append(tab() + "class " + getLeft().toJava() + " {\n ");
+      sb.append(tab() + "class " + getLeft().getName() + " {\n ");
       CodeGenerator.tabLevel++;
-      sb.append(tab() + getRight().toJava() + ";\n");
+      sb.append(tab() + getRight().toJava() + ";\n\n");
+
+      // Constructors:
+      // emtpy constructor
+      sb.append(tab() + "public " + getLeft().getName() + "() {\n");
+      CodeGenerator.tabLevel++;
+      sb.append(tab() + "//init fields to null\n");
+      CodeGenerator.tabLevel--;
+      sb.append(tab() + "}\n\n");
+
+      // constructor with all fields
+      sb.append(tab() + "public " + getLeft().getName() + "() {\n");
+      CodeGenerator.tabLevel++;
+      sb.append(tab() + "//init fields to parameter values\n");
+      CodeGenerator.tabLevel--;
+      sb.append(tab() + "}\n\n");
+
+      
+
+
+
       CodeGenerator.tabLevel--; 
       sb.append(tab() + "}\n\n");
       return sb.toString();
@@ -24,13 +45,6 @@ public class GlobalDeclaration extends AST {
     Main.globals.append(tab() + "public " + getRight().getType() + " " + getLeft().toJava() +
                         " = new " + getRight().getType() + "(" + getRight().toJava() + ");\n");
     return "";
-/*
-		if (getRight().getTag().equals(EnumTag.VARDECS)) // struct declaration
-          return "class " + getLeft().toJava() + " {\n " + tab() + getRight().toJava() + ";\n}\n\n";
-    	// implicit else : global declaration
-    	Main.globals.append("\tpublic " + getRight().getType() + " " + getLeft().toJava() +
-    	                    " = new " + getRight().getType() + "(" + getRight().toJava() + ");\n");
-    	return "";*/
 	}
 	
 }

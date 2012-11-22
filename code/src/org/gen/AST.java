@@ -85,7 +85,6 @@ public class AST {
         return env;
     }
 
-
     public String tab() {
       String s = new String();
       for (int i = 0; i < CodeGenerator.tabLevel; i++)
@@ -97,7 +96,6 @@ public class AST {
       return "";
     }
 
-    
     public String toString() {
       String result = new String();
       result += tag.toString();

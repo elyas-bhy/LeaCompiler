@@ -15,9 +15,9 @@ terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, R
 terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOL;
 
 non terminal Type type;
-non terminal AST program, expr, ident, expr_list, funcs, instr, instrs,
+non terminal AST program, expr, ident, funcs, instr, instrs, list_rec,
                  block, funcDef, range, list, globalDecs, globalDec, struct_decl, struct_decls,
-                 definition, param, params, decl, decls, map_of, map_of_list, fheader, decls_opt;
+                 definition, param, params, decl, map_of, map_of_list, fheader, decls_opt;
 
 
 precedence nonassoc ELSE;
@@ -82,8 +82,7 @@ fheader ::=
 block ::=
 	LBRACE {:
 			Env n = new Env(Main.currentEnv);
-      if(Main.DEBUG) 
-			  System.out.println("Creating new environment 	" + n.getNum());
+			if (Main.DEBUG) System.out.println("Creating new environment 	" + n.getNum());
 			if (Main.firstEnv == null) {
 	      Main.firstEnv = Main.currentEnv = n;
 			} else {
@@ -92,8 +91,7 @@ block ::=
 			}
 		:} decls_opt:ds instrs:i RBRACE {:
 			Main.currentEnv = Main.currentEnv.getPrev();
-      if(Main.DEBUG)
-			  System.out.println("Closing environment");
+			if (Main.DEBUG) System.out.println("Closing environment");
 		  RESULT = new Block(ds, i);
 		:}
 	| instr:i
@@ -116,11 +114,6 @@ decls_opt ::=
   | 
     {: RESULT = new OptDeclarations(null, null); :}
   ;
-
-decls ::=
-	decls:ds decl:d {: RESULT = new VarDeclarations(d, ds); :}
-	| decl:d {: RESULT = d; :}
-	;
 
 decl ::=
 	ident:id COLON type:t SEMIC
@@ -176,12 +169,12 @@ range ::=
   ;
 
 list ::=  // use in list affectation and in function call
-	list:l COMMA expr:e {: RESULT = new AST(l, e, EnumTag.LIST); :}
-	| expr:e {: RESULT = e; :}
-	;
+  list_rec:l {: RESULT = l; :}
+  | {: RESULT = new AST(null, null, EnumTag.LIST); :}
+  ;
 
-expr_list ::=
-  expr_list:e1 COMMA expr:e2 {: RESULT = new AST(e1, e2, EnumTag.EXPRLIST); :}
+list_rec ::=
+  list_rec:l COMMA expr:e {: RESULT = new AST(l, e, EnumTag.LIST); :}
   | expr:e {: RESULT = e; :}
   ;
 

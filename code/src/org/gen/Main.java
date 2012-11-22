@@ -4,6 +4,8 @@ package org.gen;
 
 import java.io.FileReader;
 import java_cup.runtime.Symbol;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Main {
 
@@ -11,6 +13,7 @@ public class Main {
   static Env currentEnv = null;
   static Boolean DEBUG = false;
   static StringBuffer globals = new StringBuffer();
+  static Set<AST> structs = new HashSet<AST>();
 
 
   public static void main(String[] args) {
