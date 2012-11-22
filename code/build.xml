@@ -7,7 +7,7 @@
   <property name="bin.dir" location="bin" />
   <property name="lib.dir" location="lib" />
   <property name="src.dir" location="src" />
-  <property name="output.dir" location="data/output" />
+  <property name="data.dir" location="data" />
 
   <regexp id="class" pattern="[a-z]*\.class" />
   
@@ -33,29 +33,31 @@
     </exec>
   </target>-->
 
-  <target name="run" depends="jar">
+  <target name="run" depends="default,jar" />
+
+  <target name="run-output" depends="jar">
     <java jar="${lib.dir}/Main.jar" fork="true" />
   </target>
 
   <target name="jar" depends="java">
-    <jar destfile="${lib.dir}/Main.jar" basedir="${bin.dir}">
+    <jar destfile="${lib.dir}/Main.jar" basedir="${data.dir}/classes">
       <manifest>
-        <attribute name="Main-Class" value="test.Main"/>
+        <attribute name="Main-Class" value="output.Main"/>
       </manifest>
     </jar>
   </target>
 
-  <target name="java" depends="default" description="Compiles java code produced by our compiler">
-    <javac srcdir="${output.dir}" destdir="${output.dir}/classes"/>
+  <target name="java" description="Compiles java code produced by our compiler">
+    <javac srcdir="${data.dir}/src" destdir="${data.dir}/classes"/>
   </target>
 
 
-  <target name="default" depends="projet" description="compilation du projet tp3">
+  <target name="default" depends="projet" description="compilation du projet Compilateur Léa">
     
     <java 
-	classname="org.tp.Main"
+	classname="org.gen.Main"
 	classpath=".:${bin.dir}:${lib.dir}/java-cup-11a-runtime.jar"
-	output="${output.dir}/Main.java">
+	output="${data.dir}/src/output/Main.java">
       <arg value="data/input.txt"/>
     </java>
     
@@ -114,14 +116,15 @@
 
   <target name="clean-output">
     <delete file="${output.dir}/Main.java" />
+    <delete file="${lib.dir}/Main.jar" />
     <delete dir="${output.dir}/classes" />
-    <mkdir dir="${output.dir}/classes" />
+    <mkdir dir="${data.dir}/classes" />
   </target>
 
   <target name="clean-code">
-    <delete file="${src.dir}/org/tp/Scanner.java"/>
-    <delete file="${src.dir}/org/tp/Parser.java"/>
-    <delete file="${src.dir}/org/tp/MySymbol.java"/>
+    <delete file="${src.dir}/org/gen/Scanner.java"/>
+    <delete file="${src.dir}/org/gen/Parser.java"/>
+    <delete file="${src.dir}/org/gen/MySymbol.java"/>
     <delete dir="${bin.dir}"/>
   </target>
 

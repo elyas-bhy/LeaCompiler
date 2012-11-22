@@ -14,7 +14,7 @@ Bar = struct {
   d : int;
 }
 
-function test(argn : int, argv : string) : int
+function main(argn : int, argv : string) : int
 {
 
   x : int;
@@ -33,7 +33,6 @@ function test(argn : int, argv : string) : int
   }
 
   z := x + y;
-  z := f(a);
 
 
   for j in [0 .. z+2] {

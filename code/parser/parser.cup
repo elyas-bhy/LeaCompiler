@@ -1,9 +1,9 @@
-package org.tp;
+package org.gen;
  
 import java_cup.runtime.*;
 import java.io.*;
 import java.lang.*;
-import org.tp.*;
+import org.gen.*;
 
 
 terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
@@ -82,7 +82,8 @@ fheader ::=
 block ::=
 	LBRACE {:
 			Env n = new Env(Main.currentEnv);
-			System.out.println("Creating new environment 	" + n.getNum());
+      if(Main.DEBUG) 
+			  System.out.println("Creating new environment 	" + n.getNum());
 			if (Main.firstEnv == null) {
 	      Main.firstEnv = Main.currentEnv = n;
 			} else {
@@ -91,7 +92,8 @@ block ::=
 			}
 		:} decls_opt:ds instrs:i RBRACE {:
 			Main.currentEnv = Main.currentEnv.getPrev();
-			System.out.println("Closing environment");
+      if(Main.DEBUG)
+			  System.out.println("Closing environment");
 		  RESULT = new Block(ds, i);
 		:}
 	| instr:i

@@ -1,4 +1,4 @@
-package org.tp;
+package org.gen;
 
 import java_cup.runtime.*;
 import java.io.*;
