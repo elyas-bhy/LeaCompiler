@@ -1,7 +1,5 @@
 package org.gen;
 
-
-
 import java.io.FileReader;
 import java_cup.runtime.Symbol;
 import java.util.Set;

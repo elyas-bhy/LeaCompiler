@@ -1,7 +1,5 @@
 package org.gen;
 
-
-
 public enum EnumTag { 
 
   PLUS ("+"),

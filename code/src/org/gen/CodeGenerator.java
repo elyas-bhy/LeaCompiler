@@ -1,7 +1,5 @@
 package org.gen;
 
-
-
 public class CodeGenerator {
 	
 	private AST mRoot;

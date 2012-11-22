@@ -1,9 +1,7 @@
-package org.gen;;
+package org.gen;
 
-import org.gen.*;
-
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class VarStructDeclarations extends AST {
 	
@@ -12,14 +10,20 @@ public class VarStructDeclarations extends AST {
 	}
 
 	public String toJava() {
-    return getRight().toJava() + ";\n" + tab() + getLeft().toJava();
+		return getRight().toJava() + ";\n" + tab() + getLeft().toJava();
 	}
 
-  //TODO implement getFields() in subclasses
-  /*public Set<AST> getFields() {
-    if (this.getRight() != null)
-      return getRight().toArray().add(getLeft());
-    return getLeft();
-  }*/
+  public ArrayList<AST> getFields() {
+    ArrayList<AST> res = new ArrayList<AST>();
+    AST tmp = this;
+    while (tmp.getRight().getTag().equals(EnumTag.VAR_STRUCTDECS)) {
+      res.add(tmp.getLeft());
+      tmp = tmp.getRight();
+    }
+    res.add(tmp.getLeft());
+    res.add(tmp.getRight());
+    Collections.reverse(res);
+    return res;
+  }
 	
 }

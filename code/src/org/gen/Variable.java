@@ -1,6 +1,4 @@
-package org.gen;;
-
-import org.gen.*;
+package org.gen;
 
 public class Variable extends AST {
 	
@@ -8,9 +6,9 @@ public class Variable extends AST {
 		super(tag, val, type);		
 	}
 
-  public Variable(EnumTag tag, String val) {
-    super(tag, val);    
-  }
+	public Variable(EnumTag tag, String val) {
+		super(tag, val);
+	}
 
 	public String toJava() {
     return getName();

@@ -1,7 +1,5 @@
 package org.gen;
 
-
-
 public enum EnumType {
   CHAR ("Character"), 
 	INT ("Integer"), 

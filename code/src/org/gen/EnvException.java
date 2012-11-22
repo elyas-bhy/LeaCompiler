@@ -1,7 +1,5 @@
 package org.gen;
 
-
-
 public class EnvException extends Exception{
 
     private static final long serialVersionUID = 1L;

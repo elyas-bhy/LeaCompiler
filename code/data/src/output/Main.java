@@ -10,11 +10,33 @@ public class Main {
 	class Foo {
  		Integer a;
 		String b;
+		String c;
+
+		public Foo() {
+			this.a = null;
+			this.b = null;
+			this.c = null;
+		}
+
+		public Foo(Integer a, String b, String c) {
+			this.a = a;
+			this.b = b;
+			this.c = c;
+		}
+
 	}
 
 	class Bar {
- 		Integer c;
-		Integer d;
+ 		Integer d;
+
+		public Bar() {
+			this.d = null;
+		}
+
+		public Bar(Integer d) {
+			this.d = d;
+		}
+
 	}
 
 	public Integer MAX = new Integer(500);
@@ -25,6 +47,7 @@ public class Main {
 		Integer x = new Integer(null);
 		Integer y = new Integer(null);
 		Integer z = new Integer(null);
+		 f = new (null);
 
 		x = 452;
 		y = 1;
@@ -35,6 +58,7 @@ public class Main {
 			z = 2;
 		}
 		z = x + y;
+		f = new Foo();
 		for (int j = 0; j < z + 2; j++ ) {
 			x = y * 2 + z;
 			y = y + 10;

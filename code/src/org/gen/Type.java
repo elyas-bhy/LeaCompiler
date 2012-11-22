@@ -1,9 +1,6 @@
 package org.gen;
 
-
-
 /* tree implementing a type*/
-
 public class Type {
     
   private Type left;
@@ -53,6 +50,10 @@ public class Type {
     
   public EnumType getEnumType() {
     return this.type;
+  }
+
+  public String getGenericType() {
+    return genericType;
   }
     
   public String toString() {

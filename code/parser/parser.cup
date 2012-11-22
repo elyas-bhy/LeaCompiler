@@ -3,7 +3,6 @@ package org.gen;
 import java_cup.runtime.*;
 import java.io.*;
 import java.lang.*;
-import org.gen.*;
 
 
 terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,

@@ -1,6 +1,4 @@
-package org.gen;;
-
-import org.gen.*;
+package org.gen;
 
 public class ThenElse extends AST {
 	

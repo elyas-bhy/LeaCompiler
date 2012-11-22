@@ -1,6 +1,7 @@
-package org.gen;;
+package org.gen;
 
-import org.gen.*;
+import java.util.Set;
+import java.util.ArrayList;
 
 public class GlobalDeclaration extends AST {
 	
@@ -9,32 +10,19 @@ public class GlobalDeclaration extends AST {
 	}
 
 	public String toJava() {
-		if (getRight().getTag().equals(EnumTag.VAR_STRUCTDECS)) {
-      // struct declaration
+    AST left = getLeft();
+    AST right = getRight();
+    StringBuffer sb = new StringBuffer();
+
+    if (right.getTag().equals(EnumTag.VAR_STRUCTDECS) || right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
+      // subclass declaration
       Main.structs.add(this);
-      StringBuffer sb = new StringBuffer();
-      sb.append(tab() + "class " + getLeft().getName() + " {\n ");
+      sb.append(tab() + "class " + left.getName() + " {\n ");
       CodeGenerator.tabLevel++;
-      sb.append(tab() + getRight().toJava() + ";\n\n");
+      sb.append(tab() + right.toJava() + ";\n\n");
 
-      // Constructors:
-      // emtpy constructor
-      sb.append(tab() + "public " + getLeft().getName() + "() {\n");
-      CodeGenerator.tabLevel++;
-      sb.append(tab() + "//init fields to null\n");
-      CodeGenerator.tabLevel--;
-      sb.append(tab() + "}\n\n");
-
-      // constructor with all fields
-      sb.append(tab() + "public " + getLeft().getName() + "() {\n");
-      CodeGenerator.tabLevel++;
-      sb.append(tab() + "//init fields to parameter values\n");
-      CodeGenerator.tabLevel--;
-      sb.append(tab() + "}\n\n");
-
-      
-
-
+      // include both constructors here
+      declareConstructors(sb, left, right);
 
       CodeGenerator.tabLevel--; 
       sb.append(tab() + "}\n\n");
@@ -42,9 +30,40 @@ public class GlobalDeclaration extends AST {
     }
 
     // Global declaration
-    Main.globals.append(tab() + "public " + getRight().getType() + " " + getLeft().toJava() +
-                        " = new " + getRight().getType() + "(" + getRight().toJava() + ");\n");
+    Main.globals.append(tab() + "public " + right.getType() + " " + left.toJava() +
+                        " = new " + right.getType() + "(" + right.toJava() + ");\n");
     return "";
 	}
+
+  private void declareConstructors(StringBuffer sb, AST left, AST right) {
+    // Retrieve declared fields of the subclass
+    ArrayList<AST> fields;
+    if (right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
+      fields = new ArrayList<AST>();
+      fields.add(right);
+    } else {
+      fields = right.getFields();
+    }
+
+    // Emtpy constructor
+    sb.append(tab() + "public " + left.getName() + "() {\n");
+    CodeGenerator.tabLevel++;
+    for (AST node : fields)
+      sb.append(tab() + "this." + node.getLeft().getName() + " = null;\n");
+    CodeGenerator.tabLevel--;
+    sb.append(tab() + "}\n\n");
+
+    // Constructor with all fields
+    sb.append(tab() + "public " + left.getName() + "(");
+    for (AST node : fields)
+      sb.append(node.getType() + " " + node.getLeft().getName() + ", ");
+    sb = sb.delete(sb.length() - 2, sb.length());           //extract the trailing ", "
+    sb.append(") {\n");
+    CodeGenerator.tabLevel++;
+    for (AST node : fields)
+      sb.append(tab() + "this." + node.getLeft().getName() + " = " + node.getLeft().getName() + ";\n");
+    CodeGenerator.tabLevel--;
+    sb.append(tab() + "}\n\n");
+  }
 	
 }

@@ -1,9 +1,9 @@
-package org.gen;;
+package org.gen;
 
-import org.gen.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 // Abstract Syntax Tree
 // decorated with attributes 
@@ -90,6 +90,10 @@ public class AST {
       for (int i = 0; i < CodeGenerator.tabLevel; i++)
         s += "\t";
     return s;
+    }
+
+    public ArrayList<AST> getFields() {
+      return null;
     }
 
     public String toJava() {

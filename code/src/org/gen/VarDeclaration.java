@@ -1,6 +1,4 @@
-package org.gen;;
-
-import org.gen.*;
+package org.gen;
 
 public class VarDeclaration extends AST {
 
@@ -9,6 +7,9 @@ public class VarDeclaration extends AST {
   }
 
   public String toJava() {
+  	//FIXME
+  	/*if (getType().equals(EnumType.STRUCT))
+    	return tab() + getType().getGenericType() + " " + getLeft().toJava();*/
     return tab() + getType() + " " + getLeft().toJava() + " = new " + getType() + "(null)";
   }
 	

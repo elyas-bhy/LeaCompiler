@@ -1,6 +1,4 @@
-package org.gen;;
-
-import org.gen.*;
+package org.gen;
 
 public class VarDeclarations extends AST {
 	
@@ -9,7 +7,7 @@ public class VarDeclarations extends AST {
 	}
 
 	public String toJava() {
-    return getRight().toJava() + ";\n" + tab() + getLeft().toJava();
+		return getRight().toJava() + ";\n" + tab() + getLeft().toJava();
 	}
 	
 }
