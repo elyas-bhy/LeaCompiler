@@ -7,6 +7,8 @@ import java.util.*;
 
 public class Main {
 
+	static Console mLeaCompilerConsole = System.console();
+
 	class Foo {
  		Integer x;
 		Integer y;
@@ -47,6 +49,7 @@ public class Main {
 		Integer a = new Integer(null);
 		Integer b = new Integer(null);
 		Integer c = new Integer(null);
+		String s = new String(null);
 		Foo f;
 		Bar bar;
 
@@ -56,8 +59,10 @@ public class Main {
 		f = new Foo();
 		f = new Foo(a, b, bar);
 		f.a = 4;
-		z = ftest1(a, b, c);
-		ftest2(c, d);
+		System.out.print("hello world");
+		System.out.println("hello world");
+		if (mLeaCompilerConsole != null)
+			s = mLeaCompilerConsole.readLine();
 		if (a >= b) {
 			c = c + 1;
 		} else {

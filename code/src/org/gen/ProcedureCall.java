@@ -7,7 +7,12 @@ public class ProcedureCall extends AST {
 	}
 
 	public String toJava() {
-		return tab() + getLeft().toJava() + "(" + getRight().toJava() + ")";
+    String procedure = getLeft().toJava();
+    for (JavaMethods m : JavaMethods.values()) {
+      if (procedure.equals(m.toLea()))
+        return tab() + m + "(" + getRight().toJava() + ")";
+    }
+		return tab() + procedure + "(" + getRight().toJava() + ")";
 	}
 	
 }

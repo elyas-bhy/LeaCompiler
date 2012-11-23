@@ -20,6 +20,7 @@ function test(n : int, s : string) : int
   a : int;
   b : int;
   c : int;
+  s : string;
   f : Foo;
   bar : Bar;
 
@@ -34,8 +35,13 @@ function test(n : int, s : string) : int
   f.a := 4;
 
   // Function calls
-  z := ftest1(a, b, c);
-  ftest2(c, d);
+  //z := ftest1(a, b, c);
+  //ftest2(c, d);
+
+  // Input / output
+  write("hello world");
+  writeln("hello world");
+  s := read();
 
   // If / else blocks
   if (a >= b) {
