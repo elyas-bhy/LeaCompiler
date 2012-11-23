@@ -9,7 +9,7 @@ public class Main {
 
 	class Foo {
  		Integer a;
-		String b;
+		Integer b;
 		String c;
 
 		public Foo() {
@@ -18,7 +18,7 @@ public class Main {
 			this.c = null;
 		}
 
-		public Foo(Integer a, String b, String c) {
+		public Foo(Integer a, Integer b, String c) {
 			this.a = a;
 			this.b = b;
 			this.c = c;
@@ -47,7 +47,8 @@ public class Main {
 		Integer x = new Integer(null);
 		Integer y = new Integer(null);
 		Integer z = new Integer(null);
-		 f = new (null);
+		String s = new String(null);
+		Foo f;
 
 		x = 452;
 		y = 1;
@@ -59,6 +60,8 @@ public class Main {
 		}
 		z = x + y;
 		f = new Foo();
+		f = new Foo(x, y, s);
+		z = test(a, b, c);
 		for (int j = 0; j < z + 2; j++ ) {
 			x = y * 2 + z;
 			y = y + 10;

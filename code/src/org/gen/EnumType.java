@@ -7,7 +7,7 @@ public enum EnumType {
 	STRING ("String"), 
 	BOOLEAN ("Boolean"), 
 	ARRAY ("Array"), 
-  LIST ("List"),
+  EXPRLIST ("List"),
 	ERROR ("error"),
   STRUCT("generic type");
 	

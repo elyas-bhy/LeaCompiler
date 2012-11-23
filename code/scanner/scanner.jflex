@@ -104,7 +104,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "of"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.OF); }
 "set"         {/*System.out.print(yytext());*/  return symbol(MySymbol.SET); }
 "map"         {/*System.out.print(yytext());*/  return symbol(MySymbol.MAP); }
-"list"        {/*System.out.print(yytext());*/  return symbol(MySymbol.LIST); }
+"list"        {/*System.out.print(yytext());*/  return symbol(MySymbol.EXPRLIST); }
 "struct"      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRUCT); }
 "void"        {/*System.out.print(yytext());*/  return symbol(MySymbol.VOID); }
 "repeat"      {/*System.out.print(yytext());*/  return symbol(MySymbol.REPEAT); }

@@ -6,7 +6,7 @@ b = 'c';
 
 Foo = struct {
   a : int;
-  b : string;
+  b : int;
   c : string;
 }
 
@@ -20,6 +20,7 @@ function main(argn : int, argv : string) : int
   x : int;
   y : int;
   z : int;
+  s : string;
   f : Foo;
 
   x := 452;
@@ -35,7 +36,10 @@ function main(argn : int, argv : string) : int
 
   z := x + y;
   f := Foo();
+  f := Foo(x, y, s);
 
+  z := test(a, b, c);
+  //test2(c, d);
 
   for j in [0 .. z+2] {
   	x := y * (2 + z);

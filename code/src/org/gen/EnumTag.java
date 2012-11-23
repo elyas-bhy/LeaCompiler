@@ -25,7 +25,7 @@ public enum EnumTag {
   CHAR("Char"),
 	SUCC("succ"),
   RANGE("range"),
-  LIST("list"),
+  EXPRLIST("list"),
   RETURN("return"),
 
   IF ("if"), 

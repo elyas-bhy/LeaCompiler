@@ -9,9 +9,9 @@ public class CodeGenerator {
 		tabLevel = 1;
 	}
 
-  public void setRoot(AST root) {
-    mRoot = root;
-  }
+	public void setRoot(AST root) {
+		mRoot = root;
+	}
 
 	public void prologue() {
 		//Includes the java headers (libraries and packages)
@@ -29,8 +29,7 @@ public class CodeGenerator {
 
 	public void generateCode() {
 		prologue();
-		//System.out.println(translate(mRoot));
-    System.out.println(mRoot.toJava());
+		System.out.println(mRoot.toJava());
 		epilogue();
-  }
+	}
 }

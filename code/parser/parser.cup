@@ -7,7 +7,7 @@ import java.lang.*;
 
 terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
     IF, THEN, ELSE, WHILE, REPEAT, DO, FOR, IN, BOOLEAN,
-    VAR, ARRAY, OF, LIST, SET, MAP, STRUCT, DQUOTE, RETURN,
+    VAR, ARRAY, OF, EXPRLIST, SET, MAP, STRUCT, DQUOTE, RETURN,
     AFF, AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV,
     FUNCTION, PROCEDURE, INT, FLOAT, STRING, CHAR, VOID;
 
@@ -130,8 +130,8 @@ type ::=
 		{: RESULT = new Type(EnumType.STRING); :}
 	| ARRAY LBRACKET INTEGER:i RBRACKET OF type:t
 		{: RESULT = new Type(t, null, new Integer(i), EnumType.ARRAY); :}
-	| LIST OF type:t
-		{: RESULT = new Type(t, null, EnumType.LIST); :}
+	| EXPRLIST OF type:t
+		{: RESULT = new Type(t, null, EnumType.EXPRLIST); :}
   | ident:i
     {: RESULT = new Type(EnumType.STRUCT, i.getName()); :}
 	;
@@ -167,13 +167,13 @@ range ::=
   | ident:v {: RESULT = v; :}
   ;
 
-list ::=  // use in list affectation and in function call
+list ::=  // used in list affectation and in function call
   list_rec:l {: RESULT = l; :}
-  | {: RESULT = new AST(null, null, EnumTag.LIST); :}
+  | {: RESULT = new ExprList(null, null); :}
   ;
 
 list_rec ::=
-  list_rec:l COMMA expr:e {: RESULT = new AST(l, e, EnumTag.LIST); :}
+  list_rec:l COMMA expr:e {: RESULT = new ExprList(l, e); :}
   | expr:e {: RESULT = e; :}
   ;
 
