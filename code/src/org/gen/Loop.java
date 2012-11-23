@@ -7,13 +7,13 @@ public class Loop extends AST {
 	}
 
 	public String toJava() {
-    StringBuffer sb = new StringBuffer();
-    sb.append(tab() + getTag() + " (" + getLeft().toJava() + " ) {\n");
-    //CodeGenerator.tabLevel++;
-    sb.append(getRight().toJava() + ";\n");
-    //CodeGenerator.tabLevel--;
-    sb.append(tab() + "}");
-    return sb.toString();
+		StringBuffer sb = new StringBuffer();
+		sb.append(tab() + getTag() + " (" + getLeft().toJava() + " ) {\n");
+		//CodeGenerator.tabLevel++;
+		sb.append(getRight().toJava() + ";\n");
+		//CodeGenerator.tabLevel--;
+		sb.append(tab() + "}");
+		return sb.toString();
 	}
 	
 }

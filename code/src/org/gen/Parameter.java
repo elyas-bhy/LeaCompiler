@@ -7,7 +7,7 @@ public class Parameter extends AST {
 	}
 
 	public String toJava() {
-    return getType() + " " + getLeft().toJava();
+		return getType() + " " + getLeft().toJava();
 	}
 	
 }

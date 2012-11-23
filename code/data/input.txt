@@ -5,46 +5,56 @@ b = 'c';
 
 
 Foo = struct {
-  a : int;
-  b : int;
-  c : string;
+  x : int;
+  y : int;
+  b : Bar;
 }
 
 Bar = struct {
-  d : int;
+  d : string;
 }
 
-function main(argn : int, argv : string) : int
+function test(n : int, s : string) : int
 {
 
-  x : int;
-  y : int;
-  z : int;
-  s : string;
+  a : int;
+  b : int;
+  c : int;
   f : Foo;
+  bar : Bar;
 
-  x := 452;
-  y := 1;
-  z := x + y;
+  // Basic arithmetic instructions
+  a := 452;
+  b := 1;
+  c := a + b;
 
-  if (x >= y) {
-    z := z + 1;
+  // Struct tests
+  f := Foo();
+  f := Foo(a, b, bar);
+  f.a := 4;
+
+  // Function calls
+  z := ftest1(a, b, c);
+  ftest2(c, d);
+
+  // If / else blocks
+  if (a >= b) {
+    c := c + 1;
   }
   else {
-    z := 2;
+    c := 2;
   }
 
-  z := x + y;
-  f := Foo();
-  f := Foo(x, y, s);
-
-  z := test(a, b, c);
-  //test2(c, d);
-
-  for j in [0 .. z+2] {
-  	x := y * (2 + z);
-  	y := y + 10;
+  // For loops
+  for j in [0 .. c+2] {
+  	a := b * (2 + c);
+  	b := b + 10;
   }
 
-  return z+4;
+  // Dowhile loops
+  repeat {
+    c := c - 1;
+  } while (c > 0);
+
+  return c+4;
 }

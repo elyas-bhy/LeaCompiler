@@ -14,7 +14,7 @@ terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, R
 terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOL;
 
 non terminal Type type;
-non terminal AST program, expr, ident, funcs, instr, instrs, list_rec,
+non terminal AST program, expr, ident, funcs, instr, instrs, list_rec, identFields,
                  block, funcDef, range, list, globalDecs, globalDec, struct_decl, struct_decls,
                  definition, param, params, decl, map_of, map_of_list, fheader, decls_opt;
 
@@ -150,21 +150,23 @@ instr ::=
     {: RESULT = new If(e, new ThenElse(b, null)); :}
   | WHILE LPAR expr:e RPAR block:b
     {: RESULT = new Loop(e, b, EnumTag.WHILE); :}
-  | REPEAT block:b WHILE expr:e
-    {: RESULT = new AST(e, b, EnumTag.DOWHILE); :}
+  | REPEAT block:b WHILE LPAR expr:e RPAR SEMIC
+    {: RESULT = new DoWhile(e, b); :}
   | FOR ident:v IN range:r block:b
     {: RESULT = new Loop(new ForRange(v, r), b, EnumTag.FOR); :}
-  | ident:v AFF expr:e SEMIC
+  | identFields:v AFF expr:e SEMIC
     {: RESULT = new Affect(v, e); :}
   | RETURN expr:e SEMIC
     {: RESULT = new Return(e, null); :}
+  | identFields:i LPAR list:l RPAR SEMIC
+    {: RESULT = new ProcedureCall(i, l); :}  
   ;
 
 range ::=
   LBRACKET expr:e1 DDOT expr:e2 RBRACKET {: RESULT = new AST(e1, e2, EnumTag.RANGE); :}
   | LBRACKET list:l RBRACKET {: RESULT = l; :}
   | LBRACE list:l RBRACE {:RESULT = l; :}
-  | ident:v {: RESULT = v; :}
+  | identFields:id {: RESULT = id; :}
   ;
 
 list ::=  // used in list affectation and in function call
@@ -203,15 +205,14 @@ expr ::=
 	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :}                     // a * b
 	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :}                       // a / b
 	| MINUS expr:e       {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U           // -a
-  | ident:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                              // foo(a, b, c)
-  | ident LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                             // foo[a]
-  | expr DOT ident {: RESULT = new AST(null, null); :}                                           // a.foo
-	| INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 2
-	| FLOATING:f {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}       // 3.14
-	| STRINGEXP:st {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}     // "PI"
-	| CHAREXP:ch {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}           // 'P'
+  | identFields:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                        // foo(a, b, c)
+  | identFields LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                       // foo[a]
+  | INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 2
+  | FLOATING:f {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}       // 3.14
+  | STRINGEXP:st {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}     // "PI"
+  | CHAREXP:ch {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}           // 'P'
   | LPAR expr:e RPAR {: RESULT = e; :}                                                           // (a)
-  | ident:v {: RESULT = v; :}                                                                    // foo
+  | identFields:id {: RESULT = id; :}                                                            // a.b.foo
 	| BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                      // 'True'
   | map_of {: RESULT = new AST(null, null); :}                                                   // {(a,b),(c,d)}
 	;
@@ -220,3 +221,7 @@ ident ::=
 	IDENTIFIER:id {: RESULT = new Variable(EnumTag.IDENT, id); :}
 	;
 
+identFields ::=
+  identFields:idfs DOT ident:id {: RESULT = new FieldAccess(id, idfs); :}
+  | ident:id {: RESULT = id; :}
+  ;

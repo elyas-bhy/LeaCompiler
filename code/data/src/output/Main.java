@@ -8,32 +8,32 @@ import java.util.*;
 public class Main {
 
 	class Foo {
- 		Integer a;
-		Integer b;
-		String c;
+ 		Integer x;
+		Integer y;
+		Bar b;
 
 		public Foo() {
-			this.a = null;
+			this.x = null;
+			this.y = null;
 			this.b = null;
-			this.c = null;
 		}
 
-		public Foo(Integer a, Integer b, String c) {
-			this.a = a;
+		public Foo(Integer x, Integer y, Bar b) {
+			this.x = x;
+			this.y = y;
 			this.b = b;
-			this.c = c;
 		}
 
 	}
 
 	class Bar {
- 		Integer d;
+ 		String d;
 
 		public Bar() {
 			this.d = null;
 		}
 
-		public Bar(Integer d) {
+		public Bar(String d) {
 			this.d = d;
 		}
 
@@ -43,30 +43,34 @@ public class Main {
 	public String hello = new String("world");
 	public Character b = new Character('c');
 
-	public Integer main(Integer argn, String argv) {
-		Integer x = new Integer(null);
-		Integer y = new Integer(null);
-		Integer z = new Integer(null);
-		String s = new String(null);
+	public Integer test(Integer n, String s) {
+		Integer a = new Integer(null);
+		Integer b = new Integer(null);
+		Integer c = new Integer(null);
 		Foo f;
+		Bar bar;
 
-		x = 452;
-		y = 1;
-		z = x + y;
-		if (x >= y) {
-			z = z + 1;
-		} else {
-			z = 2;
-		}
-		z = x + y;
+		a = 452;
+		b = 1;
+		c = a + b;
 		f = new Foo();
-		f = new Foo(x, y, s);
-		z = test(a, b, c);
-		for (int j = 0; j < z + 2; j++ ) {
-			x = y * 2 + z;
-			y = y + 10;
+		f = new Foo(a, b, bar);
+		f.a = 4;
+		z = ftest1(a, b, c);
+		ftest2(c, d);
+		if (a >= b) {
+			c = c + 1;
+		} else {
+			c = 2;
 		}
-		return z + 4;
+		for (int j = 0; j < c + 2; j++ ) {
+			a = b * 2 + c;
+			b = b + 10;
+		}
+		do {
+			c = c - 1;
+		} while (c > 0);
+		return c + 4;
 	}
 
 }

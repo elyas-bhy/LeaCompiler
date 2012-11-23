@@ -19,12 +19,12 @@ public class Type {
   }
     
   public Type(Type left, Type right, EnumType type) {
-    this(left,right,0, type);
+    this(left, right, 0, type);
   }
         
     
   public Type(EnumType type) {
-    this(null,null,type);
+    this(null, null, type);
   }
 
   public Type(EnumType type, String s) {
@@ -57,20 +57,19 @@ public class Type {
   }
     
   public String toString() {
-    String result = new String();
     switch (type) {
       case INT:
       case FLOAT:
       case STRING:
       case CHAR:
       case BOOLEAN:
-        result += type.toString();
-        break;
+        return type.toString();
       case ARRAY:
-        result += "ARRAY [" + integer + "] OF " + left.toString();
-        break;
-	    //case ERROR:result += "ERROR"; break;
-	  };
-  return result;
+        return "ARRAY [" + integer + "] OF " + left.toString();
+      case STRUCT:
+        return genericType;
+	    //case ERROR: return "ERROR";
+	  }
+    return "";
   }
 }

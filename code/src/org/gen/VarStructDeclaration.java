@@ -6,7 +6,7 @@ public class VarStructDeclaration extends AST {
 		super(left, right, EnumTag.VAR_STRUCTDEC, type);		
 	}
 
-	public String toJava() {
+	public String toJava() { 
 		return getType() + " " + getLeft().toJava();
 	}
 	

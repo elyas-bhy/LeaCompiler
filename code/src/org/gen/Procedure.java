@@ -7,7 +7,7 @@ public class Procedure extends AST {
 	}
 
 	public String toJava() {
-    return tab() + "public void " + getRight().toJava();
+		return tab() + "public void " + getRight().toJava();
 	}
 	
 }
