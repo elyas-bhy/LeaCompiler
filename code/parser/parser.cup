@@ -16,7 +16,8 @@ terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOL;
 non terminal Type type;
 non terminal AST program, expr, ident, funcs, instr, instrs, list_rec, identFields,
                  block, funcDef, range, list, globalDecs, globalDec, struct_decl, struct_decls,
-                 definition, param, params, decl, map_of, map_of_list, fheader, decls_opt;
+                 definition, parameters, param_list, param, decl, map_of, map_of_list,
+                 fheader, decls_opt;
 
 
 precedence nonassoc ELSE;
@@ -63,19 +64,17 @@ funcs ::=
   ;
 
 funcDef ::=
-  fheader:h block:b {: 
-    RESULT = new Function(h, b);
-   :}
-  | fheader:h SEMIC {:
-    RESULT = new Function(h, null);
-   :}
+  fheader:h block:b 
+    {: RESULT = new Function(h, b); :}
+  | fheader:h SEMIC
+    {: RESULT = new Function(h, null); :}
   ;
 
 fheader ::=
-  FUNCTION ident:i LPAR params:p RPAR COLON type:t
-  {: RESULT = new Header(i, p, t); :}
-  | PROCEDURE ident:i LPAR params:p RPAR
-  {: RESULT = new Header(i, p); :}
+  FUNCTION ident:i LPAR parameters:p RPAR COLON type:t
+    {: RESULT = new Header(i, p, t); :}
+  | PROCEDURE ident:i LPAR parameters:p RPAR
+    {: RESULT = new Header(i, p); :}
   ;
 
 block ::=
@@ -97,8 +96,13 @@ block ::=
 	  {: RESULT = i; :}
 	;
 
-params ::=
-  params:ps COMMA param:p {: RESULT = new Parameters(p, ps); :}
+parameters ::=
+  param_list:pl {: RESULT = pl; :}
+  | {: RESULT = new Parameters(null, null); :}
+  ;
+
+param_list ::=
+  param_list:ps COMMA param:p {: RESULT = new Parameters(p, ps); :}
   | param:p {: RESULT = p; :}
   ;
 
@@ -128,6 +132,8 @@ type ::=
 		{: RESULT = new Type(EnumType.CHAR); :}
 	| STRING
 		{: RESULT = new Type(EnumType.STRING); :}
+  | BOOLEAN
+    {: RESULT = new Type(EnumType.BOOLEAN); :}
 	| ARRAY LBRACKET INTEGER:i RBRACKET OF type:t
 		{: RESULT = new Type(t, null, new Integer(i), EnumType.ARRAY); :}
 	| EXPRLIST OF type:t

@@ -17,6 +17,7 @@ Bar = struct {
 function test(n : int, s : string) : int
 {
 
+  t : bool;
   a : int;
   b : int;
   c : int;
@@ -28,6 +29,7 @@ function test(n : int, s : string) : int
   a := 452;
   b := 1;
   c := a + b;
+  t := true;
 
   // Struct tests
   f := Foo();
@@ -39,9 +41,10 @@ function test(n : int, s : string) : int
   //ftest2(c, d);
 
   // Input / output
-  write("hello world");
-  writeln("hello world");
+  write("Hello ");
+  writeln("world");
   s := read();
+  writeln("Value: " + s);
 
   // If / else blocks
   if (a >= b) {

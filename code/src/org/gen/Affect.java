@@ -17,14 +17,6 @@ public class Affect extends AST {
         return sb.toString();
       }
     }
-    /*String function = getLeft().toJava();
-    if (function.equals(JavaMethods.READ.toLea())) {
-      StringBuffer sb = new StringBuffer();
-      sb.append(tab() + "Console mLeaCompilerConsole = System.console();\n");
-      sb.append(tab() + "if (mLeaCompilerConsole != null)");
-      //CodeGenerator.tabLevel++;
-      return sb.toString();
-    }*/    
 		return tab() + getLeft().toJava() + " = " + getRight().toJava();
 	}
 

@@ -111,8 +111,8 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "return"      {/*System.out.print(yytext());*/  return symbol(MySymbol.RETURN); }
 "function"    {/*System.out.print(yytext());*/  return symbol(MySymbol.FUNCTION); }
 "procedure"   {/*System.out.print(yytext());*/  return symbol(MySymbol.PROCEDURE); }
-"True"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
-"False"       {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
+"true"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
+"false"       {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
 
 /* -------------------------------------------------
 	Variables, Entiers
