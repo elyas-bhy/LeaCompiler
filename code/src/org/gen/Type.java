@@ -65,7 +65,7 @@ public class Type {
       case BOOLEAN:
         return type.toString();
       case ARRAY:
-        return "ARRAY [" + integer + "] OF " + left.toString();
+        return left.toString() + "[]";
       case STRUCT:
         return genericType;
 	    //case ERROR: return "ERROR";

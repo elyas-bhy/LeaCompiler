@@ -19,14 +19,14 @@ function add1(i : int) : int
   return i+1;
 }
 
-function test(n : int, s : string) : int
+procedure main(s : array of string)
 {
 
   t : bool;
   a : int;
   b : int;
   c : int;
-  s : string;
+  str : string;
   f : Foo;
   bar : Bar;
 
@@ -37,25 +37,27 @@ function test(n : int, s : string) : int
   t := true;
 
   // Struct tests
+  /*bar := Bar();
   f := Foo();
   f := Foo(a, b, bar);
-  f.a := -4;
+  f.x := -4;
 
   // Function calls
-  //z := ftest1(a, b, c);
-  //ftest2(c, d);
+  c := add1(a);
 
   // Input / output
   write("Hello ");
   writeln("world");
-  s := read();
-  writeln("Value: " + s);
+  str := read();
+  writeln("Value: " + str);*/
 
   // If / else blocks
   if (a >= b) {
     c := c + 1;
-    if (c < 10)
+    if (c < 10) {
       write("foo");
+      write("bar");
+    }
   }
   else {
     c := 2;
@@ -72,5 +74,6 @@ function test(n : int, s : string) : int
     c := c - 1;
   } while (c > 0);
 
-  return c+4;
+  writeln("Finished");
+
 }

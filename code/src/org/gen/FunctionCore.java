@@ -7,11 +7,11 @@ public class FunctionCore extends AST {
 	}
 
 	public String toJava() {
-    StringBuffer sb = new StringBuffer();
-    sb.append("(" + getLeft().toJava() + ") {\n" + getRight().toJava() + "\n");
-    CodeGenerator.tabLevel--;
-    sb.append(tab() + "}");
-    return sb.toString();
+		StringBuffer sb = new StringBuffer();
+		sb.append("(" + getLeft().toJava() + ") {\n" + getRight().toJava() + "\n");
+		CodeGenerator.tabLevel--;
+		sb.append(tab() + "}");
+		return sb.toString();
 	}
 	
 }

@@ -17,7 +17,7 @@ public class GlobalDeclaration extends AST {
     if (right.getTag().equals(EnumTag.VAR_STRUCTDECS) || right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
       // subclass declaration
       Main.structs.add(this);
-      sb.append(tab() + "class " + left.getName() + " {\n ");
+      sb.append(tab() + "static class " + left.getName() + " {\n ");
       CodeGenerator.tabLevel++;
       sb.append(tab() + right.toJava() + ";\n\n");
 
@@ -30,7 +30,7 @@ public class GlobalDeclaration extends AST {
     }
 
     // Global declaration
-    Main.globals.append(tab() + "public " + right.getType() + " " + left.toJava() +
+    Main.globals.append(tab() + "public static " + right.getType() + " " + left.toJava() +
                         " = new " + right.getType() + "(" + right.toJava() + ");\n");
     return "";
 	}

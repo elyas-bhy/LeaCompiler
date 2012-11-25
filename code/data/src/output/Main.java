@@ -9,7 +9,7 @@ public class Main {
 
 	static Console mLeaCompilerConsole = System.console();
 
-	class Foo {
+	static class Foo {
  		Integer x;
 		Integer y;
 		Bar b;
@@ -28,7 +28,7 @@ public class Main {
 
 	}
 
-	class Bar {
+	static class Bar {
  		String d;
 
 		public Bar() {
@@ -41,20 +41,20 @@ public class Main {
 
 	}
 
-	public Integer MAX = new Integer(500);
-	public String hello = new String("world");
-	public Character b = new Character('c');
+	public static Integer MAX = new Integer(500);
+	public static String hello = new String("world");
+	public static Character b = new Character('c');
 
-	public Integer add1(Integer i) {
+	public static Integer add1(Integer i) {
 		return i + 1;
 	}
 
-	public Integer test(Integer n, String s) {
+	public static void main(String[] s) {
 		Boolean t = new Boolean(null);
-		Integer a = new Integer(null);
-		Integer b = new Integer(null);
-		Integer c = new Integer(null);
-		String s = new String(null);
+		Integer a = new Integer(0);
+		Integer b = new Integer(0);
+		Integer c = new Integer(0);
+		String str = new String();
 		Foo f;
 		Bar bar;
 
@@ -62,19 +62,12 @@ public class Main {
 		b = 1;
 		c = a + b;
 		t = true;
-		f = new Foo();
-		f = new Foo(a, b, bar);
-		f.a = -4;
-		System.out.print("Hello ");
-		System.out.println("world");
-		if (mLeaCompilerConsole != null)
-			s = mLeaCompilerConsole.readLine();
-		System.out.println("Value: " + s);
 		if (a >= b) {
 			c = c + 1;
 			if (c < 10) {
-			System.out.print("foo");
-			};
+				System.out.print("foo");
+				System.out.print("bar");
+			}
 		} else {
 			c = 2;
 		}
@@ -85,7 +78,7 @@ public class Main {
 		do {
 			c = c - 1;
 		} while (c > 0);
-		return c + 4;
+		System.out.println("Finished");
 	}
 
 }

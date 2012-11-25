@@ -10,7 +10,7 @@ public class Loop extends AST {
 		StringBuffer sb = new StringBuffer();
 		sb.append(tab() + getTag() + " (" + getLeft().toJava() + " ) {\n");
 		//CodeGenerator.tabLevel++;
-		sb.append(getRight().toJava() + ";\n");
+		sb.append(getRight().toJava() + "\n");
 		//CodeGenerator.tabLevel--;
 		sb.append(tab() + "}");
 		return sb.toString();

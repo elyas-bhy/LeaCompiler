@@ -11,7 +11,7 @@ public class Variable extends AST {
 	}
 
 	public String toJava() {
-    return getName();
+		return getName();
 	}
 	
 }

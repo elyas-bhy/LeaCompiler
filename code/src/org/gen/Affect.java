@@ -12,12 +12,12 @@ public class Affect extends AST {
         StringBuffer sb = new StringBuffer();
         sb.append(tab() + "if (mLeaCompilerConsole != null)\n");
         CodeGenerator.tabLevel++;
-        sb.append(tab() + getLeft().toJava() + " = mLeaCompilerConsole.readLine()");
+        sb.append(tab() + getLeft().toJava() + " = mLeaCompilerConsole.readLine();");
         CodeGenerator.tabLevel--;
         return sb.toString();
       }
     }
-		return tab() + getLeft().toJava() + " = " + getRight().toJava();
+		return tab() + getLeft().toJava() + " = " + getRight().toJava() + ";";
 	}
 
 }

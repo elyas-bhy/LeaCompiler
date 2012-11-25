@@ -10,9 +10,9 @@ public class ProcedureCall extends AST {
     String procedure = getLeft().toJava();
     for (JavaMethods m : JavaMethods.values()) {
       if (procedure.equals(m.toLea()))
-        return tab() + m + "(" + getRight().toJava() + ")";
+        return tab() + m + "(" + getRight().toJava() + ");";
     }
-		return tab() + procedure + "(" + getRight().toJava() + ")";
+		return tab() + procedure + "(" + getRight().toJava() + ");";
 	}
 	
 }

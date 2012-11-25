@@ -9,8 +9,8 @@ public class DoWhile extends AST {
 	public String toJava() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(tab() + getTag() + " {\n");
-		sb.append(getRight().toJava() + ";\n");
-		sb.append(tab() + "} while (" + getLeft().toJava() + ")");
+		sb.append(getRight().toJava() + "\n");
+		sb.append(tab() + "} while (" + getLeft().toJava() + ");");
 		return sb.toString();
 	}
 	

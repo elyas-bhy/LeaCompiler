@@ -138,8 +138,8 @@ type ::=
 		{: RESULT = new Type(EnumType.STRING); :}
   | BOOLEAN
     {: RESULT = new Type(EnumType.BOOLEAN); :}
-	| ARRAY LBRACKET INTEGER:i RBRACKET OF type:t
-		{: RESULT = new Type(t, null, new Integer(i), EnumType.ARRAY); :}
+	| ARRAY OF type:t
+		{: RESULT = new Type(t, null, EnumType.ARRAY); :}
 	| EXPRLIST OF type:t
 		{: RESULT = new Type(t, null, EnumType.EXPRLIST); :}
   | ident:i
