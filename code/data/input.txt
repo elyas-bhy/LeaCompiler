@@ -37,7 +37,7 @@ procedure main(s : array of string)
   t := true;
 
   // Struct tests
-  /*bar := Bar();
+  bar := Bar();
   f := Foo();
   f := Foo(a, b, bar);
   f.x := -4;
@@ -49,15 +49,13 @@ procedure main(s : array of string)
   write("Hello ");
   writeln("world");
   str := read();
-  writeln("Value: " + str);*/
+  writeln("Value: " + str);
 
   // If / else blocks
   if (a >= b) {
     c := c + 1;
-    if (c < 10) {
+    if (c < 10)
       write("foo");
-      write("bar");
-    }
   }
   else {
     c := 2;

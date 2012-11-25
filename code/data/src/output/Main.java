@@ -62,11 +62,20 @@ public class Main {
 		b = 1;
 		c = a + b;
 		t = true;
+		bar = new Bar();
+		f = new Foo();
+		f = new Foo(a, b, bar);
+		f.x = -4;
+		c = add1(a);
+		System.out.print("Hello ");
+		System.out.println("world");
+		if (mLeaCompilerConsole != null)
+			str = mLeaCompilerConsole.readLine();
+		System.out.println("Value: " + str);
 		if (a >= b) {
 			c = c + 1;
 			if (c < 10) {
-				System.out.print("foo");
-				System.out.print("bar");
+			System.out.print("foo");
 			}
 		} else {
 			c = 2;
