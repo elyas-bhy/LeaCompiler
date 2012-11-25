@@ -45,7 +45,11 @@ public class Main {
 	public String hello = new String("world");
 	public Character b = new Character('c');
 
-	public Integer test() {
+	public Integer add1(Integer i) {
+		return i + 1;
+	}
+
+	public Integer test(Integer n, String s) {
 		Boolean t = new Boolean(null);
 		Integer a = new Integer(null);
 		Integer b = new Integer(null);
@@ -60,7 +64,7 @@ public class Main {
 		t = true;
 		f = new Foo();
 		f = new Foo(a, b, bar);
-		f.a = 4;
+		f.a = -4;
 		System.out.print("Hello ");
 		System.out.println("world");
 		if (mLeaCompilerConsole != null)
@@ -68,6 +72,9 @@ public class Main {
 		System.out.println("Value: " + s);
 		if (a >= b) {
 			c = c + 1;
+			if (c < 10) {
+			System.out.print("foo");
+			};
 		} else {
 			c = 2;
 		}

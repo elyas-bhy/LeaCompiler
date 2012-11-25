@@ -10,7 +10,9 @@ public class Program extends AST {
 		StringBuffer sb = new StringBuffer();
 		sb.append("public class Main {\n\n");
         sb.append(tab() + "static Console mLeaCompilerConsole = System.console();\n\n");
-		sb.append(getLeft().toJava() + Main.globals + "\n" + getRight().toJava());
+        if (getLeft() != null)
+        	sb.append(getLeft().toJava());
+		sb.append(Main.globals + "\n" + getRight().toJava());
 		return sb.toString();
 	}
 	

@@ -59,7 +59,7 @@ struct_decl ::=
   ;
 
 funcs ::=
-  funcs:fs funcDef:f {: RESULT = new AST(f, fs, EnumTag.FUNCTIONS); :}
+  funcs:fs funcDef:f {: RESULT = new Functions(f, fs); :}
   | funcDef:f {: RESULT = f; :}
   ;
 
@@ -80,14 +80,19 @@ fheader ::=
 block ::=
 	LBRACE {:
 			Env n = new Env(Main.currentEnv);
+
 			if (Main.DEBUG) System.out.println("Creating new environment 	" + n.getNum());
 			if (Main.firstEnv == null) {
-	      Main.firstEnv = Main.currentEnv = n;
+        Main.firstEnv = Main.currentEnv = n;
 			} else {
-				Main.currentEnv.putNext(n);
-				Main.currentEnv = n;
+        Main.currentEnv.putNext(n);
+        Main.currentEnv = n;
 			}
-		:} decls_opt:ds instrs:i RBRACE {:
+    :} decls_opt:ds instrs:i RBRACE {:
+      if (Main.currentEnv.getPrev() == null) {
+        Main.globalEnv.putNext(Main.currentEnv);
+        Main.firstEnv = null;
+      }
 			Main.currentEnv = Main.currentEnv.getPrev();
 			if (Main.DEBUG) System.out.println("Closing environment");
 		  RESULT = new Block(ds, i);
@@ -108,7 +113,6 @@ param_list ::=
 
 param ::=
   ident:id COLON type:t {: RESULT = new Parameter(id, null, t); :}
-  //| VOID {: RESULT = new AST(null, null, EnumTag.PARAM); :}
   ;
 
 decls_opt ::=
@@ -210,7 +214,7 @@ expr ::=
 	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :}                   // a - b
 	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :}                     // a * b
 	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :}                       // a / b
-	| MINUS expr:e       {: RESULT = new AST(e, null, EnumTag.MINUS_U); :} %prec MINUS_U           // -a
+	| MINUS expr:e       {: RESULT = new Operation(null, e, EnumTag.MINUS_U); :} %prec MINUS_U           // -a
   | identFields:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                        // foo(a, b, c)
   | identFields LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                       // foo[a]
   | INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 2

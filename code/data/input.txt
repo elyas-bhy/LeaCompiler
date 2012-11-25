@@ -14,6 +14,11 @@ Bar = struct {
   d : string;
 }
 
+function add1(i : int) : int
+{
+  return i+1;
+}
+
 function test(n : int, s : string) : int
 {
 
@@ -34,7 +39,7 @@ function test(n : int, s : string) : int
   // Struct tests
   f := Foo();
   f := Foo(a, b, bar);
-  f.a := 4;
+  f.a := -4;
 
   // Function calls
   //z := ftest1(a, b, c);
@@ -49,6 +54,8 @@ function test(n : int, s : string) : int
   // If / else blocks
   if (a >= b) {
     c := c + 1;
+    if (c < 10)
+      write("foo");
   }
   else {
     c := 2;
@@ -56,8 +63,8 @@ function test(n : int, s : string) : int
 
   // For loops
   for j in [0 .. c+2] {
-  	a := b * (2 + c);
-  	b := b + 10;
+    a := b * (2 + c);
+    b := b + 10;
   }
 
   // Dowhile loops

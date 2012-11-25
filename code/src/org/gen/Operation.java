@@ -11,6 +11,8 @@ public class Operation extends AST {
 	}
 
 	public String toJava() {
+		if (getTag().equals(EnumTag.MINUS_U))
+			return getTag() + getRight().toJava();
 		return getLeft().toJava() + " " + getTag() + " " + getRight().toJava();
 	}
 

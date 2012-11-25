@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 public class Main {
 
+  static Env globalEnv = new Env(null);
   static Env firstEnv = null;
   static Env currentEnv = null;
   static Boolean DEBUG = false;
@@ -19,8 +20,8 @@ public class Main {
       FileReader  myFile = new FileReader(args[0]);
 	    Scanner myLex = new Scanner(myFile);
 	    Parser myP = new Parser(myLex);
-	    Symbol result = null;
       CodeGenerator cg = new CodeGenerator();
+      Symbol result = null;
 
       try {
         //result = myP.debug_parse();

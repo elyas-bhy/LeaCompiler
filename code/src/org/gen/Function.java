@@ -7,7 +7,7 @@ public class Function extends AST {
 	}
 
 	public String toJava() {
-    return tab() + "public " + getLeft().toJava() + getRight().toJava() + "\n" + tab() + "}";
+		return tab() + "public " + getLeft().toJava() + getRight().toJava() + "\n" + tab() + "}";
 	}
 	
 }
