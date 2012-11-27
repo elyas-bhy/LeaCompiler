@@ -26,6 +26,9 @@ public enum EnumTag {
 	SUCC("succ"),
   RANGE("range"),
   EXPRLIST("list"),
+  MAPOF("mapof"),
+  TUPLE("tuple"),
+  TYPETUPLE("typetuple"),
   RETURN("return"),
 
   IF ("if"), 

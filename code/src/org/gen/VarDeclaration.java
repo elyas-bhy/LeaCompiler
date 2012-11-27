@@ -7,6 +7,9 @@ public class VarDeclaration extends AST {
 	}
 
 	public String toJava() {
+		if( getRight() != null ) {
+			return "hashmap";
+		}
 		// TODO check if we need to use primitive types instead of Java objects
 		switch(getType().getEnumType()) {
 			case STRUCT:

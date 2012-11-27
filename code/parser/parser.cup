@@ -16,7 +16,7 @@ terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOL;
 non terminal Type type;
 non terminal AST program, expr, ident, funcs, instr, instrs, list_rec, identFields,
                  block, funcDef, range, list, globalDecs, globalDec, struct_decl, struct_decls,
-                 definition, parameters, param_list, param, decl, map_of, map_of_list,
+                 definition, parameters, param_list, param, decl, map_of, map_of_list, tuple, type_tuple,
                  fheader, decls_opt;
 
 
@@ -118,7 +118,14 @@ decls_opt ::=
 decl ::=
 	ident:id COLON type:t SEMIC
 		{: RESULT = new VarDeclaration(id, null, t); :}
+  | ident:id COLON MAP OF type_tuple:tt SEMIC
+    {: RESULT = new VarDeclaration(id, tt, null); :}
 	;
+
+type_tuple ::=
+  LPAR type:key COMMA type:val RPAR
+    {: RESULT = new TypeTuple(key, val); :}
+  ;
 
 type ::=
 	INT
@@ -183,15 +190,20 @@ list_rec ::=
   ;
 
 map_of ::=
-  LBRACE map_of_list RBRACE
-    {: RESULT = new AST(null, null); :}
+  LBRACE map_of_list:ml RBRACE
+    {: RESULT = ml; :}
   ;
 
 map_of_list ::=
-  map_of_list COMMA LPAR expr COMMA expr RPAR
-    {: RESULT = new AST(null, null); :}
-  | LPAR expr COMMA expr RPAR
-    {: RESULT = new AST(null, null); :}
+  map_of_list:ml COMMA tuple:t
+    {: RESULT = new MapOf(t, ml); :}
+  | tuple:t
+    {: RESULT = new MapOf(t, null); :}
+  ;
+    
+tuple ::=
+  LPAR expr:key COMMA expr:val RPAR
+    {: RESULT = new Tuple(key, val); :}
   ;
 
 expr ::=
@@ -207,7 +219,7 @@ expr ::=
 	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :}                   // a - b
 	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :}                     // a * b
 	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :}                       // a / b
-	| MINUS expr:e       {: RESULT = new Operation(null, e, EnumTag.MINUS_U); :} %prec MINUS_U           // -a
+	| MINUS expr:e       {: RESULT = new Operation(null, e, EnumTag.MINUS_U); :} %prec MINUS_U     // -a
   | identFields:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                        // foo(a, b, c)
   | identFields LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                       // foo[a]
   | INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 2
@@ -217,7 +229,7 @@ expr ::=
   | LPAR expr:e RPAR {: RESULT = e; :}                                                           // (a)
   | identFields:id {: RESULT = id; :}                                                            // a.b.foo
 	| BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                      // 'True'
-  | map_of {: RESULT = new AST(null, null); :}                                                   // {(a,b),(c,d)}
+  | map_of:ml {: RESULT = ml; :}                                                   // {(a,b),(c,d)}
 	;
 
 ident ::=
