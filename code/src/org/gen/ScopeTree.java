@@ -98,7 +98,7 @@ public class ScopeTree {
     return result;
   }
     
-  public void toDot(StringBuffer str) {
+  /*public void toDot(StringBuffer str) {
     if (!flag) {
       flag = true;
       str.append(this.num + " [label=\"" + tag + "\"];" + "\n");
@@ -126,7 +126,7 @@ public class ScopeTree {
     } catch (IOException e) {
 	    System.out.println("ERROR: build dot");
     }		
-  }
+  }*/
     /***
     public void flagOff() {
 	flag=false;

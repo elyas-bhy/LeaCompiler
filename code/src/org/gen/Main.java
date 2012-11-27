@@ -7,9 +7,8 @@ import java.util.HashSet;
 
 public class Main {
 
-  static Env globalEnv = new Env(null);
-  static Env firstEnv = null;
-  static Env currentEnv = null;
+  static Env firstEnv = new Env();
+  static Env currentEnv = firstEnv;
   static Boolean DEBUG = false;
   static StringBuffer globals = new StringBuffer();
   static Set<AST> structs = new HashSet<AST>();

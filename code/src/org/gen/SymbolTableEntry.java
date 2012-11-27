@@ -12,9 +12,7 @@ public class SymbolTableEntry {
     type = t;
   }
 
-  public SymbolTableEntry() {
-    id = null;
-    value = null;
-    type = null;
+  public SymbolTableEntry(String i, Type t) {
+    this(i, null, t);
   }
 }

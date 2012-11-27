@@ -119,7 +119,7 @@ public class AST {
       return result;
     }
     
-    public void toDot(StringBuffer str) {
+    /*public void toDot(StringBuffer str) {
       str.append(this.id+" [label=\""+tag.toString());
       switch (tag) {
         case INTEGER:
@@ -164,6 +164,6 @@ public class AST {
       } catch (IOException e) {
         System.out.println("ERROR: build dot");
       }       
-    }
+    }*/
 
 }

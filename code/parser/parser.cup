@@ -79,22 +79,15 @@ fheader ::=
 
 block ::=
 	LBRACE {:
-			Env n = new Env(Main.currentEnv);
+      Env n = new Env(Main.currentEnv);
+      if (Main.DEBUG) System.out.println("Creating new environment  " + n.getNum());
+      
+      Main.currentEnv.putNext(n);
+      Main.currentEnv = n;
 
-			if (Main.DEBUG) System.out.println("Creating new environment 	" + n.getNum());
-			if (Main.firstEnv == null) {
-        Main.firstEnv = Main.currentEnv = n;
-			} else {
-        Main.currentEnv.putNext(n);
-        Main.currentEnv = n;
-			}
     :} decls_opt:ds instrs:i RBRACE {:
-      if (Main.currentEnv.getPrev() == null) {
-        Main.globalEnv.putNext(Main.currentEnv);
-        Main.firstEnv = null;
-      }
-			Main.currentEnv = Main.currentEnv.getPrev();
 			if (Main.DEBUG) System.out.println("Closing environment");
+      Main.currentEnv = Main.currentEnv.getPrev();
 		  RESULT = new Block(ds, i);
 		:}
 	| instr:i

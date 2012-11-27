@@ -3,6 +3,7 @@ package org.gen;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 /* stack of scopes implementing the environnement */
 
@@ -60,7 +61,7 @@ public class Env {
 		this.next = next;
 	}
 
-	public ScopeTree getSymbols() {
+	public HashMap<String, SymbolTableEntry> getSymbols() {
 		return symbolTable;
 	}
 
@@ -91,11 +92,11 @@ public class Env {
 	}*/
 
 	public void add(String s, Type t) {
-		symbolTable.add(s, new SymbolTableEntry(s, null, t));
+		symbolTable.put(s, new SymbolTableEntry(s, t));
 	}
 
 	public void add(String s, String v, Type t) {
-		symbolTable.add(s, new SymbolTableEntry(s, v, t));
+		symbolTable.put(s, new SymbolTableEntry(s, v, t));
 	}
 
 	public boolean isDeclared(String s) {
@@ -103,7 +104,7 @@ public class Env {
 	}
 
 	public boolean isInitialized(String s) {
-		if(symbolTable.isDeclared(s))
+		if(this.isDeclared(s))
 			return (symbolTable.get(s).value != null);
 		return false;
 	}
