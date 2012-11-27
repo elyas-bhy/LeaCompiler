@@ -88,9 +88,9 @@ public class AST {
     public String tab() {
       String s = new String();
       for (int i = 0; i < CodeGenerator.tabLevel; i++)
-        s += "\t";
-    return s;
-    }
+      	s += "\t";
+      return s;
+  	}
 
     public ArrayList<AST> getFields() {
       return null;

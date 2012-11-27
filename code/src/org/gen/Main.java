@@ -7,43 +7,38 @@ import java.util.HashSet;
 
 public class Main {
 
-  static Env firstEnv = new Env();
-  static Env currentEnv = firstEnv;
-  static Boolean DEBUG = false;
-  static StringBuffer globals = new StringBuffer();
-  static Set<AST> structs = new HashSet<AST>();
+	static Env firstEnv = new Env();
+	static Env currentEnv = firstEnv;
+	static Boolean DEBUG = false;
+	static StringBuffer globals = new StringBuffer();
+	static Set<AST> structs = new HashSet<AST>();
 
 
-  public static void main(String[] args) {
-    try {
-      FileReader  myFile = new FileReader(args[0]);
-	    Scanner myLex = new Scanner(myFile);
-	    Parser myP = new Parser(myLex);
-      CodeGenerator cg = new CodeGenerator();
-      Symbol result = null;
+	public static void main(String[] args) {
+		try {
+			FileReader  myFile = new FileReader(args[0]);
+			Scanner myLex = new Scanner(myFile);
+			Parser myP = new Parser(myLex);
+			CodeGenerator cg = new CodeGenerator();
+			Symbol result = null;
+		} catch (Exception e) {
+			System.out.println("Invalid file");
+		}
 
-      try {
-        //result = myP.debug_parse();
-        result = myP.parse();
-        try {
-          AST root = (AST) result.value;
-          cg.setRoot(root);
-          /*System.out.println("");
-          System.out.println(root.toString());
-          System.out.println("\n-------------------");
-          System.out.println("Generating code:");
-          System.out.println("-------------------\n");*/
-          System.out.println("package output;\n");
-          cg.generateCode();
-          //root.toDot("detruire");
-        }	catch (Exception e) {
-		    System.out.println("Result error: " + e);
-        }
-	    } catch (Exception e) {
-        System.out.println("Parse error: " + e);
-	    }
-    } catch (Exception e) {
-	    System.out.println("Invalid file");
-    }
-  }
+		try {
+			result = myP.parse();
+		} catch (Exception e) {
+			System.out.println("Parse error: " + e);
+		}
+
+		ArrayList<String> scannerErrors = myLex.getErrors();
+		try {
+			AST root = (AST) result.value;
+		} catch (Exception e) {
+			System.out.println("Result error: " + e);
+		}
+		cg.setRoot(root);
+		System.out.println("package output;\n");
+		cg.generateCode();
+	}
 }

@@ -2,22 +2,39 @@ package org.gen;
 
 import java_cup.runtime.*;
 import java.io.*;
+import java.util.ArrayList;
 
 %%
 %class Scanner
+
+%{
+	public static ArrayList<String> errors = new ArrayList<String>();
+
+	public int yyline() {
+		return yyline + 1;
+	}
+
+	public int yycolumn() {
+		return yycolumn;
+	}
+
+	public static ArrayList<String> getErrors() {
+		return Scanner.errors;
+	}
+%}
+
 %line
 %column
 %cupsym MySymbol
 %cup
-
 %{
-private Symbol symbol (int type) {
-    return new Symbol (type, yyline, yycolumn);
-}
+	private Symbol symbol (int type) {
+		return new Symbol (type, yyline, yycolumn);
+	}
 
-private Symbol symbol (int type, Object value) {
-    return new Symbol (type, yyline, yycolumn, value);
-}
+	private Symbol symbol (int type, Object value) {
+		return new Symbol (type, yyline, yycolumn, value);
+	}
 %}
 
 
@@ -132,6 +149,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 /* -------------------------------------------------
 	Autres signes
    ------------------------------------------------- */
-.	            {/* ignore */ }
+.	            { Scanner.errors.add(new String("[" + yyline + ":" + yycolumn 
+											  + "] : error : illegal character: " + yytext())); }
 
 }
