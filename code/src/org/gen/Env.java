@@ -13,7 +13,7 @@ public class Env {
 	/* double linked list */
 	private Env prev;
 	private Env next;
-	private ScopeTree root; /* scope on top of the stack */
+	private HashMap<String, SymbolTableEntry> symbolTable; /* scope on top of the stack */
 	private int scopenum;
 
 
@@ -27,8 +27,8 @@ public class Env {
 	public Env(Env prev, Env next) {
 		this.prev = prev;
 		this.next = next;
-		this.root = null;
 		this.scopenum = num++;
+		this.symbolTable = new HashMap<String, SymbolTableEntry>();
 		//this(prev, next, null);
 	}
 
@@ -60,11 +60,11 @@ public class Env {
 		this.next = next;
 	}
 
-	public ScopeTree getRoot() {
-		return root;
+	public ScopeTree getSymbols() {
+		return symbolTable;
 	}
 
-	public void toDot(String file) {
+	/*public void toDot(String file) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("./" + file + ".dot"));
 			StringBuffer str = new StringBuffer();
@@ -88,25 +88,29 @@ public class Env {
 		} catch (IOException e) {
 			System.out.println("ERROR: build dot");
 		}
-	}
+	}*/
 
 	public void add(String s, Type t) {
-		if (root == null) {
-			if (prev != null && prev.root != null) {
-				root = new ScopeTree(prev.root.getLeft(), prev.root.getRight(), prev.root.getTag(), prev.root.getType());
-				root = root.add(s, t, root);
-			} else {
-				root = new ScopeTree(s, t);
-				root = root.add(s, t, root);
-			}
-		} else {
-			root = root.add(s, t, root);
-		}
+		symbolTable.add(s, new SymbolTableEntry(s, null, t));
+	}
+
+	public void add(String s, String v, Type t) {
+		symbolTable.add(s, new SymbolTableEntry(s, v, t));
+	}
+
+	public boolean isDeclared(String s) {
+		return symbolTable.containsKey(s);
+	}
+
+	public boolean isInitialized(String s) {
+		if(symbolTable.isDeclared(s))
+			return (symbolTable.get(s).value != null);
+		return false;
 	}
 
 	public Type find(String s) {
-		if (root != null)
-			return root.find(s);
+		if(symbolTable.containsKey(s))
+			return symbolTable.get(s).type;
 		return null;
 	}
 }
