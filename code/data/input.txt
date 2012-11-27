@@ -29,12 +29,14 @@ procedure main(s : array of string)
   str : string;
   f : Foo;
   bar : Bar;
+  m : map of (int, string);
 
   // Basic arithmetic instructions
   a := 452;
   b := 1;
   c := a + b;
   t := true;
+  m := {(a, "alpha"), (b, "beta")};
 
   // Struct tests
   bar := Bar();

@@ -17,6 +17,12 @@ public class Affect extends AST {
         return sb.toString();
       }
     }
+    else if (getRight().getTag().equals(EnumTag.MAPOF)) {
+        StringBuffer sb = new StringBuffer();
+        for (AST node : getRight().getFields())
+            sb.append(tab() + getLeft().toJava() + ".put(" + node.toJava() + ");\n");
+        return sb.toString();
+    }
 		return tab() + getLeft().toJava() + " = " + getRight().toJava() + ";";
 	}
 

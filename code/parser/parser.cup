@@ -226,7 +226,7 @@ map_of_list ::=
   map_of_list:ml COMMA tuple:t
     {: RESULT = new MapOf(t, ml); :}
   | tuple:t
-    {: RESULT = new MapOf(t, null); :}
+    {: RESULT = t; :}
   ;
     
 tuple ::=

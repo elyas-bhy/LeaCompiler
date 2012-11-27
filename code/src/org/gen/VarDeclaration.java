@@ -8,7 +8,8 @@ public class VarDeclaration extends AST {
 
 	public String toJava() {
 		if( getRight() != null ) {
-			return "hashmap";
+			return tab() + "HashMap<" + getRight().toJava() + "> " + getLeft().toJava()
+						 + " = new HashMap<" + getRight().toJava() + ">()";
 		}
 		// TODO check if we need to use primitive types instead of Java objects
 		switch(getType().getEnumType()) {

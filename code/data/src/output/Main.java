@@ -57,11 +57,15 @@ public class Main {
 		String str = new String();
 		Foo f;
 		Bar bar;
+		HashMap<Integer,String> m = new HashMap<Integer,String>();
 
 		a = 452;
 		b = 1;
 		c = a + b;
 		t = true;
+		m.put(a, "alpha");
+		m.put(b, "beta");
+
 		bar = new Bar();
 		f = new Foo();
 		f = new Foo(a, b, bar);
