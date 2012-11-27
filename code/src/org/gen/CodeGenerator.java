@@ -16,6 +16,7 @@ public class CodeGenerator {
 	public void prologue() {
 		//Includes the java headers (libraries and packages)
 		StringBuffer sb = new StringBuffer();
+		sb.append("package output;\n\n");
 		sb.append("import java.io.*;\n");
 		sb.append("import java.lang.*;\n");
 		sb.append("import java.util.*;\n\n");

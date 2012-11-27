@@ -3,6 +3,34 @@ package org.gen;
 import java_cup.runtime.*;
 import java.io.*;
 import java.lang.*;
+import java.util.ArrayList;
+
+parser code {:
+
+	public static ArrayList<String> errors = new ArrayList<String>();
+
+	/*public String getTokenName(Symbol token) {
+		try {
+			java.lang.reflect.Field [] classFields = sym.class.getFields();
+			for (int i = 0; i < classFields.length; i++) {
+				if (classFields[i].getInt(null) == token.sym) {
+					return classFields[i].getName();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+		}
+		return "UNKNOWN TOKEN";
+	}*/
+
+	public void syntax_error(Symbol curSymbol) {
+		Scanner s = (Scanner) this.getScanner();
+		Parser.errors.add(":" + s.yyline() + ":" + s.yycolumn()
+				+ ": error: expected \";\" before " + curSymbol.value + " token.");
+	}
+
+
+:}
 
 
 terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
@@ -35,18 +63,18 @@ program ::=
 	;
 
 globalDecs ::=
-  globalDecs:gds globalDec:g {: RESULT = new GlobalDeclarations(gds, g); :}
-  | globalDec:g {: RESULT = g; :}
+	globalDecs:gds globalDec:g {: RESULT = new GlobalDeclarations(gds, g); :}
+	| globalDec:g {: RESULT = g; :}
   ;
 
 globalDec ::=
-  ident:i EQ definition:d {: RESULT = new GlobalDeclaration(i, d); :}
-  ;
+	ident:i EQ definition:d {: RESULT = new GlobalDeclaration(i, d); :}
+	;
 
 definition ::=
-  expr:e SEMIC {: RESULT = e; :}
-  | STRUCT LBRACE struct_decls:d RBRACE {: RESULT = d; :}
-  ;
+	expr:e SEMIC {: RESULT = e; :}
+	| STRUCT LBRACE struct_decls:d RBRACE {: RESULT = d; :}
+	;
 
 struct_decls ::=
   struct_decls:ds struct_decl:d {: RESULT = new VarStructDeclarations(d, ds); :}

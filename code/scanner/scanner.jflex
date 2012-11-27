@@ -149,7 +149,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 /* -------------------------------------------------
 	Autres signes
    ------------------------------------------------- */
-.	            { Scanner.errors.add(new String("[" + yyline + ":" + yycolumn 
-											  + "] : error : illegal character: " + yytext())); }
+.	            { Scanner.errors.add(new String(yyline() + ":" + yycolumn() 
+											  + " : error: illegal character: " + yytext())); }
 
 }

@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java_cup.runtime.Symbol;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -15,30 +16,46 @@ public class Main {
 
 
 	public static void main(String[] args) {
+		Scanner myScanner = null;
+		Parser myParser = null;
+		Symbol result = null;
+		AST root = null;
+		CodeGenerator cg = new CodeGenerator();
+		ArrayList<String> scannerErrors, parserErrors;
+
 		try {
 			FileReader  myFile = new FileReader(args[0]);
-			Scanner myLex = new Scanner(myFile);
-			Parser myP = new Parser(myLex);
-			CodeGenerator cg = new CodeGenerator();
-			Symbol result = null;
+			myScanner = new Scanner(myFile);
+			myParser = new Parser(myScanner);
 		} catch (Exception e) {
 			System.out.println("Invalid file");
 		}
 
 		try {
-			result = myP.parse();
+			result = myParser.parse();
 		} catch (Exception e) {
 			System.out.println("Parse error: " + e);
 		}
 
-		ArrayList<String> scannerErrors = myLex.getErrors();
-		try {
-			AST root = (AST) result.value;
-		} catch (Exception e) {
-			System.out.println("Result error: " + e);
+		scannerErrors = myScanner.getErrors();
+		for (String err : scannerErrors)
+			System.err.println("\t" + args[0] + err);
+
+		parserErrors = myParser.errors;
+		for (String err : parserErrors)
+			System.err.println("\t" + args[0] + err);
+
+		if (scannerErrors.size() == 0 && parserErrors.size() == 0) {
+			try {
+				root = (AST) result.value;
+			} catch (Exception e) {
+				System.out.println("Result error: " + e);
+			}
+			cg.setRoot(root);
+			cg.generateCode();
 		}
-		cg.setRoot(root);
-		System.out.println("package output;\n");
-		cg.generateCode();
+		else {
+			System.err.println("\n\t>> Code generation aborted.");
+		}
 	}
 }
