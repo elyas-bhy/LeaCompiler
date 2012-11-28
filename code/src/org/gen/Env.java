@@ -91,27 +91,38 @@ public class Env {
 		}
 	}*/
 
-	public void add(String s, Type t) {
-		symbolTable.put(s, new SymbolTableEntry(s, t));
+	public void add(String id, Type t) {
+		symbolTable.put(id, new SymbolTableEntry(id, t));
 	}
 
-	public void add(String s, String v, Type t) {
-		symbolTable.put(s, new SymbolTableEntry(s, v, t));
+	public void add(String id, String value, Type t) {
+		symbolTable.put(id, new SymbolTableEntry(id, value, t));
 	}
 
-	public boolean isDeclared(String s) {
-		return symbolTable.containsKey(s);
+	public void set(String id, String value){
+		if (symbolTable.containsKey(id))
+			symbolTable.get(id).value = value;
 	}
 
-	public boolean isInitialized(String s) {
-		if(this.isDeclared(s))
-			return (symbolTable.get(s).value != null);
+	public boolean isDeclared(String id) {
+		if (symbolTable.containsKey(id))
+			return true;
+		else if (this.prev != null)
+			return this.prev.isDeclared(id);
 		return false;
 	}
 
-	public Type find(String s) {
-		if(symbolTable.containsKey(s))
-			return symbolTable.get(s).type;
+	public boolean isInitialized(String id) {
+		if(symbolTable.containsKey(id))
+			return (symbolTable.get(id).value != null);
+		else if (this.prev != null)
+			return this.prev.isInitialized(id);
+		return false;
+	}
+
+	public Type find(String id) {
+		if(symbolTable.containsKey(id))
+			return symbolTable.get(id).type;
 		return null;
 	}
 }

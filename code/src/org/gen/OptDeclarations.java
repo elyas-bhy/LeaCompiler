@@ -3,7 +3,7 @@ package org.gen;
 public class OptDeclarations extends AST {
 	
 	public OptDeclarations(AST left, AST right) {
-		super(left, right, EnumTag.DECLOPT);		
+		super(left, right, EnumTag.DECLOPT);
 	}
 
 	public String toJava() {

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 public class GlobalDeclaration extends AST {
 	
 	public GlobalDeclaration(AST left, AST right) {
-		super(left, right, EnumTag.GLOBAL_DEC);		
+		super(left, right, EnumTag.GLOBAL_DEC);
+    Main.currentEnv.add(left.getName(), right.getType());
 	}
 
 	public String toJava() {

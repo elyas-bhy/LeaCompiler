@@ -11,6 +11,6 @@ public class TypeException extends Exception {
   }
 
   public String getMessage() {
-    return "Type mismatch between " + this.type1 + " and " + this.type2;
+    return "Type mismatch : cannot convert from " + this.type1 + " to " + this.type2;
   }
 }
