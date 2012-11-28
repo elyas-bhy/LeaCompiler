@@ -7,6 +7,7 @@ public class Block extends AST {
     }
 
     public String toJava() {
+        Main.currentEnv = Main.currentEnv.getNext();
         CodeGenerator.tabLevel++;
         String s = getLeft().toJava();
         if (s.equals(""))
@@ -14,6 +15,7 @@ public class Block extends AST {
         else
             s += "\n" + getRight().toJava();
         CodeGenerator.tabLevel--;
+        Main.currentEnv = Main.currentEnv.getPrev();
         return s;
     }
 }

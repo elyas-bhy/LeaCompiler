@@ -22,11 +22,12 @@ function add1(i : int) : int
 procedure main(s : array of string)
 {
 
+  // Declarations
+  str : string;
   t : bool;
   a : int;
   b : int;
   c : int;
-  str : string;
   f : Foo;
   bar : Bar;
   m : map of (int, string);
@@ -34,7 +35,8 @@ procedure main(s : array of string)
   // Basic arithmetic instructions
   a := 452;
   b := 1;
-  c := a + b;
+  c := b + 1;
+  c := a + u;
   t := true;
   m := {(a, "alpha"), (b, "beta")};
 
@@ -48,7 +50,7 @@ procedure main(s : array of string)
   c := add1(a);
 
   // Input / output
-  write("Hello ");
+  /*write("Hello ");
   writeln("world");
   str := read();
   writeln("Value: " + str);
@@ -72,7 +74,7 @@ procedure main(s : array of string)
   // Dowhile loops
   repeat {
     c := c - 1;
-  } while (c > 0);
+  } while (c > 0);*/
 
   writeln("Finished");
 

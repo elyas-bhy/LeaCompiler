@@ -50,19 +50,20 @@ public class Main {
 	}
 
 	public static void main(String[] s) {
-		Boolean t = new Boolean(null);
-		Integer a = new Integer(0);
-		Integer b = new Integer(0);
-		Integer c = new Integer(0);
-		String str = new String();
+		String str;
+		Boolean t;
+		Integer a;
+		Integer b;
+		Integer c;
 		Foo f;
 		Bar bar;
-		HashMap<Integer,String> m = new HashMap<Integer,String>();
+		HashMap<Integer,String> m;
 
-		a = 452;
-		b = 1;
-		c = a + b;
-		t = true;
+		a = new Integer(452);
+		b = new Integer(1);
+		c = new Integer(b + 1);
+		c = a + u;
+		t = new Boolean(true);
 		m.put(a, "alpha");
 		m.put(b, "beta");
 
@@ -71,26 +72,6 @@ public class Main {
 		f = new Foo(a, b, bar);
 		f.x = -4;
 		c = add1(a);
-		System.out.print("Hello ");
-		System.out.println("world");
-		if (mLeaCompilerConsole != null)
-			str = mLeaCompilerConsole.readLine();
-		System.out.println("Value: " + str);
-		if (a >= b) {
-			c = c + 1;
-			if (c < 10) {
-			System.out.print("foo");
-			}
-		} else {
-			c = 2;
-		}
-		for (int j = 0; j < c + 2; j++ ) {
-			a = b * 2 + c;
-			b = b + 10;
-		}
-		do {
-			c = c - 1;
-		} while (c > 0);
 		System.out.println("Finished");
 	}
 
