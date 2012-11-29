@@ -44,7 +44,7 @@ terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOL;
 non terminal Type type;
 non terminal AST program, expr, ident, funcs, instr, instrs, list_rec, identFields,
                  block, funcDef, range, list, globalDecs, globalDec, struct_decl, struct_decls,
-                 definition, parameters, param_list, param, decl, map_of, map_of_list, tuple, type_tuple,
+                 definition, parameters, param_list, param, decl, map_of, map_of_list, tuple,
                  fheader, decls_opt;
 
 
@@ -146,14 +146,7 @@ decls_opt ::=
 decl ::=
 	ident:id COLON type:t SEMIC
 		{: RESULT = new VarDeclaration(id, null, t); :}
-  | ident:id COLON MAP OF type_tuple:tt SEMIC
-    {: RESULT = new VarDeclaration(id, tt, null); :}
 	;
-
-type_tuple ::=
-  LPAR type:key COMMA type:val RPAR
-    {: RESULT = new TypeTuple(key, val); :}
-  ;
 
 type ::=
 	INT
@@ -168,6 +161,8 @@ type ::=
     {: RESULT = new Type(EnumType.BOOLEAN); :}
 	| ARRAY OF type:t
 		{: RESULT = new Type(t, null, EnumType.ARRAY); :}
+  | MAP OF LPAR type:key COMMA type:val RPAR
+    {: RESULT = new Type(key, val, EnumType.MAP); :}
 	| EXPRLIST OF type:t
 		{: RESULT = new Type(t, null, EnumType.EXPRLIST); :}
   | ident:i

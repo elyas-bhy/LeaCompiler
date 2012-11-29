@@ -66,6 +66,8 @@ public class Type {
         return type.toString();
       case ARRAY:
         return left.toString() + "[]";
+      case MAP:
+        return type.toString() + "<" + left.toString() + "," + right.toString() + ">";
       case STRUCT:
         return genericType;
 	    //case ERROR: return "ERROR";

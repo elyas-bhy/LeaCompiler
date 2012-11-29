@@ -9,8 +9,6 @@ public class VarDeclaration extends AST {
 	}
 
 	public String toJava() {
-		if (getRight() != null )
-			return tab() + "HashMap<" + getRight().toJava() + "> " + getLeft().toJava();
 		return tab() + getType() + " " + getLeft().toJava();
 	}
 }

@@ -9,6 +9,7 @@ public enum EnumType {
 	ARRAY ("Array"), 
   EXPRLIST ("List"),
 	ERROR ("error"),
+  MAP("HashMap"),
   STRUCT("generic type");
 	
   private final String tag;

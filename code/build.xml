@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="projet" default="default">
+<project name="LeaCompiler" default="default">
   <property name="JFlexLib" location="lib" />
   <property name="CUPLib" location="lib" />
   <property name="parser.dir" location="parser" />
@@ -12,12 +12,9 @@
   <regexp id="class" pattern="[a-z]*\.class" />
   
   <description>
-    compilation du projet Lexer
+    LeaCompiler build file
   </description>
   
-  <!-- ================================= 
-       target: default              
-       ================================= -->
   <!--<target name="default" depends="dot" description="open graph">
     <exec executable="eog">
       <arg value="data/ast.jpg"/>
@@ -33,12 +30,19 @@
     </exec>
   </target>-->
 
+
+  <!-- ================================= 
+       target: run              
+       ================================= -->
   <target name="run" depends="default,jar" />
 
   <target name="run-output" depends="jar">
     <java jar="${lib.dir}/Main.jar" fork="true" />
   </target>
 
+  <!-- ================================= 
+       target: jar              
+       ================================= -->
   <target name="jar" depends="java">
     <jar destfile="${lib.dir}/Main.jar" basedir="${data.dir}/classes">
       <manifest>
@@ -47,12 +51,17 @@
     </jar>
   </target>
 
-  <target name="java" description="Compiles java code produced by our compiler">
+  <!-- ================================= 
+       target: java              
+       ================================= -->
+  <target name="java" description="Compiles the produced Java code">
     <javac srcdir="${data.dir}/src" destdir="${data.dir}/classes"/>
   </target>
 
-
-  <target name="default" depends="projet" description="compilation du projet Compilateur Léa">
+  <!-- ================================= 
+       target: default              
+       ================================= -->
+  <target name="default" depends="project" description="Compiles LeaCompiler">
     
     <java 
 	classname="org.gen.Main"
@@ -64,9 +73,9 @@
   </target>
   
   <!-- ================================= 
-       target: projet            
+       target: project            
        ================================= -->
-  <target name="projet" depends="parser, scanner" description="compilation du projet">
+  <target name="project" depends="parser, scanner" description="Compiles LeaCompiler">
     <mkdir dir="${bin.dir}" />
     <javac 
 	srcdir="${src.dir}"
@@ -93,7 +102,7 @@
   <!-- ================================= 
        target: parser              
        ================================= -->
-  <target name="parser" description="Compilation du parseur">
+  <target name="parser" description="Compiles the parser">
     
     <taskdef name="cup" classname="java_cup.anttask.CUPTask">
       <classpath location="${CUPLib}/java-cup-11a.jar" />
@@ -112,8 +121,14 @@
 />
   </target>
 
+  <!-- ================================= 
+       target: clean              
+       ================================= -->
   <target name="clean" depends="clean-output,clean-code"/>
 
+  <!-- ================================= 
+       target: clean-output              
+       ================================= -->
   <target name="clean-output">
     <delete file="${output.dir}/Main.java" />
     <delete file="${lib.dir}/Main.jar" />
@@ -121,6 +136,9 @@
     <mkdir dir="${data.dir}/classes" />
   </target>
 
+  <!-- ================================= 
+       target: clean-code              
+       ================================= -->
   <target name="clean-code">
     <delete file="${src.dir}/org/gen/Scanner.java"/>
     <delete file="${src.dir}/org/gen/Parser.java"/>
