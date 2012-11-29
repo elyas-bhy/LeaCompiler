@@ -249,10 +249,12 @@ expr ::=
   | FLOATING:f {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}       // 3.14
   | STRINGEXP:st {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}     // "PI"
   | CHAREXP:ch {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}           // 'P'
-  | LPAR expr:e RPAR {: RESULT = e; :}                                                           // (a)
   | identFields:id {: RESULT = id; :}                                                            // a.b.foo
-	| BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                      // 'True'
-  | map_of:ml {: RESULT = ml; :}                                                   // {(a,b),(c,d)}
+  | BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                      // 'True'
+  | map_of:ml {: RESULT = ml; :}                                                                 // {(a,b),(c,d)}
+  | LPAR expr:e RPAR 
+    {: e.setPriority(true);
+       RESULT = e; :}                                                           // (a)
 	;
 
 ident ::=

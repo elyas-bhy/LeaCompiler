@@ -67,11 +67,12 @@ public class Main {
 		m.put(a, "alpha");
 		m.put(b, "beta");
 
+		a = -(2 + (c / 2 + a)) * b;
 		bar = new Bar();
 		f = new Foo();
 		f = new Foo(a, b, bar);
 		f.x = -4;
-		c = add1(a);
+		add1(a);
 		System.out.println("Finished");
 	}
 

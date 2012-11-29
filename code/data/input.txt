@@ -39,6 +39,7 @@ procedure main(s : array of string)
   c := a + u;
   t := true;
   m := {(a, "alpha"), (b, "beta")};
+  a := -(2 + (c/2 + a)) * b;
 
   // Struct tests
   bar := Bar();
