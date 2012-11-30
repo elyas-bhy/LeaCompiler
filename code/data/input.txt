@@ -37,6 +37,8 @@ procedure main(s : array of string)
   b := 1;
   c := b + 1;
   c := a + u;
+  //pp := 0;
+  //zz := 55;
   t := true;
   m := {(a, "alpha"), (b, "beta")};
   a := -(2 + (c/2 + a)) * b;

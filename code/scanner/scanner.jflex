@@ -8,17 +8,17 @@ import java.util.ArrayList;
 %class Scanner
 
 %{
-	public static ArrayList<String> errors = new ArrayList<String>();
+	public static ArrayList<ErrorObject> errors = new ArrayList<ErrorObject>();
 
 	public int yyline() {
-		return yyline + 1;
+		return yyline;
 	}
 
 	public int yycolumn() {
 		return yycolumn;
 	}
 
-	public static ArrayList<String> getErrors() {
+	public static ArrayList<ErrorObject> getErrors() {
 		return Scanner.errors;
 	}
 %}
@@ -74,82 +74,81 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 <YYINITIAL> {
 
 /* -------------------------------------------------
-	Separateurs Operateurs
+	Separators & operators
    ------------------------------------------------- */
 
-\/\/          {yybegin(MONO_COMMENT); }
-\/\*          {yybegin(MULTI_COMMENT); }
+\/\/			{yybegin(MONO_COMMENT); }
+\/\*			{yybegin(MULTI_COMMENT); }
 
-\"            {/*System.out.print(yytext());*/  return symbol(MySymbol.DQUOTE); }
-"("	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LPAR); }
-")"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.RPAR); }
-"{"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LBRACE); }
-"}"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.RBRACE); }
-"["	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LBRACKET); }
-"]"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.RBRACKET); }
-".."          {/*System.out.print(yytext());*/  return symbol(MySymbol.DDOT); }
-"&&"  	      {/*System.out.print(yytext());*/  return symbol(MySymbol.AND); }
-"||"  	      {/*System.out.print(yytext());*/  return symbol(MySymbol.OR); }
-"<"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.LT); }
-">"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.GT); }
-"<="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.LE); }
-">="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.GE); }
-"!="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.DIFF); }
-":="	        {/*System.out.print(yytext());*/  return symbol(MySymbol.AFF); }
-"+"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.PLUS); }
-"-"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.MINUS); }
-"*"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.MULT); }
-"/"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.DIV); }
-","           {/*System.out.print(yytext());*/  return symbol(MySymbol.COMMA); }
-"."           {/*System.out.print(yytext());*/  return symbol(MySymbol.DOT); }
-";"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.SEMIC); }
-":"	          {/*System.out.print(yytext());*/  return symbol(MySymbol.COLON); }
-"="	          {/*System.out.print(yytext());*/  return symbol(MySymbol.EQ); }
-"if"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.IF); }
-"then"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.THEN); }
-"else"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.ELSE); }
-"while"       {/*System.out.print(yytext());*/  return symbol(MySymbol.WHILE); }
-"for"         {/*System.out.print(yytext());*/  return symbol(MySymbol.FOR); }
-"in"          {/*System.out.print(yytext());*/  return symbol(MySymbol.IN); }
-"do"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.DO); }
-"bool"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOLEAN); }
-"int"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.INT); }
-"float"       {/*System.out.print(yytext());*/  return symbol(MySymbol.FLOAT); }
-"char"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAR); }
-"string"	    {/*System.out.print(yytext());*/  return symbol(MySymbol.STRING); }
-"array"	      {/*System.out.print(yytext());*/  return symbol(MySymbol.ARRAY); }
-"of"	        {/*System.out.print(yytext());*/  return symbol(MySymbol.OF); }
-"set"         {/*System.out.print(yytext());*/  return symbol(MySymbol.SET); }
-"map"         {/*System.out.print(yytext());*/  return symbol(MySymbol.MAP); }
-"list"        {/*System.out.print(yytext());*/  return symbol(MySymbol.EXPRLIST); }
-"struct"      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRUCT); }
-"void"        {/*System.out.print(yytext());*/  return symbol(MySymbol.VOID); }
-"repeat"      {/*System.out.print(yytext());*/  return symbol(MySymbol.REPEAT); }
-"return"      {/*System.out.print(yytext());*/  return symbol(MySymbol.RETURN); }
-"function"    {/*System.out.print(yytext());*/  return symbol(MySymbol.FUNCTION); }
-"procedure"   {/*System.out.print(yytext());*/  return symbol(MySymbol.PROCEDURE); }
-"true"        {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
-"false"       {/*System.out.print(yytext());*/  return symbol(MySymbol.BOOL, yytext()); }
+\"				{ return symbol(MySymbol.DQUOTE, yytext()); }
+"("				{ return symbol(MySymbol.LPAR, yytext()); }
+")"				{ return symbol(MySymbol.RPAR, yytext()); }
+"{"				{ return symbol(MySymbol.LBRACE, yytext()); }
+"}"				{ return symbol(MySymbol.RBRACE, yytext()); }
+"["				{ return symbol(MySymbol.LBRACKET, yytext()); }
+"]"				{ return symbol(MySymbol.RBRACKET, yytext()); }
+".."			{ return symbol(MySymbol.DDOT, yytext()); }
+"&&"			{ return symbol(MySymbol.AND, yytext()); }
+"||"			{ return symbol(MySymbol.OR, yytext()); }
+"<"				{ return symbol(MySymbol.LT, yytext()); }
+">"				{ return symbol(MySymbol.GT, yytext()); }
+"<="			{ return symbol(MySymbol.LE, yytext()); }
+">="			{ return symbol(MySymbol.GE, yytext()); }
+"!="			{ return symbol(MySymbol.DIFF, yytext()); }
+":="			{ return symbol(MySymbol.AFF, yytext()); }
+"+"				{ return symbol(MySymbol.PLUS, yytext()); }
+"-"				{ return symbol(MySymbol.MINUS, yytext()); }
+"*"				{ return symbol(MySymbol.MULT, yytext()); }
+"/"				{ return symbol(MySymbol.DIV, yytext()); }
+","				{ return symbol(MySymbol.COMMA, yytext()); }
+"."				{ return symbol(MySymbol.DOT, yytext()); }
+";"				{ return symbol(MySymbol.SEMIC, yytext()); }
+":"				{ return symbol(MySymbol.COLON, yytext()); }
+"="				{ return symbol(MySymbol.EQ, yytext()); }
+"if"			{ return symbol(MySymbol.IF, yytext()); }
+"then"			{ return symbol(MySymbol.THEN, yytext()); }
+"else"			{ return symbol(MySymbol.ELSE, yytext()); }
+"while"			{ return symbol(MySymbol.WHILE, yytext()); }
+"for"			{ return symbol(MySymbol.FOR, yytext()); }
+"in"			{ return symbol(MySymbol.IN, yytext()); }
+"do"			{ return symbol(MySymbol.DO, yytext()); }
+"bool"			{ return symbol(MySymbol.BOOLEAN, yytext()); }
+"int"			{ return symbol(MySymbol.INT, yytext()); }
+"float"			{ return symbol(MySymbol.FLOAT, yytext()); }
+"char"			{ return symbol(MySymbol.CHAR, yytext()); }
+"string"		{ return symbol(MySymbol.STRING, yytext()); }
+"array"			{ return symbol(MySymbol.ARRAY, yytext()); }
+"of"			{ return symbol(MySymbol.OF, yytext()); }
+"set"			{ return symbol(MySymbol.SET, yytext()); }
+"map"			{ return symbol(MySymbol.MAP, yytext()); }
+"list"			{ return symbol(MySymbol.EXPRLIST, yytext()); }
+"struct"		{ return symbol(MySymbol.STRUCT, yytext()); }
+"void"			{ return symbol(MySymbol.VOID, yytext()); }
+"repeat"		{ return symbol(MySymbol.REPEAT, yytext()); }
+"return"		{ return symbol(MySymbol.RETURN, yytext()); }
+"function"		{ return symbol(MySymbol.FUNCTION, yytext()); }
+"procedure"		{ return symbol(MySymbol.PROCEDURE, yytext()); }
+"true"			{ return symbol(MySymbol.BOOL, yytext()); }
+"false"			{ return symbol(MySymbol.BOOL, yytext()); }
 
 /* -------------------------------------------------
-	Variables, Entiers
+	Variables
    ------------------------------------------------- */
 
-{Identifier}  {/*System.out.print(yytext());*/  return symbol(MySymbol.IDENTIFIER, yytext()); }
-{Floating}    {/*System.out.print(yytext());*/  return symbol(MySymbol.FLOATING, yytext()); }
-{Integer}     {/*System.out.print(yytext());*/  return symbol(MySymbol.INTEGER, yytext()); }
-{String}      {/*System.out.print(yytext());*/  return symbol(MySymbol.STRINGEXP, yytext()); }
-{Char}        {/*System.out.print(yytext());*/  return symbol(MySymbol.CHAREXP, yytext()); }
-
-/* -------------------------------------------------
-	Commentaires - Caracteres non pris en compte
-   ------------------------------------------------- */
-{WhiteSpace}  {/*System.out.print(yytext());*/  /* ignore */ }
+{Identifier}	{ return symbol(MySymbol.IDENTIFIER, yytext()); }
+{Floating}		{ return symbol(MySymbol.FLOATING, yytext()); }
+{Integer}		{ return symbol(MySymbol.INTEGER, yytext()); }
+{String}		{ return symbol(MySymbol.STRINGEXP, yytext()); }
+{Char}			{ return symbol(MySymbol.CHAREXP, yytext()); }
 
 /* -------------------------------------------------
-	Autres signes
+	Other
    ------------------------------------------------- */
-.	            { Scanner.errors.add(new String(yyline() + ":" + yycolumn() 
-											  + " : error: illegal character: " + yytext())); }
+{WhiteSpace}	{ /* ignore */ }
+
+.				{ ErrorObject err = new ErrorObject("illegal character: " + yytext(), 
+												  yyline()+1, 
+												  yycolumn());
+				  Scanner.errors.add(err); }
 
 }

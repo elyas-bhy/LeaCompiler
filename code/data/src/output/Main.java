@@ -4,7 +4,6 @@ import java.io.*;
 import java.lang.*;
 import java.util.*;
 
-
 public class Main {
 
 	static Console mLeaCompilerConsole = System.console();
@@ -72,8 +71,7 @@ public class Main {
 		f = new Foo();
 		f = new Foo(a, b, bar);
 		f.x = -4;
-		add1(a);
+		c = add1(a);
 		System.out.println("Finished");
 	}
-
 }

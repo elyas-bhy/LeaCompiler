@@ -13,46 +13,48 @@ public class Main {
 	static Boolean DEBUG = false;
 	static StringBuffer globals = new StringBuffer();
 	static Set<AST> structs = new HashSet<AST>();
-
+	static Scanner mScanner = null;
+	static Parser mParser = null;
 
 	public static void main(String[] args) {
-		Scanner myScanner = null;
-		Parser myParser = null;
 		Symbol result = null;
 		AST root = null;
 		CodeGenerator cg = new CodeGenerator();
-		ArrayList<String> scannerErrors, parserErrors;
+		StringBuffer sb = new StringBuffer();
+		ArrayList<ErrorObject> scannerErrors, parserErrors;
 
 		try {
 			FileReader  myFile = new FileReader(args[0]);
-			myScanner = new Scanner(myFile);
-			myParser = new Parser(myScanner);
+			mScanner = new Scanner(myFile);
+			mParser = new Parser(mScanner);
 		} catch (Exception e) {
-			System.out.println("Invalid file");
+			System.err.println("Invalid file");
 		}
 
 		try {
-			result = myParser.parse();
+			result = mParser.parse();
 		} catch (Exception e) {
-			System.out.println("Parse error: " + e);
+			System.err.println("Parse error: " + e);
 		}
 
-		scannerErrors = myScanner.getErrors();
-		for (String err : scannerErrors)
+		scannerErrors = mScanner.getErrors();
+		for (ErrorObject err : scannerErrors)
 			System.err.println("\t" + args[0] + err);
 
-		parserErrors = myParser.errors;
-		for (String err : parserErrors)
+		parserErrors = mParser.errors;
+		for (ErrorObject err : parserErrors)
 			System.err.println("\t" + args[0] + err);
 
 		if (scannerErrors.size() == 0 && parserErrors.size() == 0) {
 			try {
 				root = (AST) result.value;
 			} catch (Exception e) {
-				System.out.println("Result error: " + e);
+				System.err.println("Result error: " + e);
 			}
 			cg.setRoot(root);
-			cg.generateCode();
+			sb = cg.generateCode();
+			System.out.println(sb);
+
 		}
 		else {
 			System.err.println("\n\t>> Code generation aborted.");

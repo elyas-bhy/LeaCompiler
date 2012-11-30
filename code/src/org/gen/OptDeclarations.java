@@ -7,9 +7,9 @@ public class OptDeclarations extends AST {
 	}
 
 	public String toJava() {
-    if (getRight() == null)
-      return "";
-    return getRight().toJava() + getLeft().toJava() + ";\n";
+		if (getRight() == null)
+			return "";
+		return getRight().toJava() + getLeft().toJava() + ";\n";
 	}
 	
 }

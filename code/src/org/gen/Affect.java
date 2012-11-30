@@ -2,8 +2,18 @@ package org.gen;
 
 public class Affect extends AST {
 
-	public Affect(AST left, AST right) {
-		super(left, right, EnumTag.AFF);
+	public Affect(AST left, AST right) throws Exception {
+		super(left, right, EnumTag.AFF);	
+
+		if (left.getTag() == EnumTag.IDENT) {
+			String var = getLeft().getName();
+			if (!Main.currentEnv.isDeclared(var)) {
+				ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var, 
+												Main.mScanner.yyline(), 
+												Main.mScanner.yycolumn());
+				Main.mParser.errors.add(err);
+			}
+		}
 	}
 
 	public String toJava() {
@@ -29,11 +39,6 @@ public class Affect extends AST {
 				Main.currentEnv.set(var, getRight().toJava());
 				return tab() + var + " = new " + Main.currentEnv.find(var) + "(" + getRight().toJava() + ");";
 			}
-			/*else {
-				// A décommenter lorsque nous ajouterons les exceptions
-				//throw new UndefVariableException(getLeft().getName());
-				return tab() + "Undeclared variable\n";
-			}*/
 		}
 		return tab() + getLeft().toJava() + " = " + getRight().toJava() + ";";
 	}

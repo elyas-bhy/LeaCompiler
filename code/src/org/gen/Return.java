@@ -7,7 +7,7 @@ public class Return extends AST {
 	}
 
 	public String toJava() {
-    return tab() + getTag() + " " + getLeft().toJava() + ";";
+		return tab() + getTag() + " " + getLeft().toJava() + ";";
 	}
 
 }

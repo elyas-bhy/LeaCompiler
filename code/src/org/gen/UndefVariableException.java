@@ -1,16 +1,16 @@
 package org.gen;
 
-public class UndefVariableException extends Exception{
+public class UndefVariableException extends Exception {
 
-  private static final long serialVersionUID = 1L;
-  private String name;
-    
-  public UndefVariableException(String name) {
-   	this.name = name;
-  }
+	private static final long serialVersionUID = 1L;
+	private String name;
 
-  public String getMessage() {
-   	return "The variable " + name + " is undefined.";
-  }
+	public UndefVariableException(String name) {
+		this.name = name;
+	}
+
+	public String getMessage() {
+		return "The variable " + name + " is undefined.";
+	}
 
 } 

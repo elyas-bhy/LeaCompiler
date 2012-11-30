@@ -13,24 +13,26 @@ public class CodeGenerator {
 		mRoot = root;
 	}
 
-	public void prologue() {
+	public StringBuffer prologue() {
 		//Includes the java headers (libraries and packages)
 		StringBuffer sb = new StringBuffer();
 		sb.append("package output;\n\n");
 		sb.append("import java.io.*;\n");
 		sb.append("import java.lang.*;\n");
 		sb.append("import java.util.*;\n\n");
-		System.out.println(sb);
+		return sb;
 	}
 
-	public void epilogue() {
+	public String epilogue() {
 		//Add the closing bracket of the Java class
-		System.out.println("\n}");
+		return "\n}";
 	}
 
-	public void generateCode() {
-		prologue();
-		System.out.println(mRoot.toJava());
-		epilogue();
+	public StringBuffer generateCode() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(prologue());
+		sb.append(mRoot.toJava());
+		sb.append(epilogue());
+		return sb;
 	}
 }

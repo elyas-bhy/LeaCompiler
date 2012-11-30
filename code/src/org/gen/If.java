@@ -7,7 +7,7 @@ public class If extends AST {
 	}
 
 	public String toJava() {
-    return tab() + getTag() + " (" + getLeft().toJava() + ") " + getRight().toJava();
+		return tab() + getTag() + " (" + getLeft().toJava() + ") " + getRight().toJava();
 	}
 	
 }
