@@ -7,7 +7,12 @@ public class Block extends AST {
     }
 
     public String toJava() {
-        Main.currentEnv = Main.currentEnv.getNext();
+        if (Main.currentEnv.equals(Main.firstEnv)) {
+            Main.currentEnv = Main.functionEnvs.get(Main.envNum);
+            Main.envNum++;
+        } else {
+            Main.currentEnv = Main.currentEnv.getNext();
+        }
         CodeGenerator.tabLevel++;
         String s = getLeft().toJava();
         if (s.equals(""))

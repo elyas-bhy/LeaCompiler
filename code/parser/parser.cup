@@ -8,6 +8,7 @@ import java.util.ArrayList;
 parser code {:
 
 	public static ArrayList<ErrorObject> errors = new ArrayList<ErrorObject>();
+  public static AST params;
 
 	/*public String getTokenName(Symbol token) {
 		try {
@@ -25,8 +26,7 @@ parser code {:
 
 	public void syntax_error(Symbol curSymbol) {
 		Scanner s = (Scanner) this.getScanner();
-		Parser.errors.add(new ErrorObject("expected \";\" before symbol: " + curSymbol.value, 
-                                s.yyline(), s.yycolumn()));
+		Parser.errors.add(new ErrorObject("expected \";\" before symbol: " + curSymbol.value));
 	}
 
 
@@ -112,6 +112,11 @@ block ::=
       
       Main.currentEnv.putNext(n);
       Main.currentEnv = n;
+
+      if (Main.currentEnv.getPrev().equals(Main.firstEnv)) {
+        Main.functionEnvs.add(Main.currentEnv);
+        Main.currentEnv.add(Parser.params);
+      }
 
     :} decls_opt:ds instrs:i RBRACE {:
 			if (Main.DEBUG) System.out.println("Closing environment");

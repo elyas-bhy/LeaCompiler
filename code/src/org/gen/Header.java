@@ -4,6 +4,7 @@ public class Header extends AST {
 
 	public Header(AST left, AST right, Type type) {
 		super(left, right, EnumTag.HEADER, type);
+		Parser.params = right;
 	}
 
 	public Header(AST left, AST right) {

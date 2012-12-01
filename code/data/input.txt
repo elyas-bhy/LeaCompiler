@@ -16,7 +16,6 @@ Bar = struct {
 
 function add1(i : int) : int
 {
-  i : int;
   return i+1;
 }
 

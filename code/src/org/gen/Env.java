@@ -14,7 +14,7 @@ public class Env {
 	/* double linked list */
 	private Env prev;
 	private Env next;
-	private HashMap<String, SymbolTableEntry> symbolTable; /* scope on top of the stack */
+	private HashMap<String, SymbolTableEntry> symbolTable;
 	private int scopenum;
 
 
@@ -71,6 +71,29 @@ public class Env {
 
 	public void add(String id, Type t) {
 		add(id, null, t);
+	}
+
+	public void add(AST node) {
+		switch (node.getTag()) {
+			case PARAM:
+				//Avoid setting value to null: parameters dont need intialization
+				add(node.getLeft().toJava(),
+					node.getLeft().toJava(),
+					node.getLeft().getType());
+				break;
+			case PARAMS:
+				AST current = node;
+				if (current.getRight() != null) {
+					while (current.getRight().getTag().equals(EnumTag.PARAMS)) {
+						add(current.getLeft());
+						current = current.getRight();
+					}
+					add(current.getLeft());
+					add(current.getRight());
+				}
+			default:
+				break;
+		}
 	}
 
 	public void set(String id, String value){

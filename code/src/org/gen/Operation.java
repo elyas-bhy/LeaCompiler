@@ -9,9 +9,7 @@ public class Operation extends AST {
 		if (left != null && left.getTag().equals(EnumTag.IDENT)) {
 			var = getLeft().getName();
 			if (!Main.currentEnv.isDeclared(var)) {
-				ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var, 
-												Main.mScanner.yyline(), 
-												Main.mScanner.yycolumn());
+				ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var);
 				Main.mParser.errors.add(err);
 			}
 		}
@@ -19,9 +17,7 @@ public class Operation extends AST {
 		if (right != null && right.getTag().equals(EnumTag.IDENT)) {
 			var = right.getName();
 			if (!Main.currentEnv.isDeclared(var)) {
-				ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var, 
-												Main.mScanner.yyline(), 
-												Main.mScanner.yycolumn());
+				ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var);
 				Main.mParser.errors.add(err);
 			}
 		}

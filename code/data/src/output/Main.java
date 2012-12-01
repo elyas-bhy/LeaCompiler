@@ -45,8 +45,6 @@ public class Main {
 	public static Character b = new Character('c');
 
 	public static Integer add1(Integer i) {
-		Integer i;
-
 		return i + 1;
 	}
 

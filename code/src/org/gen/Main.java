@@ -10,9 +10,12 @@ public class Main {
 
 	static Env firstEnv = new Env();
 	static Env currentEnv = firstEnv;
-	static Boolean DEBUG = false;
-	static StringBuffer globals = new StringBuffer();
+	static ArrayList<Env> functionEnvs = new ArrayList<Env>();
 	static Set<AST> structs = new HashSet<AST>();
+	static StringBuffer globals = new StringBuffer();
+	static int envNum = 0;
+	
+	static Boolean DEBUG = false;
 	static Scanner mScanner = null;
 	static Parser mParser = null;
 

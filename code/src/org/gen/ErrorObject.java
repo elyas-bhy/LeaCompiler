@@ -12,6 +12,10 @@ public class ErrorObject {
 		this.column = column;
 	}
 
+	public ErrorObject(String error) {
+		this(error, Main.mScanner.yyline(), Main.mScanner.yycolumn());
+	}
+
 	public int getLine() {
 		return line;
 	}
