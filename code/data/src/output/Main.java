@@ -45,6 +45,8 @@ public class Main {
 	public static Character b = new Character('c');
 
 	public static Integer add1(Integer i) {
+		Integer i;
+
 		return i + 1;
 	}
 
@@ -63,11 +65,9 @@ public class Main {
 		a = new Integer(452);
 		b = new Integer(1);
 		c = new Integer(b + 1);
-		c = a + u;
 		t = new Boolean(true);
 		m = new HashMap<Integer,String>();
 		m.put(d, "delta");
-
 		m.put(a, "alpha");
 		m.put(b, "beta");
 

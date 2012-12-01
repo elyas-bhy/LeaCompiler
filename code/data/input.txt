@@ -16,6 +16,7 @@ Bar = struct {
 
 function add1(i : int) : int
 {
+  i : int;
   return i+1;
 }
 
@@ -38,7 +39,7 @@ procedure main(s : array of string)
   a := 452;
   b := 1;
   c := b + 1;
-  c := a + u;
+  //c := u + 1;
   t := true;
 
   // Undefined variables

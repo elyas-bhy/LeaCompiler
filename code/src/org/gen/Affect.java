@@ -7,7 +7,7 @@ public class Affect extends AST {
 		super(left, right, EnumTag.AFF);	
 
 		if (left.getTag().equals(EnumTag.IDENT)) {
-			String var = getLeft().getName();
+			String var = left.getName();
 			if (!Main.currentEnv.isDeclared(var)) {
 				ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var, 
 												Main.mScanner.yyline(), 
@@ -45,7 +45,7 @@ public class Affect extends AST {
 					sb.append(tab() + lvar + ".put(" + node.toJava() + ");\n");
 			}
 			else 
-				sb.append(tab() + lvar + ".put(" + getRight().toJava() + ");\n");
+				sb.append(tab() + lvar + ".put(" + getRight().toJava() + ");");
 			return sb.toString();
 		}
 

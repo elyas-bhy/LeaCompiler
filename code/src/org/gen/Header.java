@@ -7,7 +7,7 @@ public class Header extends AST {
 	}
 
 	public Header(AST left, AST right) {
-		super(left, right, EnumTag.HEADER);
+		this(left, right, null);
 	}
 
 	public String toJava() {
