@@ -49,20 +49,25 @@ public class Main {
 	}
 
 	public static void main(String[] s) {
+		HashMap<Integer,String> m;
 		String str;
 		Boolean t;
 		Integer a;
 		Integer b;
 		Integer c;
+		Integer d;
+		Integer r;
 		Foo f;
 		Bar bar;
-		HashMap<Integer,String> m;
 
 		a = new Integer(452);
 		b = new Integer(1);
 		c = new Integer(b + 1);
 		c = a + u;
 		t = new Boolean(true);
+		m = new HashMap<Integer,String>();
+		m.put(d, "delta");
+
 		m.put(a, "alpha");
 		m.put(b, "beta");
 
@@ -72,6 +77,8 @@ public class Main {
 		f = new Foo(a, b, bar);
 		f.x = -4;
 		c = add1(a);
+		r = hello(world);
+		r = 2;
 		System.out.println("Finished");
 	}
 }

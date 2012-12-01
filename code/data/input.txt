@@ -23,24 +23,33 @@ procedure main(s : array of string)
 {
 
   // Declarations
+  m : map of (int, string);
   str : string;
   t : bool;
   a : int;
   b : int;
   c : int;
+  d : int;
+  r : int;
   f : Foo;
   bar : Bar;
-  m : map of (int, string);
 
-  // Basic arithmetic instructions
+  // Basic instructions
   a := 452;
   b := 1;
   c := b + 1;
   c := a + u;
+  t := true;
+
+  // Undefined variables
   //pp := 0;
   //zz := 55;
-  t := true;
+
+  //Hashmap tests
+  m := {(d, "delta")};
   m := {(a, "alpha"), (b, "beta")};
+
+  // Priority tests
   a := -(2 + (c/2 + a)) * b;
 
   // Struct tests
@@ -51,6 +60,8 @@ procedure main(s : array of string)
 
   // Function calls
   c := add1(a);
+  r := hello(world);
+  r := 2;
 
   // Input / output
   /*write("Hello ");

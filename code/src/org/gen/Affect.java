@@ -2,10 +2,11 @@ package org.gen;
 
 public class Affect extends AST {
 
+
 	public Affect(AST left, AST right) throws Exception {
 		super(left, right, EnumTag.AFF);	
 
-		if (left.getTag() == EnumTag.IDENT) {
+		if (left.getTag().equals(EnumTag.IDENT)) {
 			String var = getLeft().getName();
 			if (!Main.currentEnv.isDeclared(var)) {
 				ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var, 
@@ -17,30 +18,45 @@ public class Affect extends AST {
 	}
 
 	public String toJava() {
-		if (getRight().getTag().equals(EnumTag.FUNCTION_CALL)) {
+		StringBuffer sb = new StringBuffer();
+		String lvar = getLeft().toJava();
+		EnumTag rtag = getRight().getTag();
+
+		if (rtag.equals(EnumTag.FUNCTION_CALL)) {
+			if (!Main.currentEnv.isInitialized(lvar))
+				Main.currentEnv.set(lvar, getRight().toJava());
+
 			if (getRight().getLeft().toJava().equals(JavaMethods.READ.toLea())) {
-				StringBuffer sb = new StringBuffer();
 				sb.append(tab() + "if (mLeaCompilerConsole != null)\n");
 				CodeGenerator.tabLevel++;
-				sb.append(tab() + getLeft().toJava() + " = mLeaCompilerConsole.readLine();");
+				sb.append(tab() + lvar + " = mLeaCompilerConsole.readLine();");
 				CodeGenerator.tabLevel--;
 				return sb.toString();
 			}
 		}
-		else if (getRight().getTag().equals(EnumTag.MAPOF)) {
-			StringBuffer sb = new StringBuffer();
-			for (AST node : getRight().getFields())
-				sb.append(tab() + getLeft().toJava() + ".put(" + node.toJava() + ");\n");
+
+		if (rtag.equals(EnumTag.MAPOF) || rtag.equals(EnumTag.TUPLE)) {
+			if (!Main.currentEnv.isInitialized(lvar)) {
+				Main.currentEnv.set(lvar, getRight().toJava());
+				sb.append(tab() + lvar + " = new " + Main.currentEnv.find(lvar) + "();\n");		
+			}
+			if (rtag.equals(EnumTag.MAPOF)) {
+				for (AST node : getRight().getFields())
+					sb.append(tab() + lvar + ".put(" + node.toJava() + ");\n");
+			}
+			else 
+				sb.append(tab() + lvar + ".put(" + getRight().toJava() + ");\n");
 			return sb.toString();
 		}
-		else if (getLeft().getTag() == EnumTag.IDENT) {
-			String var = getLeft().getName();
-			if (!Main.currentEnv.isInitialized(var)) {
-				Main.currentEnv.set(var, getRight().toJava());
-				return tab() + var + " = new " + Main.currentEnv.find(var) + "(" + getRight().toJava() + ");";
+
+		if (getLeft().getTag().equals(EnumTag.IDENT)) {
+			if (!Main.currentEnv.isInitialized(lvar)) {
+				Main.currentEnv.set(lvar, getRight().toJava());
+				return tab() + lvar + " = new " + Main.currentEnv.find(lvar) + "(" + getRight().toJava() + ");";
 			}
 		}
-		return tab() + getLeft().toJava() + " = " + getRight().toJava() + ";";
+		
+		return tab() + lvar + " = " + getRight().toJava() + ";";
 	}
 
 }
