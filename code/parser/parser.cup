@@ -247,7 +247,7 @@ expr ::=
 	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :}                   // a - b
 	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :}                     // a * b
 	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :}                       // a / b
-	| MINUS expr:e       {: RESULT = new Operation(null, e, EnumTag.MINUS_U); :} %prec MINUS_U     // -a
+	| MINUS expr:e        {: RESULT = new Operation(null, e, EnumTag.MINUS_U); :} %prec MINUS_U    // -a
   | identFields:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                        // foo(a, b, c)
   | identFields LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                       // foo[a]
   | INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 2
@@ -259,7 +259,7 @@ expr ::=
   | map_of:ml {: RESULT = ml; :}                                                                 // {(a,b),(c,d)}
   | LPAR expr:e RPAR 
     {: e.setPriority(true);
-       RESULT = e; :}                                                           // (a)
+       RESULT = e; :}                                                                            // (a)
 	;
 
 ident ::=

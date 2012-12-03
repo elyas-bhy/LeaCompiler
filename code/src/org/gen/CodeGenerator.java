@@ -13,6 +13,18 @@ public class CodeGenerator {
 		mRoot = root;
 	}
 
+	public static void checkDeclared(AST node) {
+		if (node != null) {
+			if (node.getTag().equals(EnumTag.IDENT)) {
+				String var = node.getName();
+				if (!Main.currentEnv.isDeclared(var)) {
+					ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var);
+					Main.mParser.errors.add(err);
+				}
+			}
+		}
+	}
+
 	public StringBuffer prologue() {
 		//Includes the java headers (libraries and packages)
 		StringBuffer sb = new StringBuffer();

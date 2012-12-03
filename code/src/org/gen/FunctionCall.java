@@ -3,7 +3,9 @@ package org.gen;
 public class FunctionCall extends AST {
 	
 	public FunctionCall(AST left, AST right) {
-		super(left, right, EnumTag.FUNCTION_CALL);		
+		super(left, right, EnumTag.FUNCTION_CALL);	
+
+		CodeGenerator.checkDeclared(right);	
 	}
 
 	public String toJava() {

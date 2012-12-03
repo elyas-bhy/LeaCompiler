@@ -4,6 +4,8 @@ public class ProcedureCall extends AST {
 
 	public ProcedureCall(AST left, AST right) {
 		super(left, right, EnumTag.PROCEDURE_CALL);
+
+		CodeGenerator.checkDeclared(right);
 	}
 
 	public String toJava() {

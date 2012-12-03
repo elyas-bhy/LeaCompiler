@@ -38,14 +38,25 @@ procedure main(s : array of string)
   a := 452;
   b := 1;
   c := b + 1;
-  //c := u + 1;
   t := true;
 
   // Undefined variables
-  //pp := 0;
-  //zz := 55;
+  /* 
+  //Detected
+  c := u + 1;
+  z := 55;
+  c := add1(u, v);
+  c := add1(u);
+  add1(jimmy);
+  */
 
-  //Hashmap tests
+  /* 
+  //TODO undetected
+  c := (u);
+  c := u.v;
+  */
+
+  // Hashmap tests
   m := {(d, "delta")};
   m := {(a, "alpha"), (b, "beta")};
 
@@ -60,8 +71,6 @@ procedure main(s : array of string)
 
   // Function calls
   c := add1(a);
-  r := hello(world);
-  r := 2;
 
   // Input / output
   /*write("Hello ");

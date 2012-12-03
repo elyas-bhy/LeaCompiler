@@ -91,6 +91,7 @@ public class Env {
 					add(current.getLeft());
 					add(current.getRight());
 				}
+				break;
 			default:
 				break;
 		}

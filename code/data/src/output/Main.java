@@ -75,8 +75,6 @@ public class Main {
 		f = new Foo(a, b, bar);
 		f.x = -4;
 		c = add1(a);
-		r = hello(world);
-		r = 2;
 		System.out.println("Finished");
 	}
 }

@@ -6,13 +6,7 @@ public class Affect extends AST {
 	public Affect(AST left, AST right) {
 		super(left, right, EnumTag.AFF);
 
-		if (left.getTag().equals(EnumTag.IDENT)) {
-			String var = left.getName();
-			if (!Main.currentEnv.isDeclared(var)) {
-				ErrorObject err = new ErrorObject(Errors.UNDEF_VARIABLE + var);
-				Main.mParser.errors.add(err);
-			}
-		}
+		CodeGenerator.checkDeclared(left);
 	}
 
 	public String toJava() {
