@@ -17,6 +17,7 @@ public class Main {
 	public static Env currentEnv = firstEnv;
 	public static ArrayList<Env> functionEnvs = new ArrayList<Env>();
 	public static Set<AST> structs = new HashSet<AST>();
+	public static Set<Prototype> prototypes = new HashSet<Prototype>();
 	public static StringBuffer globals = new StringBuffer();
 	public static int envNum = 0;
 	

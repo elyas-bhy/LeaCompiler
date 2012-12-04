@@ -1,5 +1,6 @@
 package org.gen;
  
+import org.tree.*;
 import java_cup.runtime.*;
 import java.io.*;
 import java.lang.*;
@@ -95,7 +96,7 @@ funcDef ::=
   fheader:h block:b 
     {: RESULT = new Function(h, b); :}
   | fheader:h SEMIC
-    {: RESULT = new Function(h, null); :}
+    {: RESULT = new Function(h); :}
   ;
 
 fheader ::=
@@ -241,7 +242,7 @@ expr ::=
 	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT); :}                         // a > b
 	| expr:e1 LE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LE); :}                         // a <= b
 	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE); :}                         // a >= b
-	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ); :}                         // a = b
+	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ); :}                         // a == b
 	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF); :}                     // a != b
 	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, e1.getType()); :}       // a + b
 	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :}                   // a - b

@@ -8,6 +8,10 @@ public class Function extends AST {
 		super(left, right, EnumTag.FUNCTION);
 	}
 
+	public Function(AST left){ // prototype
+		this(left, null);
+	}
+
 	public String toJava() {
 		return tab() + "public static " + getLeft().toJava() + getRight().toJava() + "\n" + tab() + "}";
 	}

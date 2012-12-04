@@ -85,11 +85,8 @@ public class AST {
       return str;
     }
     
-    public Env getEnv() throws EnvException {
-      if (env == null)
-        throw new EnvException("Current environment is null");
-      else
-        return env;
+    public Env getEnv() {
+      return env;
     }
 
     public String tab() {
