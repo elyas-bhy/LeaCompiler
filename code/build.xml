@@ -8,6 +8,8 @@
   <property name="lib.dir" location="lib" />
   <property name="src.dir" location="src" />
   <property name="data.dir" location="data" />
+  <property name="input" value="input.txt" />
+  <property name="prog_name" value="Main" />
 
   <regexp id="class" pattern="[a-z]*\.class" />
   
@@ -37,16 +39,16 @@
   <target name="run" depends="default,jar" />
 
   <target name="run-output" depends="jar">
-    <java jar="${lib.dir}/Main.jar" fork="true" />
+    <java jar="${lib.dir}/${prog_name}.jar" fork="true" />
   </target>
 
   <!-- ================================= 
        target: jar              
        ================================= -->
   <target name="jar" depends="java">
-    <jar destfile="${lib.dir}/Main.jar" basedir="${data.dir}/classes">
+    <jar destfile="${lib.dir}/${prog_name}.jar" basedir="${data.dir}/classes">
       <manifest>
-        <attribute name="Main-Class" value="output.Main"/>
+        <attribute name="Main-Class" value="output.${prog_name}"/>
       </manifest>
     </jar>
   </target>
@@ -66,7 +68,8 @@
     <java 
 	classname="org.gen.Main"
 	classpath=".:${bin.dir}:${lib.dir}/java-cup-11a-runtime.jar">
-      <arg value="data/input.txt"/>
+      <arg value="${data.dir}/${input}"/>
+      <arg value="${prog_name}" />
     </java>
     
   </target>
