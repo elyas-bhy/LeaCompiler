@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 
 public class Env {
-	protected static int num = 0;
+	public static int num = 0;
 
 	/* double linked list */
 	private Env prev;

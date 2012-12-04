@@ -1,6 +1,6 @@
-package org.tree;
+package org.gen;
 
-import org.gen.*;
+import org.tree.*;
 
 /* tree implementing a type*/
 public class Type {
