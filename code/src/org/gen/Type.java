@@ -1,5 +1,7 @@
 package org.gen;
 
+import org.tree.*;
+
 /* tree implementing a type*/
 public class Type {
 
@@ -50,10 +52,13 @@ public class Type {
 		this.right = right;
 	}
 
+<<<<<<< HEAD
 	public void setEnumType(EnumType type) {
 		this.type = type;
 	}
 
+=======
+>>>>>>> 4b40e136e521b924c87395f17d8fff1445da2034
 	public EnumType getEnumType() {
 		return this.type;
 	}
