@@ -63,14 +63,8 @@ public class Main {
 
 		a = 452;
 		b = 1;
-		c = b + 1;
 		t = true;
-		m = new HashMap<Integer,String>();
-		m.put(d, "delta");
-		m.put(a, "alpha");
-		m.put(b, "beta");
-
-		a = -(2 + (c / 2 + a)) * b;
+		c = "rr" + t;
 		bar = new Bar();
 		f = new Foo();
 		f = new Foo(a, b, bar);

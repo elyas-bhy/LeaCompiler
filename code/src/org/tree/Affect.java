@@ -9,6 +9,7 @@ public class Affect extends AST {
 		super(left, right, EnumTag.AFF);
 
 		CodeGenerator.checkDeclared(left);
+		CodeGenerator.checkDeclared(right);
 
 		// Check matching type on affectation with function return type >>> a = f(b);
 		// Uncomment when dominant types are implemented
@@ -49,13 +50,6 @@ public class Affect extends AST {
 				sb.append(tab() + lvar + ".put(" + getRight().toJava() + ");");
 			return sb.toString();
 		}
-
-		/*if (getLeft().getTag().equals(EnumTag.IDENT)) {
-			if (!Main.currentEnv.isInitialized(lvar)) {
-				Main.currentEnv.set(lvar, getRight().toJava());
-				return tab() + lvar + " = new " + Main.currentEnv.find(lvar) + "(" + getRight().toJava() + ");";
-			}
-		}*/
 		
 		return tab() + lvar + " = " + getRight().toJava() + ";";
 	}

@@ -39,8 +39,8 @@ procedure main(s : array of string)
   // Basic instructions
   a := 452;
   b := 1;
-  c := b + 1;
   t := true;
+  c := "rr" + t;
 
   // Undefined variables
   /* 
@@ -54,16 +54,16 @@ procedure main(s : array of string)
 
   
   //TODO undetected
-  //c := (a);
+  //c := u;
   //c := u.v;
   
 
   // Hashmap tests
-  m := {(d, "delta")};
-  m := {(a, "alpha"), (b, "beta")};
+  /*m := {(d, "delta")};
+  m := {(a, "alpha"), (b, "beta")};*/
 
   // Priority tests
-  a := -(2 + (c/2 + a)) * b;
+  //a := -(2 + (c/2 + a)) * b;
 
   // Struct tests
   bar := Bar();
@@ -101,7 +101,6 @@ procedure main(s : array of string)
   /*repeat {
     c := c - 1;
   } while (c > 0);*/
-
   writeln("Finished");
 
 }

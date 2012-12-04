@@ -2,9 +2,6 @@ package org.gen;
 
 import org.tree.*;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java_cup.runtime.Symbol;
 import java.util.Set;
@@ -61,7 +58,7 @@ public class Main {
 			}
 
 			cg.setRoot(root);
-			cg.generateCode();
+			cg.generateCode("data/src/output/Main.java");
 		}
 		else {
 			System.err.println("\n\t>> Code generation aborted.");

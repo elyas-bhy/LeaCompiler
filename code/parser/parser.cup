@@ -236,7 +236,7 @@ tuple ::=
   ;
 
 expr ::=
-	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND , e1.getType()/*getDominantType(e1, e2)*/); :}                         // a && b
+	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND , e1.getType()); :}                         // a && b
 	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR, e1.getType()); :}                         // a || b
 	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT, e1.getType()); :}                         // a < b
 	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT, e1.getType()); :}                         // a > b
@@ -244,7 +244,7 @@ expr ::=
 	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE, e1.getType()); :}                         // a >= b
 	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ, e1.getType()); :}                         // a = b
 	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF, e1.getType()); :}                     // a != b
-	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, e1.getType()); :}                     // a + b
+	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, CodeGenerator.getDominantType(e1, e2)); :}                     // a + b
 	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS, e1.getType()); :}                   // a - b
 	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT, e1.getType()); :}                     // a * b
 	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV, e1.getType()); :}                       // a / b
