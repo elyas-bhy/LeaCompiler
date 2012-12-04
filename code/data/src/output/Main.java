@@ -57,13 +57,14 @@ public class Main {
 		Integer c;
 		Integer d;
 		Integer r;
+		Integer j;
 		Foo f;
 		Bar bar;
 
-		a = new Integer(452);
-		b = new Integer(1);
-		c = new Integer(b + 1);
-		t = new Boolean(true);
+		a = 452;
+		b = 1;
+		c = b + 1;
+		t = true;
 		m = new HashMap<Integer,String>();
 		m.put(d, "delta");
 		m.put(a, "alpha");
@@ -75,6 +76,7 @@ public class Main {
 		f = new Foo(a, b, bar);
 		f.x = -4;
 		c = add1(a);
+		t = add1(a);
 		System.out.println("Finished");
 	}
 }

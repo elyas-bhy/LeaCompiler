@@ -236,7 +236,7 @@ tuple ::=
   ;
 
 expr ::=
-	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND, getDominantType(e1, e2)); :}                         // a && b
+	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND, e1.getType()); :}                         // a && b
 	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR, e1.getType()); :}                         // a || b
 	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT, e1.getType()); :}                         // a < b
 	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT, e1.getType()); :}                         // a > b
@@ -259,7 +259,7 @@ expr ::=
   | BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                      // 'True'
   | map_of:ml {: RESULT = ml; :}                                                                 // {(a,b),(c,d)}
   | LPAR expr:e RPAR 
-    {: e.setPriority(true);
+    {: e.setPriority(true); CodeGenerator.checkDeclared(e);
        RESULT = e; :}                                                                            // (a)
 	;
 

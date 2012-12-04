@@ -10,8 +10,8 @@ public class ForRange extends AST {
 
 	public String toJava() {
 		String tmp = getLeft().toJava();
-		return "int " + tmp + " = " + getRight().getLeft().toJava() + "; " 
-		        + tmp + " < " + getRight().getRight().toJava() + "; " + tmp + "++";
+		return tmp + " = " + getRight().getLeft().toJava() + "; " 
+		     + tmp + " < " + getRight().getRight().toJava() + "; " + tmp + "++";
 	}
 	
 }

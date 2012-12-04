@@ -14,6 +14,7 @@ Bar = struct {
   d : string;
 }
 
+
 function add1(i : int) : int
 {
   return i+1;
@@ -31,13 +32,14 @@ procedure main(s : array of string)
   c : int;
   d : int;
   r : int;
+  j : int;
   f : Foo;
   bar : Bar;
 
   // Basic instructions
   a := 452;
   b := 1;
-  //c := b + 1;
+  c := b + 1;
   t := true;
 
   // Undefined variables
@@ -50,11 +52,11 @@ procedure main(s : array of string)
   add1(jimmy);
   */
 
-  /* 
+  
   //TODO undetected
-  c := (u);
-  c := u.v;
-  */
+  //c := (a);
+  //c := u.v;
+  
 
   // Hashmap tests
   m := {(d, "delta")};
@@ -77,26 +79,26 @@ procedure main(s : array of string)
   /*write("Hello ");
   writeln("world");
   str := read();
-  writeln("Value: " + str);
+  writeln("Value: " + str);*/
 
   // If / else blocks
-  if (a >= b) {
+  /*if (a >= b) {
     c := c + 1;
     if (c < 10)
       write("foo");
   }
   else {
     c := 2;
-  }
+  }*/
 
   // For loops
-  for j in [0 .. c+2] {
-    a := b * (2 + c);
+  /*for j in [0 .. c+2] {
+    a := b * (2 + j);
     b := b + 10;
-  }
+  }*/
 
   // Dowhile loops
-  repeat {
+  /*repeat {
     c := c - 1;
   } while (c > 0);*/
 
