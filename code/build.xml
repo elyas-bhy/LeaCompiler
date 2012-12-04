@@ -131,7 +131,7 @@
   <target name="clean-output">
     <delete file="${output.dir}/Main.java" />
     <delete file="${lib.dir}/Main.jar" />
-    <delete dir="${output.dir}/classes" />
+    <delete dir="${data.dir}/classes" />
     <mkdir dir="${data.dir}/classes" />
   </target>
 
