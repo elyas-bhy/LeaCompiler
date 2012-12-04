@@ -1,6 +1,6 @@
-package org.tree;
+package org.gen;
 
-import org.gen.*;
+import org.tree.*;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
