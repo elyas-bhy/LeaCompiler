@@ -17,6 +17,8 @@ Bar = struct {
 
 function add1(i : int) : int
 {
+  a : int;
+  a := 1;
   return i+1;
 }
 
@@ -26,6 +28,7 @@ procedure main(s : array of string)
   // Declarations
   m : map of (int, string);
   str : string;
+  str2 : string;
   t : bool;
   a : int;
   b : int;
@@ -34,19 +37,21 @@ procedure main(s : array of string)
   r : int;
   j : int;
   f : Foo;
+  f2 : Foo;
   bar : Bar;
 
   // Basic instructions
   a := 452;
   b := 1;
   t := true;
-  c := "rr" + t;
+  str := "rr";
+  str2 := str + "tt";
 
   // Undefined variables
-  /* 
+   
   //Detected
   c := u + 1;
-  z := 55;
+  /*z := 55;
   c := add1(u, v);
   c := add1(u);
   add1(jimmy);
@@ -63,17 +68,18 @@ procedure main(s : array of string)
   m := {(a, "alpha"), (b, "beta")};*/
 
   // Priority tests
-  //a := -(2 + (c/2 + a)) * b;
+  a := -(2 + (c/2 + a)) * b;
 
   // Struct tests
-  bar := Bar();
-  f := Foo();
-  f := Foo(a, b, bar);
-  f.x := -4;
+  //bar := Bar();
+  //f := Foo();
+  f2 := f;
+  /*f := Foo(a, b, bar);
+  f.x := -4;*/
 
   // Function calls
-  c := add1(a);
-  t := add1(a);
+  //c := add1(a);
+  //t := add1(a);
 
   // Input / output
   /*write("Hello ");

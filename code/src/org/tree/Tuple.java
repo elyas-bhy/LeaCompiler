@@ -2,7 +2,6 @@ package org.tree;
 
 import org.gen.*;
 
-
 public class Tuple extends AST {
 
 	public Tuple(AST left, AST right) {

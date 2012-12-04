@@ -8,15 +8,11 @@ public class Affect extends AST {
 	public Affect(AST left, AST right) {
 		super(left, right, EnumTag.AFF);
 
-		CodeGenerator.checkDeclared(left);
-		CodeGenerator.checkDeclared(right);
+		Verificator.checkDeclared(left);
+		Verificator.checkDeclared(right);
 
-		// Check matching type on affectation with function return type >>> a = f(b);
 		// Uncomment when dominant types are implemented
-		/*if (getRight().getType() == null || !getRight().getType().equals(getLeft().getType()) ) {
-			ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH + getRight().toJava() + " and " + getLeft().toJava());
-			Main.mParser.errors.add(err);
-		}*/
+		Verificator.checkTypes(left, right);
 	}
 
 	public String toJava() {

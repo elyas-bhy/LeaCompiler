@@ -6,8 +6,7 @@ public class FunctionCall extends AST {
 	
 	public FunctionCall(AST left, AST right) {
 		super(left, right, EnumTag.FUNCTION_CALL);	
-
-		CodeGenerator.checkDeclared(right);	
+		Verificator.checkDeclared(right);	
 	}
 
 	public String toJava() {

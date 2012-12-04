@@ -236,31 +236,54 @@ tuple ::=
   ;
 
 expr ::=
-	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND , e1.getType()); :}                         // a && b
-	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR, e1.getType()); :}                         // a || b
-	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT, e1.getType()); :}                         // a < b
-	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT, e1.getType()); :}                         // a > b
-	| expr:e1 LE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LE, e1.getType()); :}                         // a <= b
-	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE, e1.getType()); :}                         // a >= b
-	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ, e1.getType()); :}                         // a = b
-	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF, e1.getType()); :}                     // a != b
-	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, CodeGenerator.getDominantType(e1, e2)); :}                     // a + b
-	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS, e1.getType()); :}                   // a - b
-	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT, e1.getType()); :}                     // a * b
-	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV, e1.getType()); :}                       // a / b
-	| MINUS expr:e        {: RESULT = new Operation(null, e, EnumTag.MINUS_U); :} %prec MINUS_U  // -a
-  | identFields:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                        // foo(a, b, c)
-  | identFields LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                       // foo[a]
-  | INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 2
-  | FLOATING:f {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}       // 3.14
-  | STRINGEXP:st {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}     // "PI"
-  | CHAREXP:ch {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}           // 'P'
-  | identFields:id {: RESULT = id; :}                                                            // a.b.foo
-  | BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                      // 'True'
-  | map_of:ml {: RESULT = ml; :}                                                                 // {(a,b),(c,d)}
+	expr:e1 AND expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.AND, Verificator.getDominantType(e1, e2)); :}   // a && b
+	| expr:e1 OR expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.OR, Verificator.getDominantType(e1, e2)); :}    // a || b
+	| expr:e1 LT expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.LT, Verificator.getDominantType(e1, e2)); :}    // a < b
+	| expr:e1 GT expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.GT, Verificator.getDominantType(e1, e2)); :}    // a > b
+	| expr:e1 LE expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.LE, Verificator.getDominantType(e1, e2)); :}    // a <= b
+	| expr:e1 GE expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.GE, Verificator.getDominantType(e1, e2)); :}    // a >= b
+	| expr:e1 EQ expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.EQ, Verificator.getDominantType(e1, e2)); :}    // a = b
+	| expr:e1 DIFF expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.DIFF, Verificator.getDominantType(e1, e2)); :}  // a != b
+	| expr:e1 PLUS expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.PLUS, Verificator.getDominantType(e1, e2)); :}  // a + b
+	| expr:e1 MINUS expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.MINUS, Verificator.getDominantType(e1, e2)); :} // a - b
+	| expr:e1 MULT expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.MULT, Verificator.getDominantType(e1, e2)); :}  // a * b
+	| expr:e1 DIV expr:e2 
+    {: RESULT = new Operation(e1, e2, EnumTag.DIV, Verificator.getDominantType(e1, e2)); :}   // a / b
+	| MINUS expr:e 
+    {: RESULT = new Operation(null, e, EnumTag.MINUS_U, e.getType()); :} %prec MINUS_U        // -a
+  | identFields:i LPAR list:l RPAR 
+    {: RESULT = new FunctionCall(i, l); :} // foo(a, b, c)
+  | identFields LBRACKET expr RBRACKET 
+    {: RESULT = new AST(null, null); :}    // foo[a]
+  | INTEGER:i 
+    {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}     // 2
+  | FLOATING:f 
+    {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}  // 3.14
+  | STRINGEXP:st 
+    {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}  // "PI"
+  | CHAREXP:ch 
+    {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}      // 'P'
+  | identFields:id 
+    {: RESULT = id; :} // a.b.foo
+  | BOOL:b 
+    {: RESULT = new Variable(EnumTag.BOOLEAN, b, new Type(EnumType.BOOLEAN)); :} // 'True'
+  | map_of:ml 
+    {: RESULT = ml; :} // {(a,b),(c,d)}
   | LPAR expr:e RPAR 
-    {: e.setPriority(true); CodeGenerator.checkDeclared(e);
-       RESULT = e; :}                                                                            // (a)
+    {: e.setPriority(true); 
+      Verificator.checkDeclared(e);
+      RESULT = e; :}   // (a)
 	;
 
 ident ::=

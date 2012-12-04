@@ -7,8 +7,8 @@ public class ExprList extends AST {
 	public ExprList(AST left, AST right) {
 		super(left, right, EnumTag.EXPRLIST);
 
-		CodeGenerator.checkDeclared(left);
-		CodeGenerator.checkDeclared(right);
+		Verificator.checkDeclared(left);
+		Verificator.checkDeclared(right);
 	}
 
 	public String toJava() {

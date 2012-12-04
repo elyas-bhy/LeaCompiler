@@ -81,7 +81,7 @@ public class Env {
 				//Avoid setting value to null: parameters dont need intialization
 				add(node.getLeft().toJava(),
 					node.getLeft().toJava(),
-					node.getLeft().getType());
+					node.getType());
 				break;
 			case PARAMS:
 				AST current = node;
@@ -131,6 +131,7 @@ public class Env {
 		System.out.println("Dump env: " + scopenum);
 		for (SymbolTableEntry s : symbolTable.values())
 			System.out.println("<" + s.id + "," + s.value + "," + s.type + ">");
+		System.out.println("");
 	}
 
 	/*public void toDot(String file) {

@@ -6,9 +6,8 @@ public class Operation extends AST {
 
 	public Operation(AST left, AST right, EnumTag tag, Type type) {
 		super(left, right, tag, type);
-
-		CodeGenerator.checkDeclared(left);
-		CodeGenerator.checkDeclared(right);
+		//Verificator.checkDeclared(left);
+		//Verificator.checkDeclared(right);
 	}
 	
 	public Operation(AST left, AST right, EnumTag tag) {

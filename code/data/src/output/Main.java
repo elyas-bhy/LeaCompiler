@@ -45,12 +45,16 @@ public class Main {
 	public static Character b = new Character('c');
 
 	public static Integer add1(Integer i) {
+		Integer a;
+
+		a = 1;
 		return i + 1;
 	}
 
 	public static void main(String[] s) {
 		HashMap<Integer,String> m;
 		String str;
+		String str2;
 		Boolean t;
 		Integer a;
 		Integer b;
@@ -59,18 +63,17 @@ public class Main {
 		Integer r;
 		Integer j;
 		Foo f;
+		Foo f2;
 		Bar bar;
 
 		a = 452;
 		b = 1;
 		t = true;
-		c = "rr" + t;
-		bar = new Bar();
-		f = new Foo();
-		f = new Foo(a, b, bar);
-		f.x = -4;
-		c = add1(a);
-		t = add1(a);
+		str = "rr";
+		str2 = str + "tt";
+		c = (b + 1) / 2;
+		a = -(2 + (c / 2 + a)) * b;
+		f2 = f;
 		System.out.println("Finished");
 	}
 }
