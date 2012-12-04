@@ -37,7 +37,7 @@ procedure main(s : array of string)
   // Basic instructions
   a := 452;
   b := 1;
-  c := b + 1;
+  //c := b + 1;
   t := true;
 
   // Undefined variables
@@ -71,6 +71,7 @@ procedure main(s : array of string)
 
   // Function calls
   c := add1(a);
+  t := add1(a);
 
   // Input / output
   /*write("Hello ");

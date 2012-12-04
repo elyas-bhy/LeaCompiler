@@ -175,5 +175,33 @@ public class AST {
         System.out.println("ERROR: build dot");
       }       
     }*/
+    // >>>
+    public static Type getDominantType(Type t1, Type t2) {
+      //Type t1 = e1.getType();
+      //Type t2 = e2.getType();
 
+      Type t = new Type(t1, t2);
+
+      if( t1.equals(EnumType.STRING) || t2.equals(EnumType.STRING) ) {
+        t.setEnumType(EnumType.STRING);
+      }
+      else if( t1.equals(EnumType.FLOAT) || t2.equals(EnumType.FLOAT) ) {
+        t.setEnumType(EnumType.FLOAT);
+      }
+      else if( t1.equals(EnumType.INT) || t2.equals(EnumType.INT) ) {
+        t.setEnumType(EnumType.INT);
+      }
+      else if( t1.equals(EnumType.CHAR) || t2.equals(EnumType.CHAR) ) {
+        t.setEnumType(EnumType.CHAR);
+      }
+      else if( t1.equals(EnumType.BOOLEAN) || t2.equals(EnumType.BOOLEAN) ) {
+        t.setEnumType(EnumType.BOOLEAN);
+      }
+
+      if (t.getEnumType() == null)
+        return null;
+      else
+        return t;
+    }
+    // <<<
 }
