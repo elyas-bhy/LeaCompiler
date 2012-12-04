@@ -14,17 +14,6 @@ public class VarDeclaration extends AST {
 			return tab() + "HashMap<" + getRight().toJava() + "> " + getLeft().toJava()
 						 + " = new HashMap<" + getRight().toJava() + ">()";
 		}
-		// TODO check if we need to use primitive types instead of Java objects
 		return tab() + getType() + " " + getLeft().toJava();
-		/*switch(getType().getEnumType()) {
-			case STRUCT:
-				return tab() + getType().getGenericType() + " " + getLeft().toJava();
-			case INT:
-				return tab() + getType() + " " + getLeft().toJava() + " = new " + getType() + "(0);";
-			case STRING:
-				return tab() + getType() + " " + getLeft().toJava() + " = new " + getType() + "()";
-			default:
-				return tab() + getType() + " " + getLeft().toJava() + " = new " + getType() + "(null)";
-		}*/
 	}
 }

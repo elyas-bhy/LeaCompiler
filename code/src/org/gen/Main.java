@@ -29,62 +29,42 @@ public class Main {
 		Symbol result = null;
 		AST root = null;
 		CodeGenerator cg = new CodeGenerator();
-		StringBuffer sb = new StringBuffer();
 		ArrayList<ErrorObject> scannerErrors, parserErrors;
 
 		try {
-			File f = new File("data/src/output/Main.java");
+			FileReader  myFile = new FileReader(args[0]);
+			mScanner = new Scanner(myFile);
+			mParser = new Parser(mScanner);
+		} catch (Exception e) {
+			System.err.println("Invalid file");
+		}
 
-			if(!f.exists()) {
-				System.out.println("creating file");
-				f.createNewFile();
-			}
+		try {
+			result = mParser.parse();
+		} catch (Exception e) {
+			System.err.println("Parse error: " + e);
+		}
 
-			FileWriter fw = new FileWriter(f);
-			BufferedWriter bfw = new BufferedWriter(fw);
+		scannerErrors = mScanner.getErrors();
+		for (ErrorObject err : scannerErrors)
+			System.err.println("\t" + args[0] + err);
 
+		parserErrors = mParser.errors;
+		for (ErrorObject err : parserErrors)
+			System.err.println("\t" + args[0] + err);
+
+		if (scannerErrors.size() == 0 && parserErrors.size() == 0) {
 			try {
-				FileReader  myFile = new FileReader(args[0]);
-				mScanner = new Scanner(myFile);
-				mParser = new Parser(mScanner);
+				root = (AST) result.value;
 			} catch (Exception e) {
-				System.err.println("Invalid file");
+				System.err.println("Result error: " + e);
 			}
 
-			try {
-				result = mParser.parse();
-			} catch (Exception e) {
-				System.err.println("Parse error: " + e);
-			}
-
-			scannerErrors = mScanner.getErrors();
-			for (ErrorObject err : scannerErrors)
-				System.err.println("\t" + args[0] + err);
-
-			parserErrors = mParser.errors;
-			for (ErrorObject err : parserErrors)
-				System.err.println("\t" + args[0] + err);
-
-			if (scannerErrors.size() == 0 && parserErrors.size() == 0) {
-				try {
-					root = (AST) result.value;
-				} catch (Exception e) {
-					System.err.println("Result error: " + e);
-				}
-				cg.setRoot(root);
-				sb = cg.generateCode();
-				//System.out.println("Writing to file: " + sb);
-				bfw.write(new String(sb));
-				bfw.flush();
-
-				//System.out.println(sb);
-
-			}
-			else {
-				System.err.println("\n\t>> Code generation aborted.");
-			}
-		} catch(Exception e) {
-			System.err.println("problem opening file");
+			cg.setRoot(root);
+			cg.generateCode();
+		}
+		else {
+			System.err.println("\n\t>> Code generation aborted.");
 		}
 	}
 }

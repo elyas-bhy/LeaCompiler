@@ -259,7 +259,7 @@ expr ::=
   | BOOL:b {: RESULT = new Variable(EnumTag.BOOLEAN, b); :}                                      // 'True'
   | map_of:ml {: RESULT = ml; :}                                                                 // {(a,b),(c,d)}
   | LPAR expr:e RPAR 
-    {: e.setPriority(true);
+    {: e.setPriority(true); CodeGenerator.checkDeclared(e);
        RESULT = e; :}                                                                            // (a)
 	;
 

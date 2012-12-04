@@ -2,14 +2,12 @@ package org.gen;
 
 import org.tree.*;
 
-import org.tree.*;
-
 import java.lang.String;
 
 public enum Errors {
 	UNDEF_VARIABLE ("undefined variable: "),
 	UNDEF_METHOD ("undefined method: "),
-	TYPE_MISMATCH ("type mismatch: ");
+	TYPE_MISMATCH ("type mismatch: between ");
 
 	private final String error;
 
