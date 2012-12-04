@@ -1,5 +1,9 @@
 package org.gen;
 
+import org.tree.*;
+
+import org.tree.*;
+
 public class ErrorObject {
 
 	private String error;
