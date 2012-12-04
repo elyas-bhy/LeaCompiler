@@ -23,6 +23,10 @@ public class Type {
 		this(left, right, 0, type);
 	}
 
+	public Type(Type left, Type right) {
+		this(left, right, 0, null);
+	}
+
 	public Type(EnumType type) {
 		this(null, null, type);
 	}
@@ -48,6 +52,13 @@ public class Type {
 		this.right = right;
 	}
 
+<<<<<<< HEAD
+	public void setEnumType(EnumType type) {
+		this.type = type;
+	}
+
+=======
+>>>>>>> 4b40e136e521b924c87395f17d8fff1445da2034
 	public EnumType getEnumType() {
 		return this.type;
 	}

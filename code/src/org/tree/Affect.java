@@ -9,6 +9,12 @@ public class Affect extends AST {
 		super(left, right, EnumTag.AFF);
 
 		CodeGenerator.checkDeclared(left);
+		// Check matching type on affectation with function return type >>> a = f(b);
+		if (getRight().getType() == null || !getRight().getType().equals(getLeft().getType()) ) {
+			ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH + "between " + getRight().toJava() + " and " + getLeft().toJava()  );
+			Main.mParser.errors.add(err);
+		}
+		// <<<
 	}
 
 	public String toJava() {

@@ -236,19 +236,19 @@ tuple ::=
   ;
 
 expr ::=
-	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND); :}                         // a && b
-	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR); :}                         // a || b
-	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT); :}                         // a < b
-	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT); :}                         // a > b
-	| expr:e1 LE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LE); :}                         // a <= b
-	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE); :}                         // a >= b
-	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ); :}                         // a == b
-	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF); :}                     // a != b
-	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, e1.getType()); :}       // a + b
-	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS); :}                   // a - b
-	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT); :}                     // a * b
-	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV); :}                       // a / b
-	| MINUS expr:e        {: RESULT = new Operation(null, e, EnumTag.MINUS_U); :} %prec MINUS_U    // -a
+	expr:e1 AND expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.AND, getDominantType(e1, e2)); :}                         // a && b
+	| expr:e1 OR expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.OR, e1.getType()); :}                         // a || b
+	| expr:e1 LT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LT, e1.getType()); :}                         // a < b
+	| expr:e1 GT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GT, e1.getType()); :}                         // a > b
+	| expr:e1 LE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.LE, e1.getType()); :}                         // a <= b
+	| expr:e1 GE expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.GE, e1.getType()); :}                         // a >= b
+	| expr:e1 EQ expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.EQ, e1.getType()); :}                         // a = b
+	| expr:e1 DIFF expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIFF, e1.getType()); :}                     // a != b
+	| expr:e1 PLUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.PLUS, e1.getType()); :}                     // a + b
+	| expr:e1 MINUS expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MINUS, e1.getType()); :}                   // a - b
+	| expr:e1 MULT expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.MULT, e1.getType()); :}                     // a * b
+	| expr:e1 DIV expr:e2 {: RESULT = new Operation(e1, e2, EnumTag.DIV, e1.getType()); :}                       // a / b
+	| MINUS expr:e        {: RESULT = new Operation(null, e, EnumTag.MINUS_U); :} %prec MINUS_U  // -a
   | identFields:i LPAR list:l RPAR {: RESULT = new FunctionCall(i, l); :}                        // foo(a, b, c)
   | identFields LBRACKET expr RBRACKET {: RESULT = new AST(null, null); :}                       // foo[a]
   | INTEGER:i {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}           // 2
