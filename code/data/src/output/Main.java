@@ -45,6 +45,11 @@ public class Main {
 	public static Character b = new Character('c');
 
 	public static Integer add1(Integer i) {
+		Integer a;
+		Integer b;
+
+		a = 1;
+		b = 2;
 		return i + 1;
 	}
 
@@ -72,7 +77,11 @@ public class Main {
 		m.put(a, "alpha");
 		m.put(b, "beta");
 
+		bar = new Bar();
+		f = new Foo();
+		f = new Foo(a, b, bar);
 		f2 = f;
+		c = add1(a) + b;
 		System.out.println("Finished");
 	}
 }

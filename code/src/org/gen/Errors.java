@@ -4,7 +4,7 @@ import java.lang.String;
 
 public enum Errors {
 	UNDEF_VARIABLE ("undefined variable: "),
-	UNDEF_METHOD ("undefined method: "),
+	UNDEF_REF ("undefined reference: "),
 	TYPE_MISMATCH ("type mismatch: between "),
 	VOID_RETURN ("cannot use return statement within a procedure"),
 	MISSING_RETURN ("missing return statement");

@@ -40,6 +40,7 @@ public class Main {
 			result = mParser.parse();
 		} catch (Exception e) {
 			System.err.println("Parse error: " + e);
+			e.printStackTrace();
 		}
 
 		scannerErrors = mScanner.getErrors();

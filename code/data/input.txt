@@ -17,6 +17,12 @@ Bar = struct {
 
 function add1(i : int) : int
 {
+  a : int;
+  b : int;
+  a := 1;
+  b := 2;
+  // TODO make add1() visible in its own context
+  //a := add1(b); 
   return i+1;
 }
 
@@ -54,6 +60,7 @@ procedure main(s : array of string)
   //c := add1(u);
   //add1(jimmy);
   //c := (u);
+  //c := add1(t);
 
   //TODO undetected
   //c := u.v;
@@ -67,15 +74,14 @@ procedure main(s : array of string)
   //a := -(2 + (c/2 + a)) * b;
 
   // Struct tests
-  //bar := Bar();
-  //f := Foo();
+  bar := Bar();
+  f := Foo();
+  f := Foo(a, b, bar);
   f2 := f;
-  /*f := Foo(a, b, bar);
-  f.x := -4;*/
+  //f.x := -4;
 
   // Function calls
-  //c := add1(a);
-  //c := add1(a) + b; 
+  c := add1(a) + b; 
   //t := add1(a);
 
   // Input / output
@@ -103,7 +109,7 @@ procedure main(s : array of string)
   // Dowhile loops
   repeat {
     c := c - 1;
-  } while (c > 0);*/
+  } while (c > 0); */
   writeln("Finished");
 
 }

@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Prototype {
-	private String returnType;
+	private Type returnType;
 	private String name;
 	private List<Type> args;
 
-	public Prototype(String name, String returnType) {
+	public Prototype(String name, Type returnType) {
 		this.name = name;
 		this.returnType = returnType;
 		args = new ArrayList<Type>();
 	}
 
-	public Prototype(String name, String returnType, ArrayList<Type> args) {
+	public Prototype(String name, Type returnType, ArrayList<Type> args) {
 		this.name = name;
 		this.args = args;
 		this.returnType = returnType;
@@ -31,7 +31,7 @@ public class Prototype {
 		return Collections.unmodifiableList(this.args);
 	}
 
-	public String getReturnType() {
+	public Type getReturnType() {
 		return returnType;
 	}
 
@@ -42,7 +42,7 @@ public class Prototype {
 			int size = args.size();
 			if (size == args2.size()){
 				for (int i = 0; i < size; i++)
-					if (args.get(i) != args2.get(i))
+					if (!args.get(i).getEnumType().equals(args2.get(i).getEnumType()))
 						return false;
 				return true;
 			}
@@ -53,9 +53,12 @@ public class Prototype {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.returnType + " " + this.name + "(");
-		for(Type t : args)
-			sb.append(t + " ");
-		sb.append(");\n");
+		if (args.size() > 0) {
+			for(Type t : args)
+				sb.append(t + ", ");
+			sb = sb.delete(sb.length() -2, sb.length());
+		}
+		sb.append(")\n");
 		return sb.toString();
 	}
 	
