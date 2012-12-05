@@ -2,10 +2,10 @@ package org.tree;
 
 import org.gen.*;
 
-public class FieldAccess extends AST {
+public class SubField extends AST {
 	
-	public FieldAccess(AST left, AST right) {
-		super(left, right, EnumTag.FIELD_ACCESS);		
+	public SubField(AST left, AST right) {
+		super(left, right, EnumTag.SUBFIELD);		
 	}
 
 	public String toJava() {

@@ -49,7 +49,7 @@ public enum EnumTag {
   VARDEC("var_decl"),
   VARDECS("var_decls"),
   DECLOPT("decl_opt"),
-  FIELD_ACCESS("field_access"),
+  SUBFIELD("subfield"),
 
   GLOBAL_DECS("global_decs"),
   GLOBAL_DEC("global_dec"),

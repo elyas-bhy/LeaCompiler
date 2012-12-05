@@ -120,7 +120,7 @@ public class AST {
           result += left.toString();
         if (right != null){
           result+=",";
-          if (right.tag==EnumTag.SUCC || right.tag==EnumTag.THENELSE)
+          if (right.tag == EnumTag.SUCC || right.tag == EnumTag.THENELSE)
             result+="\n\n\t";
           result += right.toString();
         }

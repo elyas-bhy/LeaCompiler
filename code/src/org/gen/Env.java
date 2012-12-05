@@ -124,6 +124,8 @@ public class Env {
 	public Type find(String id) {
 		if(symbolTable.containsKey(id))
 			return symbolTable.get(id).type;
+		else if (this.prev != null)
+			return this.prev.find(id);
 		return null;
 	}
 

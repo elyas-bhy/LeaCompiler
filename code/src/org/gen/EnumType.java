@@ -3,24 +3,24 @@ package org.gen;
 import org.tree.*;
 
 public enum EnumType {
-  CHAR ("Character"), 
-	INT ("Integer"), 
+	CHAR ("Character"),
+	INT ("Integer"),
 	FLOAT ("Float"),
-	STRING ("String"), 
-	BOOLEAN ("Boolean"), 
-	ARRAY ("Array"), 
-  EXPRLIST ("List"),
+	STRING ("String"),
+	BOOLEAN ("Boolean"),
+	ARRAY ("Array"),
+	EXPRLIST ("List"),
 	ERROR ("error"),
-  MAP("HashMap"),
-  STRUCT("generic type");
-	
-  private final String tag;
+	MAP("HashMap"),
+	STRUCT("generic type");
 
-  EnumType(String s) {
-    tag = s;
-  }
+	private final String tag;
 
-  public String toString() {
-    return tag;
-  }
+	EnumType(String s) {
+		tag = s;
+	}
+
+	public String toString() {
+		return tag;
+	}
 }

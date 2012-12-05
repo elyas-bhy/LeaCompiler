@@ -45,10 +45,7 @@ public class Main {
 	public static Character b = new Character('c');
 
 	public static Integer add1(Integer i) {
-		Integer a;
-
-		a = 1;
-		return i + 1;
+		System.out.println("h");
 	}
 
 	public static void main(String[] s) {
@@ -71,8 +68,6 @@ public class Main {
 		t = true;
 		str = "rr";
 		str2 = str + "tt";
-		c = (b + 1) / 2;
-		a = -(2 + (c / 2 + a)) * b;
 		f2 = f;
 		System.out.println("Finished");
 	}

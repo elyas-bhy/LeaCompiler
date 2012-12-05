@@ -16,21 +16,6 @@
   <description>
     LeaCompiler build file
   </description>
-  
-  <!--<target name="default" depends="dot" description="open graph">
-    <exec executable="eog">
-      <arg value="data/ast.jpg"/>
-    </exec>
-  </target>
-
-  <target name="dot" depends="compile" description="compiling dot file">
-    <exec executable="dot">
-      <arg value="-Tjpg" />
-      <arg value="-o" />
-      <arg value="data/ast.jpg"/>
-      <arg value="data/arbreSynt.dot" />
-    </exec>
-  </target>-->
 
 
   <!-- ================================= 

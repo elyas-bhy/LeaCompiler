@@ -291,6 +291,6 @@ ident ::=
 	;
 
 identFields ::=
-  identFields:idfs DOT ident:id {: RESULT = new FieldAccess(id, idfs); :}
+  identFields:idfs DOT ident:id {: RESULT = new SubField(id, idfs); :}
   | ident:id {: RESULT = id; :}
   ;

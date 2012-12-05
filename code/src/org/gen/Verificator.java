@@ -18,9 +18,16 @@ public class Verificator {
 		return true;
 	}
 
+	public static Type findType(AST node) {
+		Type t = node.getType();
+		if (t == null)
+			t = Main.currentEnv.find(node.toJava());
+		return t;
+	}
+
 	public static void checkTypes(AST left, AST right) {
-		Type rtype = Main.currentEnv.find(left.toJava());
-		Type ltype = Main.currentEnv.find(left.toJava());
+		Type ltype = findType(left);
+		Type rtype = findType(right);
 
 		if (rtype == null || !rtype.getEnumType().equals(ltype.getEnumType())) {
 			ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
@@ -34,17 +41,15 @@ public class Verificator {
 		if (!checkDeclared(e1) || !checkDeclared(e2))
 			return null;
 
-		Type t1 = e1.getType();
-		Type t2 = e2.getType();
-
-		if (t1 == null)
-			t1 = Main.currentEnv.find(e1.toJava());
-		if (t2 == null)
-			t2 = Main.currentEnv.find(e2.toJava());
+		Type t1 = findType(e1);
+		Type t2 = findType(e2);
 
 		Type t = new Type(t1, t2);
 
-		if (t1.getEnumType().equals(EnumType.STRING) || t2.getEnumType().equals(EnumType.STRING)) {
+		if (t1.getEnumType().equals(t2.getEnumType())) {
+			t.setEnumType(t1.getEnumType());
+		}
+		/*if (t1.getEnumType().equals(EnumType.STRING) || t2.getEnumType().equals(EnumType.STRING)) {
 			t.setEnumType(EnumType.STRING);
 		}
 		else if (t1.getEnumType().equals(EnumType.FLOAT) || t2.getEnumType().equals(EnumType.FLOAT)) {
@@ -61,7 +66,7 @@ public class Verificator {
 		}
 		else if (t1.getEnumType().equals(EnumType.STRUCT) || t2.getEnumType().equals(EnumType.STRUCT)) {
 			t.setEnumType(EnumType.STRUCT);
-		}
+		}*/
 
 		if (t.getEnumType() == null)
 			return null;

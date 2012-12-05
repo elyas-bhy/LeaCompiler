@@ -17,9 +17,8 @@ Bar = struct {
 
 function add1(i : int) : int
 {
-  a : int;
-  a := 1;
-  return i+1;
+  writeln("h");
+  //return i+1;
 }
 
 procedure main(s : array of string)
@@ -50,16 +49,15 @@ procedure main(s : array of string)
   // Undefined variables
    
   //Detected
-  c := u + 1;
+  //c := u + 1;
   /*z := 55;
   c := add1(u, v);
   c := add1(u);
   add1(jimmy);
+  c := (u);
   */
 
-  
   //TODO undetected
-  //c := u;
   //c := u.v;
   
 
@@ -68,7 +66,7 @@ procedure main(s : array of string)
   m := {(a, "alpha"), (b, "beta")};*/
 
   // Priority tests
-  a := -(2 + (c/2 + a)) * b;
+  //a := -(2 + (c/2 + a)) * b;
 
   // Struct tests
   //bar := Bar();
@@ -95,16 +93,16 @@ procedure main(s : array of string)
   }
   else {
     c := 2;
-  }*/
+  }
 
   // For loops
-  /*for j in [0 .. c+2] {
-    a := b * (2 + j);
+  for j in [0 .. c+2] {
+    //a := b * (2 + j);
     b := b + 10;
-  }*/
+  }
 
   // Dowhile loops
-  /*repeat {
+  repeat {
     c := c - 1;
   } while (c > 0);*/
   writeln("Finished");
