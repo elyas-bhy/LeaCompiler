@@ -80,7 +80,6 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 \/\/			{yybegin(MONO_COMMENT); }
 \/\*			{yybegin(MULTI_COMMENT); }
 
-\"				{ return symbol(MySymbol.DQUOTE, yytext()); }
 "("				{ return symbol(MySymbol.LPAR, yytext()); }
 ")"				{ return symbol(MySymbol.RPAR, yytext()); }
 "{"				{ return symbol(MySymbol.LBRACE, yytext()); }
@@ -106,12 +105,10 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 ":"				{ return symbol(MySymbol.COLON, yytext()); }
 "="				{ return symbol(MySymbol.EQ, yytext()); }
 "if"			{ return symbol(MySymbol.IF, yytext()); }
-"then"			{ return symbol(MySymbol.THEN, yytext()); }
 "else"			{ return symbol(MySymbol.ELSE, yytext()); }
 "while"			{ return symbol(MySymbol.WHILE, yytext()); }
 "for"			{ return symbol(MySymbol.FOR, yytext()); }
 "in"			{ return symbol(MySymbol.IN, yytext()); }
-"do"			{ return symbol(MySymbol.DO, yytext()); }
 "bool"			{ return symbol(MySymbol.BOOLEAN, yytext()); }
 "int"			{ return symbol(MySymbol.INT, yytext()); }
 "float"			{ return symbol(MySymbol.FLOAT, yytext()); }
@@ -123,7 +120,6 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "map"			{ return symbol(MySymbol.MAP, yytext()); }
 "list"			{ return symbol(MySymbol.EXPRLIST, yytext()); }
 "struct"		{ return symbol(MySymbol.STRUCT, yytext()); }
-"void"			{ return symbol(MySymbol.VOID, yytext()); }
 "repeat"		{ return symbol(MySymbol.REPEAT, yytext()); }
 "return"		{ return symbol(MySymbol.RETURN, yytext()); }
 "function"		{ return symbol(MySymbol.FUNCTION, yytext()); }

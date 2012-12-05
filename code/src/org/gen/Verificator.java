@@ -37,6 +37,18 @@ public class Verificator {
 		}
 	}
 
+    public static void checkReturns(AST node) {
+    	ErrorObject err;
+    	if (node.getLeft().getType() == null && node.returnCount() > 0) {
+    		err = new ErrorObject(Errors.VOID_RETURN.toString());
+    		Main.mParser.errors.add(err);
+    	}
+    	else if (node.getLeft().getType() != null && node.returnCount() == 0) {
+    		err = new ErrorObject(Errors.MISSING_RETURN.toString());
+    		Main.mParser.errors.add(err);
+    	}
+    }
+
 	public static Type getDominantType(AST e1, AST e2) {
 		if (!checkDeclared(e1) || !checkDeclared(e2))
 			return null;

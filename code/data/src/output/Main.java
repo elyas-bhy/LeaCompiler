@@ -45,7 +45,7 @@ public class Main {
 	public static Character b = new Character('c');
 
 	public static Integer add1(Integer i) {
-		System.out.println("h");
+		return i + 1;
 	}
 
 	public static void main(String[] s) {
@@ -68,12 +68,11 @@ public class Main {
 		t = true;
 		str = "rr";
 		str2 = str + "tt";
+		m = new HashMap<Integer,String>();
+		m.put(a, "alpha");
+		m.put(b, "beta");
+
 		f2 = f;
 		System.out.println("Finished");
 	}
-}Bar Bar(String );
-Foo Foo(Integer Integer Bar );
-Foo Foo();
-null main(String[] );
-Integer add1(Integer );
-Bar Bar();
+}

@@ -102,6 +102,17 @@ public class AST {
       return s;
     }
 
+    public int returnCount() {
+      int count = 0;
+      if (this.tag.equals(EnumTag.RETURN))
+        count += 1;
+      if (this.left != null)
+        count += this.left.returnCount();
+      if (this.right != null)
+        count += this.right.returnCount();
+      return count;
+    }
+
     public ArrayList<AST> getFields() {
       return null;
     }

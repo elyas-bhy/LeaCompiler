@@ -1,13 +1,13 @@
 package org.gen;
 
-import org.tree.*;
-
 import java.lang.String;
 
 public enum Errors {
 	UNDEF_VARIABLE ("undefined variable: "),
 	UNDEF_METHOD ("undefined method: "),
-	TYPE_MISMATCH ("type mismatch: between ");
+	TYPE_MISMATCH ("type mismatch: between "),
+	VOID_RETURN ("cannot use return statement within a procedure"),
+	MISSING_RETURN ("missing return statement");
 
 	private final String error;
 

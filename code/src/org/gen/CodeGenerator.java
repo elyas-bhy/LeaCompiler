@@ -49,8 +49,6 @@ public class CodeGenerator {
 			FileWriter fw = new FileWriter(f);
 			BufferedWriter bfw = new BufferedWriter(fw);
 			bfw.write(sb.toString());
-			for(Prototype p : Main.prototypes)
-				bfw.write(p.toString());
 			bfw.flush();
 		} catch (Exception e) {
 			System.out.println("Failed file creation: " + e);

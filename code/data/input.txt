@@ -17,8 +17,7 @@ Bar = struct {
 
 function add1(i : int) : int
 {
-  writeln("h");
-  //return i+1;
+  return i+1;
 }
 
 procedure main(s : array of string)
@@ -50,20 +49,19 @@ procedure main(s : array of string)
    
   //Detected
   //c := u + 1;
-  /*z := 55;
-  c := add1(u, v);
-  c := add1(u);
-  add1(jimmy);
-  c := (u);
-  */
+  //z := 55;
+  //c := add1(u, v);
+  //c := add1(u);
+  //add1(jimmy);
+  //c := (u);
 
   //TODO undetected
   //c := u.v;
   
 
   // Hashmap tests
-  /*m := {(d, "delta")};
-  m := {(a, "alpha"), (b, "beta")};*/
+  //m := {(d, "delta")};
+  m := {(a, "alpha"), (b, "beta")};
 
   // Priority tests
   //a := -(2 + (c/2 + a)) * b;
@@ -80,10 +78,10 @@ procedure main(s : array of string)
   //t := add1(a);
 
   // Input / output
-  /*write("Hello ");
-  writeln("world");
-  str := read();
-  writeln("Value: " + str);*/
+  //write("Hello ");
+  //writeln("world");
+  //str := read();
+  //writeln("Value: " + str);
 
   // If / else blocks
   /*if (a >= b) {
