@@ -19,9 +19,14 @@ public class Verificator {
 	}
 
 	public static Type findType(AST node) {
-		Type t = node.getType();
+		Type t;
+		/*if ((node.getEnumTag().equals(EnumType.FUNCTION_CALL)) ||(node.getEnumTag().equals(EnumType.PROCEDURE_CALL))) {
+			t = null;
+		} else {*/
+		t = node.getType();
 		if (t == null)
-			t = Main.currentEnv.find(node.toJava());
+			t = Main.currentEnv.find(node.toJava());		
+		//}
 		return t;
 	}
 

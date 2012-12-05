@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Prototype {
+	private String returnType;
 	private String name;
 	private List<Type> args;
-	private String returnType;
 
 	public Prototype(String name, String returnType) {
 		this.name = name;
@@ -29,6 +29,10 @@ public class Prototype {
 
 	public List<Type> getArgs() {
 		return Collections.unmodifiableList(this.args);
+	}
+
+	public String getReturnType() {
+		return returnType;
 	}
 
 	public boolean equals(Object o) {

@@ -75,6 +75,7 @@ procedure main(s : array of string)
 
   // Function calls
   //c := add1(a);
+  //c := add1(a) + b; 
   //t := add1(a);
 
   // Input / output
