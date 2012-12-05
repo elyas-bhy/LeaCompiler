@@ -1,5 +1,7 @@
 package org.gen;
 
+import org.tree.*;
+
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +9,18 @@ import java.util.List;
 public class Prototype {
 	private String name;
 	private List<Type> args;
+	private String returnType;
 
-	public Prototype(String name) {
+	public Prototype(String name, String returnType) {
 		this.name = name;
+		this.returnType = returnType;
 		args = new ArrayList<Type>();
+	}
+
+	public Prototype(String name, String returnType, ArrayList<Type> args) {
+		this.name = name;
+		this.args = args;
+		this.returnType = returnType;
 	}
 
 	public void addArg(Type t) {
@@ -34,6 +44,15 @@ public class Prototype {
 			}
 		}
 		return false;
+	}
+
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.returnType + " " + this.name + "(");
+		for(Type t : args)
+			sb.append(t + " ");
+		sb.append(");\n");
+		return sb.toString();
 	}
 	
 }

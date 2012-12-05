@@ -48,7 +48,7 @@ public class GlobalDeclaration extends AST {
     }
 
     // Emtpy constructor
-    Prototype emptyConst = new Prototype(getLeft().getName());
+    Prototype emptyConst = new Prototype(getLeft().getName(), getLeft().getName());
     sb.append(tab() + "public " + left.getName() + "() {\n");
     CodeGenerator.tabLevel++;
     for (AST node : fields)
@@ -58,7 +58,7 @@ public class GlobalDeclaration extends AST {
     Main.prototypes.add(emptyConst);
 
     // Constructor with all fields
-    Prototype allFieldConst = new Prototype(getLeft().getName());
+    Prototype allFieldConst = new Prototype(getLeft().getName(), getLeft().getName());
     sb.append(tab() + "public " + left.getName() + "(");
     for (AST node : fields){
       sb.append(node.getType() + " " + node.getLeft().getName() + ", ");

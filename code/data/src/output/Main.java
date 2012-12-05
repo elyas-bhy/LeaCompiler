@@ -71,4 +71,9 @@ public class Main {
 		f2 = f;
 		System.out.println("Finished");
 	}
-}
+}Bar Bar(String );
+Foo Foo(Integer Integer Bar );
+Foo Foo();
+null main(String[] );
+Integer add1(Integer );
+Bar Bar();

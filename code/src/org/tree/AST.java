@@ -106,6 +106,10 @@ public class AST {
       return null;
     }
 
+    public ArrayList<Type> getTypesList() {
+      return null;
+    }
+
     public String toJava() {
       return "";
     }
