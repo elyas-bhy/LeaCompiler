@@ -7,6 +7,10 @@ public class Header extends AST {
 	public Header(AST left, AST right, Type type) {
 		super(left, right, EnumTag.HEADER, type);
 		Parser.params = right;
+
+		Main.prototypes.add(new Prototype(left.toJava(), 
+										  getType(),
+										  getRight().getTypesList()));
 	}
 
 	public Header(AST left, AST right) {

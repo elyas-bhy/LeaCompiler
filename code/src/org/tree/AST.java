@@ -54,7 +54,9 @@ public class AST {
     }
 
     public void setPriority(boolean b) {
-      priority = b;
+    	if (priority)
+    		Verificator.checkDeclared(this);
+    	priority = b;
     }
     
     public AST getLeft() {

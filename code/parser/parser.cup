@@ -282,7 +282,6 @@ expr ::=
     {: RESULT = ml; :} // {(a,b),(c,d)}
   | LPAR expr:e RPAR 
     {: e.setPriority(true); 
-      Verificator.checkDeclared(e);
       RESULT = e; :}   // (a)
 	;
 

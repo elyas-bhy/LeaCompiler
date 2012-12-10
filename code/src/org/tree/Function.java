@@ -7,9 +7,6 @@ public class Function extends AST {
 	
 	public Function(AST left, AST right) {
 		super(left, right, EnumTag.FUNCTION);
-		Main.prototypes.add(new Prototype(left.getLeft().toJava(), 
-										  left.getType(),
-										  left.getRight().getTypesList()));
 		if (right != null)
 			Verificator.checkReturns(this);
 	}

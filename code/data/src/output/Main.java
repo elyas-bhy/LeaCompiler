@@ -50,6 +50,17 @@ public class Main {
 
 		a = 1;
 		b = 2;
+		a = add1(b);
+		return i + 1;
+	}
+
+	public static Integer add1(bar i) {
+		Integer a;
+		Integer b;
+
+		a = 1;
+		b = 2;
+		a = add1(b);
 		return i + 1;
 	}
 
@@ -77,11 +88,12 @@ public class Main {
 		m.put(a, "alpha");
 		m.put(b, "beta");
 
+		a = -(2 + (c / 2 + a)) * b;
 		bar = new Bar();
 		f = new Foo();
 		f = new Foo(a, b, bar);
 		f2 = f;
-		c = add1(a) + b;
+		c = add1(bar);
 		System.out.println("Finished");
 	}
 }

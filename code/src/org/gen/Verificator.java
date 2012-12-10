@@ -67,6 +67,9 @@ public class Verificator {
 
 		Type t = new Type(t1, t2);
 
+		if (t1 == null  || t2 == null)
+			return null;
+
 		if (t1.getEnumType().equals(t2.getEnumType())) {
 			t.setEnumType(t1.getEnumType());
 		}
