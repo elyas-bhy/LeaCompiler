@@ -59,7 +59,7 @@ public class Main {
 			}
 
 			cg.setRoot(root);
-			cg.generateCode("data/src/output/Main.java");
+			cg.generateCode("tests/output/" + args[1] + "/src/gen/Main.java");
 		}
 		else {
 			System.err.println("\n\t>> Code generation aborted.");

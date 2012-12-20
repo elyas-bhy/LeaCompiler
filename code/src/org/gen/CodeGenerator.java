@@ -22,7 +22,7 @@ public class CodeGenerator {
 	public StringBuffer prologue() {
 		//Includes the java headers (libraries and packages)
 		StringBuffer sb = new StringBuffer();
-		sb.append("package output;\n\n");
+		sb.append("package gen;\n\n");
 		sb.append("import java.io.*;\n");
 		sb.append("import java.lang.*;\n");
 		sb.append("import java.util.*;\n\n");
@@ -43,7 +43,7 @@ public class CodeGenerator {
 		try {
 			File f = new File(filename);
 			if(!f.exists()) {
-				System.out.println("Creating file");
+				System.out.println("Creating file: " + filename);
 				f.createNewFile();
 			}
 			FileWriter fw = new FileWriter(f);

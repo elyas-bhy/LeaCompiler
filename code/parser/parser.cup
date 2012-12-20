@@ -262,7 +262,7 @@ expr ::=
     {: RESULT = new Operation(e1, e2, EnumTag.DIV, Verificator.getDominantType(e1, e2)); :}   // a / b
 	| MINUS expr:e 
     {: RESULT = new Operation(null, e, EnumTag.MINUS_U, e.getType()); :} %prec MINUS_U        // -a
-  | identFields:i LPAR list:l RPAR 
+  | identFields:i LPAR list:l RPAR
     {: RESULT = new FunctionCall(i, l); :} // foo(a, b, c)
   | identFields LBRACKET expr RBRACKET 
     {: RESULT = new AST(null, null); :}    // foo[a]

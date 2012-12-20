@@ -7,9 +7,9 @@
   <property name="bin.dir" location="bin" />
   <property name="lib.dir" location="lib" />
   <property name="src.dir" location="src" />
-  <property name="data.dir" location="data" />
-  <property name="input" value="input.txt" />
-  <property name="prog_name" value="Main" />
+  <property name="tests.dir" location="tests" />
+  <property name="prog_name" value="default" />
+  <property name="ext" value="lea" />
 
   <regexp id="class" pattern="[a-z]*\.class" />
   
@@ -24,16 +24,16 @@
   <target name="run" depends="default,jar" />
 
   <target name="run-output" depends="jar">
-    <java jar="${lib.dir}/${prog_name}.jar" fork="true" />
+    <java jar="${tests}/output/${prog_name}/lib/Main.jar" fork="true" />
   </target>
 
   <!-- ================================= 
        target: jar              
        ================================= -->
   <target name="jar" depends="java">
-    <jar destfile="${lib.dir}/${prog_name}.jar" basedir="${data.dir}/classes">
+    <jar destfile="${tests.dir}/output/${prog_name}/lib/${prog_name}.jar" basedir="${tests.dir}/output/${prog_name}/classes">
       <manifest>
-        <attribute name="Main-Class" value="output.${prog_name}"/>
+        <attribute name="Main-Class" value="gen.Main"/>
       </manifest>
     </jar>
   </target>
@@ -42,21 +42,25 @@
        target: java              
        ================================= -->
   <target name="java" description="Compiles the produced Java code">
-    <javac srcdir="${data.dir}/src" destdir="${data.dir}/classes"/>
+    <javac srcdir="${tests.dir}/output/${prog_name}/src" destdir="${tests.dir}/output/${prog_name}/classes"/>
   </target>
 
   <!-- ================================= 
        target: default              
        ================================= -->
   <target name="default" depends="project" description="Compiles LeaCompiler">
-    
+    <mkdir dir="${tests.dir}/output/${prog_name}" />
+    <mkdir dir="${tests.dir}/output/${prog_name}/classes" />
+    <mkdir dir="${tests.dir}/output/${prog_name}/src" />
+    <mkdir dir="${tests.dir}/output/${prog_name}/src/gen" />
+    <mkdir dir="${tests.dir}/output/${prog_name}/lib" />
+
     <java 
 	classname="org.gen.Main"
 	classpath=".:${bin.dir}:${lib.dir}/java-cup-11a-runtime.jar">
-      <arg value="${data.dir}/${input}"/>
+      <arg value="${tests.dir}/input/${prog_name}.${ext}"/>
       <arg value="${prog_name}" />
     </java>
-    
   </target>
   
   <!-- ================================= 
@@ -117,10 +121,7 @@
        target: clean-output              
        ================================= -->
   <target name="clean-output">
-    <delete file="${output.dir}/Main.java" />
-    <delete file="${lib.dir}/Main.jar" />
-    <delete dir="${data.dir}/classes" />
-    <mkdir dir="${data.dir}/classes" />
+    <delete dir="${tests.dir}/output/${prog_name}" />
   </target>
 
   <!-- ================================= 

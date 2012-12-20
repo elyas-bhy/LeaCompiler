@@ -45,6 +45,7 @@ procedure main(s : array of string)
   // Basic instructions
   a := 452;
   b := 1;
+  c := 0;
   t := true;
   str := "rr";
   str2 := str + "tt";
