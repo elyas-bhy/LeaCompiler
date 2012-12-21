@@ -4,14 +4,16 @@ Lea is an procedural, object-oriented language, designed to meet the needs and r
 
 == Compiling LeaCompiler
 
-* LeaCompiler will automatically compile if it needs to, before compiling tests.
-It is possible to compile LeaCompiler by itself by running:
+* LeaCompiler will automatically compile if it needs to, before compiling tests. It is possible to compile LeaCompiler by itself by running:
 
-	ant project
+```
+$ ant project
+```
 
 * We highly recommend you run a cleanup beforehand:
-
-	ant clean-code
+```
+ant clean-code
+```
 
 
 == Compiling with LeaCompiler
@@ -38,10 +40,9 @@ It is necessary to place the .lea file in the tests/input/ folder.
 
 	ant run -Dprog_name=<test_name>
 
-* LeaCompiler will also run tests that have been previously compiled:
+* LeaCompiler will also run tests that have been previously compiled (ommit the -Dprog_name argument in order to run the default tests):
 
-	ant run-output -Dprog_name=<test_name> 
-	//(ommit the -Dprog_name argument in order to run the default tests).
+	ant run-output -Dprog_name=<test_name>
 
 
 == Cleaning Code
