@@ -36,14 +36,16 @@ public class Prototype {
 	}
 
 	public boolean equals(Object o) {
-		if (o instanceof Prototype){
+		if (o instanceof Prototype) {
 			Prototype p = (Prototype)o;
 			List<Type> args2 = p.getArgs();
 			int size = args.size();
-			if (size == args2.size()){
-				for (int i = 0; i < size; i++)
+
+			if (size == args2.size()) {
+				for (int i = 0; i < size; i++) {
 					if (!args.get(i).getEnumType().equals(args2.get(i).getEnumType()))
 						return false;
+				}
 				return true;
 			}
 		}

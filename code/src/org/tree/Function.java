@@ -11,7 +11,7 @@ public class Function extends AST {
 			Verificator.checkReturns(this);
 	}
 
-	public Function(AST left){ // prototype
+	public Function(AST left) { // prototype
 		this(left, null);
 	}
 

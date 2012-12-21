@@ -1,0 +1,14 @@
+
+function fibonacci(n : int) : int {
+    if ((n = 0) || (n = 1)) {
+        return 1;
+    }
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+
+procedure main(s : array of string) {
+    i : int;
+    for i in [0 .. 5] {
+        writeln(fibonacci(i));
+    }
+}

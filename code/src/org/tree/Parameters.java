@@ -2,6 +2,7 @@ package org.tree;
 
 import org.gen.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Parameters extends AST {
 	
@@ -12,19 +13,18 @@ public class Parameters extends AST {
 	public ArrayList<Type> getTypesList() {
 		ArrayList<Type> al = new ArrayList<Type>();
 		AST tmp = this;
-		while(tmp != null) {
-			if(tmp.getRight().getTag().equals(EnumTag.PARAMS)){
-				AST lefty = tmp.getLeft();
-				if( lefty != null && lefty.getTag().equals(EnumTag.PARAM))
-					if(lefty.getType() != null)
-						al.add(lefty.getType());
-			} else 
-				if(tmp.getRight().getTag().equals(EnumTag.PARAM))
-					if(tmp.getRight().getType() != null)
-						al.add(tmp.getRight().getType());
 
+		if (getRight() == null && getLeft() == null)
+			return al;
+
+		while (tmp.getRight().getTag().equals(EnumTag.PARAMS)) {
+			al.add(tmp.getLeft().getType());
 			tmp = tmp.getRight();
 		}
+
+		al.add(tmp.getLeft().getType());
+		al.add(tmp.getRight().getType());
+		Collections.reverse(al);
 		return al;
 	}
 

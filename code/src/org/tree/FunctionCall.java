@@ -14,6 +14,7 @@ public class FunctionCall extends AST {
 	public ArrayList<Type> getTypesList() {
 		ArrayList<Type> alt = new ArrayList<Type>();
 		AST right = getRight();
+		Type t;
 
 		if (right.getTag().equals(EnumTag.EXPRLIST)) {
 
@@ -22,14 +23,15 @@ public class FunctionCall extends AST {
 
 			AST tmp = right;
 			while (tmp.getLeft().getTag().equals(EnumTag.EXPRLIST)) {
-				alt.add(Main.currentEnv.find(tmp.getRight().toJava()));
+				alt.add(Verificator.findType(tmp.getRight()));
 				tmp = tmp.getLeft();
 			}
-			alt.add(Main.currentEnv.find(tmp.getLeft().toJava()));
-			alt.add(Main.currentEnv.find(tmp.getRight().toJava()));
+
+			alt.add(Verificator.findType(tmp.getRight()));
+			alt.add(Verificator.findType(tmp.getLeft()));
 		}
 		else {
-			alt.add(Main.currentEnv.find(getRight().toJava()));
+			alt.add(Verificator.findType(getRight()));
 		}
 		Collections.reverse(alt);
 		return alt;

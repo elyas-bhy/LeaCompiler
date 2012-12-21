@@ -64,37 +64,12 @@ public class Verificator {
 
 		Type t1 = findType(e1);
 		Type t2 = findType(e2);
-
-		Type t = new Type(t1, t2);
-
 		if (t1 == null  || t2 == null)
 			return null;
 
-		if (t1.getEnumType().equals(t2.getEnumType())) {
-			t.setEnumType(t1.getEnumType());
-		}
-		/*if (t1.getEnumType().equals(EnumType.STRING) || t2.getEnumType().equals(EnumType.STRING)) {
-			t.setEnumType(EnumType.STRING);
-		}
-		else if (t1.getEnumType().equals(EnumType.FLOAT) || t2.getEnumType().equals(EnumType.FLOAT)) {
-			t.setEnumType(EnumType.FLOAT);
-		}
-		else if (t1.getEnumType().equals(EnumType.INT) || t2.getEnumType().equals(EnumType.INT)) {
-			t.setEnumType(EnumType.INT);
-		}
-		else if (t1.getEnumType().equals(EnumType.CHAR) || t2.getEnumType().equals(EnumType.CHAR)) {
-			t.setEnumType(EnumType.CHAR);
-		}
-		else if (t1.getEnumType().equals(EnumType.BOOLEAN) || t2.getEnumType().equals(EnumType.BOOLEAN)) {
-			t.setEnumType(EnumType.BOOLEAN);
-		}
-		else if (t1.getEnumType().equals(EnumType.STRUCT) || t2.getEnumType().equals(EnumType.STRUCT)) {
-			t.setEnumType(EnumType.STRUCT);
-		}*/
-
-		if (t.getEnumType() == null)
-			return null;
-		return t;
+		if (t1.getEnumType().equals(t2.getEnumType()))
+			return new Type(t1, t2, t1.getEnumType());
+		return null;
     }
 
 }
