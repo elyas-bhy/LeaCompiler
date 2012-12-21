@@ -1,6 +1,6 @@
 # LeaCompiler
 
-Lea is an procedural, object-oriented language, designed to meet the needs and requirements of novice coders.
+Lea is a procedural, object-oriented language designed to meet the needs and requirements of novice coders.
 
 ### Compiling LeaCompiler
 
