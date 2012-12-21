@@ -24,7 +24,7 @@
   <target name="run" depends="default,jar" />
 
   <target name="run-output" depends="jar">
-    <java jar="${tests}/output/${prog_name}/lib/Main.jar" fork="true" />
+    <java jar="${tests.dir}/output/${prog_name}/lib/${prog_name}.jar" fork="true" />
   </target>
 
   <!-- ================================= 
