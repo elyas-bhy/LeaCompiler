@@ -115,6 +115,14 @@
   <!-- ================================= 
        target: clean              
        ================================= -->
+  <target name="clean-all" depends="clean-code">
+    <delete dir="${tests.dir}/output"/>
+    <mkdir dir="${tests.dir}/output"/>
+  </target>
+
+  <!-- ================================= 
+       target: clean              
+       ================================= -->
   <target name="clean" depends="clean-output,clean-code"/>
 
   <!-- ================================= 
