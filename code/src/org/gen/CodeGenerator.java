@@ -35,6 +35,7 @@ public class CodeGenerator {
 	}
 
 	public void generateCode(String filename) {
+		//Main.prototypes.dump();
 		StringBuffer sb = new StringBuffer();
 		sb.append(prologue());
 		sb.append(mRoot.toJava());

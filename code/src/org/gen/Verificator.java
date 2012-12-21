@@ -27,7 +27,7 @@ public class Verificator {
 		return t;
 	}
 
-	public static void checkTypes(AST left, AST right) {
+	public static void checkCompatibleTypes(AST left, AST right) {
 		Type ltype = findType(left);
 		Type rtype = findType(right);
 

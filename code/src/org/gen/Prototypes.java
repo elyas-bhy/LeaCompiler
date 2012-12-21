@@ -2,14 +2,32 @@ package org.gen;
 
 import org.tree.*;
 import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Prototypes {
 
 	private HashSet<Prototype> prototypes;
 
-	// TODO add Lea I/O methods
 	public Prototypes() {
 		prototypes = new HashSet<Prototype>();
+		initialize();
+	}
+
+	private void initialize() {
+		Type integer = new Type(EnumType.INT);
+		Type str = new Type(EnumType.STRING);
+
+		addPrimitive(EnumTag.PLUS.toString(), integer, integer, integer);
+		addPrimitive(EnumTag.PLUS.toString(), str, integer, str);
+		addPrimitive(EnumTag.PLUS.toString(), str, str, integer);
+	}
+
+	private void addPrimitive(String identifier, Type returnType, Type arg1, Type arg2) {
+		ArrayList<Type> args = new ArrayList<Type>();
+		args.add(arg1);
+		args.add(arg2);
+		Prototype p = new Prototype(identifier, returnType, args);
+		add(p);
 	}
 
 	public void add(Prototype p) {
@@ -27,7 +45,7 @@ public class Prototypes {
 	}
 
 	public void dump() {
-		System.out.println("Dump: prototypes: ");
+		System.out.println("Prototypes dump: ");
 		for (Prototype p : prototypes)
 			System.out.println(p);
 	}

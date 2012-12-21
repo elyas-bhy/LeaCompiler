@@ -11,8 +11,7 @@ public class Affect extends AST {
 		Verificator.checkDeclared(left);
 		Verificator.checkDeclared(right);
 
-		// Uncomment when dominant types are implemented
-		Verificator.checkTypes(left, right);
+		Verificator.checkCompatibleTypes(left, right);
 	}
 
 	public String toJava() {

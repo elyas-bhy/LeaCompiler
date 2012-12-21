@@ -60,7 +60,7 @@ public class Prototype {
 				sb.append(t + ", ");
 			sb = sb.delete(sb.length() -2, sb.length());
 		}
-		sb.append(")\n");
+		sb.append(")");
 		return sb.toString();
 	}
 	
