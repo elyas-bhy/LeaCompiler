@@ -11,8 +11,8 @@ public class GlobalDeclaration extends AST {
 		Main.currentEnv.add(left.getName(), right.getType());
 
 		if (right.getTag().equals(EnumTag.VAR_STRUCTDECS) || right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
-			Prototype emptyConst = new Prototype(left.getName(), new Type(EnumType.STRUCT, left.getName()));
-			Prototype allFieldConst = new Prototype(left.getName(), new Type(EnumType.STRUCT, left.getName()));
+			Prototype emptyConst = new Prototype(new Type(EnumType.STRUCT, left.getName()), left.getName());
+			Prototype allFieldConst = new Prototype(new Type(EnumType.STRUCT, left.getName()), left.getName());
 			for (AST node : getFields())
 				allFieldConst.addArg(node.getType());
 			Main.prototypes.add(emptyConst);

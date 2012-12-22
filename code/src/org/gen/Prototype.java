@@ -11,36 +11,54 @@ public class Prototype {
 	private String name;
 	private List<Type> args;
 
-	public Prototype(String name, Type returnType) {
-		this.name = name;
+	public Prototype(Type returnType, String name, ArrayList<Type> args) {
 		this.returnType = returnType;
-		args = new ArrayList<Type>();
-	}
-
-	public Prototype(String name, Type returnType, ArrayList<Type> args) {
 		this.name = name;
 		this.args = args;
+	}
+
+	public Prototype(Type returnType, String name) {
 		this.returnType = returnType;
+		this.name = name;
+		args = new ArrayList<Type>();
 	}
 
 	public void addArg(Type t) {
 		this.args.add(t);
 	}
 
+	public Type getReturnType() {
+		return returnType;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	public List<Type> getArgs() {
 		return Collections.unmodifiableList(this.args);
 	}
 
-	public Type getReturnType() {
-		return returnType;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((returnType == null) ? 0 : returnType.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((args == null) ? 0 : args.hashCode());
+		return result;
 	}
 
 	public boolean equals(Object o) {
 		if (o instanceof Prototype) {
 			Prototype p = (Prototype)o;
+			
+			if (!name.equals(p.getName()))
+				return false;
+			if (returnType != null && !returnType.equals(p.getReturnType()))
+				return false;
+
 			List<Type> args2 = p.getArgs();
 			int size = args.size();
-
 			if (size == args2.size()) {
 				for (int i = 0; i < size; i++) {
 					if (!args.get(i).getEnumType().equals(args2.get(i).getEnumType()))

@@ -2,6 +2,8 @@ package org.gen;
 
 import org.tree.*;
 
+import java.util.ArrayList;
+
 public class Verificator {
 
     public static boolean checkDeclared(AST node) {
@@ -33,7 +35,7 @@ public class Verificator {
 
 		if (rtype == null || ltype == null || !rtype.getEnumType().equals(ltype.getEnumType())) {
 			if (right.getTag().equals(EnumTag.FUNCTION_CALL)) {
-				Prototype p = new Prototype(right.getLeft().toJava(), ltype, right.getTypesList());
+				Prototype p = new Prototype(ltype, right.getLeft().toJava(), right.getTypesList());
 				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
 				Main.mParser.errors.add(err);
 			}

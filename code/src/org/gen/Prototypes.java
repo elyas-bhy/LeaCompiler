@@ -26,7 +26,7 @@ public class Prototypes {
 		ArrayList<Type> args = new ArrayList<Type>();
 		args.add(arg1);
 		args.add(arg2);
-		Prototype p = new Prototype(identifier, returnType, args);
+		Prototype p = new Prototype(returnType, identifier, args);
 		add(p);
 	}
 
@@ -34,8 +34,12 @@ public class Prototypes {
 		prototypes.add(p);
 	}
 
+	public boolean contains(Object o) {
+		return prototypes.contains(o);
+	}
+
 	public Type findType(AST node) {
-		Prototype tmp = new Prototype(node.getLeft().toJava(), null, node.getTypesList());
+		Prototype tmp = new Prototype(null, node.getLeft().toJava(), node.getTypesList());
 		for (Prototype p : prototypes) {
 			if (p.equals(tmp))
 				return p.getReturnType();
@@ -47,6 +51,7 @@ public class Prototypes {
 	public void dump() {
 		System.out.println("Prototypes dump: ");
 		for (Prototype p : prototypes)
-			System.out.println(p);
+			System.out.println(p + " " + p.hashCode());
+		System.out.println();
 	}
 }
