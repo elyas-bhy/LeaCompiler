@@ -65,20 +65,21 @@ public class Type {
 	}
 
 	public int hashCode() {
-		final int prime = 31;
+		/*final int prime = 31;
 		int result = 1;
 		result = prime * result + ((left == null) ? 0 : left.hashCode());
 		result = prime * result + ((right == null) ? 0 : right.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((integer == null) ? 0 : integer.hashCode());
 		result = prime * result + ((genericType == null) ? 0 : genericType.hashCode());
-		return result;
+		return result;*/
+		return 0;
 	}
 
 	public boolean equals(Object o) {
 		if (o instanceof Type) {
 			Type t = (Type)o;
-			
+
 			if (left != null && !left.equals(t.getLeft()))
 				return false;
 			if (right != null && !right.equals(t.getRight()))

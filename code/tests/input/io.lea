@@ -1,0 +1,10 @@
+
+procedure main(s : array of string) {
+	str : string;
+
+	write("Hello ");
+	writeln("world");
+	str := read();
+	writeln("Value: " + str);
+	writeln("Finished");
+}

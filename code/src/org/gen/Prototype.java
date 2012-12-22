@@ -51,7 +51,7 @@ public class Prototype {
 	public boolean equals(Object o) {
 		if (o instanceof Prototype) {
 			Prototype p = (Prototype)o;
-			
+
 			if (!name.equals(p.getName()))
 				return false;
 			if (returnType != null && !returnType.equals(p.getReturnType()))
@@ -61,6 +61,8 @@ public class Prototype {
 			int size = args.size();
 			if (size == args2.size()) {
 				for (int i = 0; i < size; i++) {
+					if (args.get(i) == null || args2.get(i) == null)
+						return false;
 					if (!args.get(i).getEnumType().equals(args2.get(i).getEnumType()))
 						return false;
 				}

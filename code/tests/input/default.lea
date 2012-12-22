@@ -3,17 +3,6 @@ MAX = 500;
 hello = "world";
 b = 'c';
 
-
-Foo = struct {
-  x : int;
-  y : int;
-  b : Bar;
-}
-
-Bar = struct {
-  d : string;
-}
-
 function add1(i : int) : int
 {
   a : int;
@@ -36,11 +25,7 @@ procedure main(s : array of string)
   b : int;
   c : int;
   d : int;
-  r : int;
   j : int;
-  f : Foo;
-  f2 : Foo;
-  bar : Bar;
 
   // Basic instructions
   a := 452;
@@ -60,10 +45,10 @@ procedure main(s : array of string)
   //add1(jimmy);
   //c := (u);
   //c := add1(t);
+  //c := a + b + t;
 
   //TODO undetected
   //c := u.v;
-  
 
   // Hashmap tests
   //m := {(d, "delta")};
@@ -72,44 +57,11 @@ procedure main(s : array of string)
   // Priority tests
   a := -(2 + (c/2 + a)) * b;
 
-  // Struct tests
-  bar := Bar();
-  f := Foo();
-  f := Foo(a, b, bar);
-  f2 := f;
-  //f.x := -4;
-
   // Function calls
   c := add1(a) + b; 
   //c := add1(bar) + b; 
   //t := add1(a);
-
-  // Input / output
-  //write("Hello ");
-  //writeln("world");
-  //str := read();
-  //writeln("Value: " + str);
-
-  // If / else blocks
-  /*if (a >= b) {
-    c := c + 1;
-    if (c < 10)
-      write("foo");
-  }
-  else {
-    c := 2;
-  }
-
-  // For loops
-  for j in [0 .. c+2] {
-    //a := b * (2 + j);
-    b := b + 10;
-  }
-
-  // Dowhile loops
-  repeat {
-    c := c - 1;
-  } while (c > 0); */
+  
   writeln("Finished");
 
 }

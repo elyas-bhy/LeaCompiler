@@ -1,0 +1,24 @@
+Foo = struct {
+  x : int;
+  y : int;
+  b : Bar;
+}
+
+Bar = struct {
+  d : string;
+}
+
+procedure main(s : array of string) {
+	a : int;
+	b : int;
+	f : Foo;
+	f2 : Foo;
+	bar : Bar;
+
+	// Struct tests
+	bar := Bar();
+	f := Foo();
+	f := Foo(a, b, bar);
+	f2 := f;
+	//f.x := -4;
+}

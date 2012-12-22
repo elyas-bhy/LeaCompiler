@@ -1,0 +1,18 @@
+function foo(a : int) : int {
+	return a+1;
+}
+
+procedure main(s : array of string) {
+	str : string;
+	res : string;
+	n : int;
+	m : int;
+
+	n := 452;
+	m := 453;
+	str := "str";
+
+	res := str + n;			//OK
+	res := str + foo(1); 	//OK
+	//res := n + m; 		//Detected error
+}

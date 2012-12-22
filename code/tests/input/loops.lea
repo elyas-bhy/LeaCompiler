@@ -1,0 +1,35 @@
+
+procedure main(s : array of string)
+{
+  a : int;
+  b : int;
+  c : int;
+  j : int;
+
+  a := 10;
+  b := 5;
+  c := 1;
+
+  // If / else blocks
+  /*if (a >= b) {
+    c := c + 1;
+    if (c < 10)
+      write("foo");
+  }
+  else {
+    c := 2;
+  }
+
+  // For loops
+  for j in [0 .. c+2] {
+    //a := b * (2 + j);
+    b := b + 10;
+  }
+
+  // Dowhile loops
+  repeat {
+    c := c - 1;
+  } while (c > 0); */
+  writeln("Finished");
+
+}

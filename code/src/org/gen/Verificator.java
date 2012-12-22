@@ -22,7 +22,7 @@ public class Verificator {
 
 	public static Type findType(AST node) {
 		if (node.getTag().equals(EnumTag.FUNCTION_CALL))
-			return Main.prototypes.findType(node);
+			return Main.prototypes.findPrototype(node);
 		Type t = node.getType();
 		if (t == null)
 			t = Main.currentEnv.find(node.toJava());
@@ -30,20 +30,36 @@ public class Verificator {
 	}
 
 	public static void checkCompatibleTypes(AST left, AST right) {
-		Type ltype = findType(left);
+		Type ltype = findType(left);	//expected type
 		Type rtype = findType(right);
 
-		if (rtype == null || ltype == null || !rtype.getEnumType().equals(ltype.getEnumType())) {
-			if (right.getTag().equals(EnumTag.FUNCTION_CALL)) {
-				Prototype p = new Prototype(ltype, right.getLeft().toJava(), right.getTypesList());
+		// resolve/infer types
+		if (right instanceof Operation) {
+			ArrayList<Type> args = new ArrayList<Type>();
+			args.add(findType(right.getLeft()));
+			args.add(findType(right.getRight()));
+			Prototype p = new Prototype(ltype, right.getTag().toString(), args);
+
+			if (!Main.prototypes.contains(p)) {
+				// TODO provide a more explicit error message
+				// (mentionning expected type / type found)
 				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
 				Main.mParser.errors.add(err);
 			}
-			else {
-				ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
-				+ "[" + ltype + ": " + left.toJava() + "] and "
-				+ "[" + rtype + ": " + right.toJava() + "]");
-				Main.mParser.errors.add(err);
+		} else {
+
+			if (rtype == null || ltype == null || !rtype.getEnumType().equals(ltype.getEnumType())) {
+				if (right.getTag().equals(EnumTag.FUNCTION_CALL)) {
+					Prototype p = new Prototype(ltype, right.getLeft().toJava(), right.getTypesList());
+					ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
+					Main.mParser.errors.add(err);
+				}
+				/*else {
+					ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
+					+ "[" + ltype + ": " + left.toJava() + "] and "
+					+ "[" + rtype + ": " + right.toJava() + "]");
+					Main.mParser.errors.add(err);
+				}*/
 			}
 		}
 	}

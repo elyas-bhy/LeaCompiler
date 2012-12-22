@@ -14,13 +14,25 @@ public class Prototypes {
 	}
 
 	private void initialize() {
+		ArrayList<Type> args = new ArrayList<Type>();
 		Type integer = new Type(EnumType.INT);
 		Type str = new Type(EnumType.STRING);
 
 		addPrimitive(EnumTag.PLUS.toString(), integer, integer, integer);
 		addPrimitive(EnumTag.PLUS.toString(), str, integer, str);
 		addPrimitive(EnumTag.PLUS.toString(), str, str, integer);
+		addPrimitive(EnumTag.PLUS.toString(), str, str, str);
+
+		addPrimitive(EnumTag.MINUS.toString(), integer, integer, integer);
+		addPrimitive(EnumTag.MULT.toString(), integer, integer, integer);
+		addPrimitive(EnumTag.DIV.toString(), integer, integer, integer);
+		//TODO complete
+
+		// Include Lea default I/O methods
+		add(new Prototype(str, JavaMethods.READ.toLea(), args));
 	}
+
+
 
 	private void addPrimitive(String identifier, Type returnType, Type arg1, Type arg2) {
 		ArrayList<Type> args = new ArrayList<Type>();
@@ -38,10 +50,11 @@ public class Prototypes {
 		return prototypes.contains(o);
 	}
 
-	public Type findType(AST node) {
+	public Type findPrototype(AST node) {
 		Prototype tmp = new Prototype(null, node.getLeft().toJava(), node.getTypesList());
 		for (Prototype p : prototypes) {
-			if (p.equals(tmp))
+			//if (p.equals(tmp))	//Modify when allowing overrided methods
+			if (p.getName().equals(tmp.getName()) && p.getArgs().equals(tmp.getArgs()))
 				return p.getReturnType();
 		}
 		// No matching signature
@@ -51,7 +64,7 @@ public class Prototypes {
 	public void dump() {
 		System.out.println("Prototypes dump: ");
 		for (Prototype p : prototypes)
-			System.out.println(p + " " + p.hashCode());
+			System.out.println("\t" + p);
 		System.out.println();
 	}
 }

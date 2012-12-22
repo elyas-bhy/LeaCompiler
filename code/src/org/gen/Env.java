@@ -135,30 +135,4 @@ public class Env {
 			System.out.println("<" + s.id + "," + s.value + "," + s.type + ">");
 		System.out.println("");
 	}
-
-	/*public void toDot(String file) {
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter("./" + file + ".dot"));
-			StringBuffer str = new StringBuffer();
-			str.append("digraph Env {");
-			//str.append("subgraph {node [shape=\"box\"]; rank=same;");
-			for (Env e = this; e != null; e = e.next) {
-				str.append(e.scopenum + " [shape=\"box\", label=\"s" + e.scopenum + "\"];" + "\n");
-				//if (e.next != null)
-					//str.append(e.id+" -> " + e.next.id + ";\n");
-			}
-			//str.append("};");
-			for (Env e = this; e != null; e = e.next) {
-				if (e.root != null) {
-					e.root.toDot(str);
-					str.append(e.scopenum + " -> " + e.root.getNum() + ";\n");
-				}
-			}
-			str.append("}");
-			out.write(str.toString());
-			out.close();
-		} catch (IOException e) {
-			System.out.println("ERROR: build dot");
-		}
-	}*/
 }

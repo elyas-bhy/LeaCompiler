@@ -62,7 +62,7 @@ public class Main {
 			cg.generateCode("tests/output/" + args[1] + "/src/gen/Main.java");
 		}
 		else {
-			System.err.println("\n\t>> Code generation aborted.");
+			System.err.println("\n\t>> Code generation aborted; see the compiler error output for details.");
 		}
 	}
 }
