@@ -7,12 +7,13 @@ procedure main(s : array of string) {
 	res : string;
 	n : int;
 	m : int;
+	t : boolean;
 
 	n := 452;
 	m := 453;
 	str := "str";
 
 	res := str + n;			//OK
-	res := str + foo(1); 	//OK
+	res := str + foo(n); 	//OK
 	//res := n + m; 		//Detected error
 }

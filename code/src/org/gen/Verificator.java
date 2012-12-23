@@ -46,21 +46,28 @@ public class Verificator {
 				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
 				Main.mParser.errors.add(err);
 			}
-		} else {
+		} 
 
-			if (rtype == null || ltype == null || !rtype.getEnumType().equals(ltype.getEnumType())) {
-				if (right.getTag().equals(EnumTag.FUNCTION_CALL)) {
-					Prototype p = new Prototype(ltype, right.getLeft().toJava(), right.getTypesList());
-					ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
-					Main.mParser.errors.add(err);
-				}
-				/*else {
-					ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
-					+ "[" + ltype + ": " + left.toJava() + "] and "
-					+ "[" + rtype + ": " + right.toJava() + "]");
-					Main.mParser.errors.add(err);
-				}*/
+		else if (rtype == null || ltype == null || !rtype.getEnumType().equals(ltype.getEnumType())) {
+			if (right.getTag().equals(EnumTag.FUNCTION_CALL)) {
+				Prototype p = new Prototype(ltype, right.getLeft().toJava(), right.getTypesList());
+				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
+				Main.mParser.errors.add(err);
 			}
+			/*else {
+				ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
+				+ "[" + ltype + ": " + left.toJava() + "] and "
+				+ "[" + rtype + ": " + right.toJava() + "]");
+				Main.mParser.errors.add(err);
+			}*/
+		}
+	}
+
+	public static void checkProcedureCall(AST node) {
+		Prototype p = new Prototype(null, node.getLeft().getName(), node.getTypesList());
+		if (!Main.prototypes.contains(p)) {
+			ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
+			Main.mParser.errors.add(err);
 		}
 	}
 
