@@ -29,10 +29,18 @@ public class Prototypes {
 		//TODO complete
 
 		// Include Lea default I/O methods
+		addPrimitive(JavaMethods.WRITE.toLea(), null, str);
+		addPrimitive(JavaMethods.WRITELN.toLea(), null, str);
 		add(new Prototype(str, JavaMethods.READ.toLea(), args));
 	}
 
 
+	private void addPrimitive(String identifier, Type returnType, Type arg1) {
+		ArrayList<Type> args = new ArrayList<Type>();
+		args.add(arg1);
+		Prototype p = new Prototype(returnType, identifier, args);
+		add(p);
+	}
 
 	private void addPrimitive(String identifier, Type returnType, Type arg1, Type arg2) {
 		ArrayList<Type> args = new ArrayList<Type>();

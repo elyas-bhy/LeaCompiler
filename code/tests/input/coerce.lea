@@ -16,4 +16,5 @@ procedure main(s : array of string) {
 	res := str + n;			//OK
 	res := str + foo(n); 	//OK
 	//res := n + m; 		//Detected error
+	//res := t;				//Detected error
 }

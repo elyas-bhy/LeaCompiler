@@ -54,12 +54,12 @@ public class Verificator {
 				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
 				Main.mParser.errors.add(err);
 			}
-			/*else {
+			else {
 				ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
 				+ "[" + ltype + ": " + left.toJava() + "] and "
 				+ "[" + rtype + ": " + right.toJava() + "]");
 				Main.mParser.errors.add(err);
-			}*/
+			}
 		}
 	}
 

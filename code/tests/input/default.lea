@@ -47,8 +47,10 @@ procedure main(s : array of string)
   //c := add1(t);
   //c := a + b + t;
 
-  //TODO undetected
-  //c := u.v;
+  // Function calls
+  c := add1(a) + b; 
+  //c := add1(bar) + b; 
+  //t := add1(a);
 
   // Hashmap tests
   //m := {(d, "delta")};
@@ -56,11 +58,6 @@ procedure main(s : array of string)
 
   // Priority tests
   a := -(2 + (c/2 + a)) * b;
-
-  // Function calls
-  c := add1(a) + b; 
-  //c := add1(bar) + b; 
-  //t := add1(a);
   
   writeln("Finished");
 
