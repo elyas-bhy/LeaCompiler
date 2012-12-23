@@ -10,7 +10,6 @@ public class Affect extends AST {
 
 		Verificator.checkDeclared(left);
 		Verificator.checkDeclared(right);
-
 		Verificator.checkCompatibleTypes(left, right);
 	}
 

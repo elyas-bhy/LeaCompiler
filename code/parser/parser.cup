@@ -97,6 +97,7 @@ funcDef ::=
     {: RESULT = new Function(h, b); :}
   | fheader:h SEMIC
     {: RESULT = new Function(h); :}
+  | error
   ;
 
 fheader ::=
@@ -199,6 +200,7 @@ instr ::=
     {: RESULT = new Return(e, null); :}
   | identFields:i LPAR list:l RPAR SEMIC
     {: RESULT = new ProcedureCall(i, l); :}  
+  | error SEMIC
   ;
 
 range ::=
