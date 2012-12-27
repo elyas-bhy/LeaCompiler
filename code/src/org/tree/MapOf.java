@@ -13,18 +13,18 @@ public class MapOf extends AST {
 	}
 
 	public String toJava() {
-		return getRight().toJava() + ", " + getLeft().toJava();
+		return getLeft().toJava() + ", " + getRight().toJava();
 	}
 
 	public ArrayList<AST> getFields() {
 		ArrayList<AST> res = new ArrayList<AST>();
 		AST tmp = this;
-		while (tmp.getRight().getTag().equals(EnumTag.MAPOF)) {
-			res.add(tmp.getLeft());
-			tmp = tmp.getRight();
+		while (tmp.getLeft().getTag().equals(EnumTag.MAPOF)) {
+			res.add(tmp.getRight());
+			tmp = tmp.getLeft();
 		}
-		res.add(tmp.getLeft());
 		res.add(tmp.getRight());
+		res.add(tmp.getLeft());
 		Collections.reverse(res);
 		return res;
 	}

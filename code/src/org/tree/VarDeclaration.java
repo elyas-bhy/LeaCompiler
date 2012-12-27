@@ -10,9 +10,9 @@ public class VarDeclaration extends AST {
 	}
 
 	public String toJava() {
-		if( getRight() != null ) {
-			return tab() + "HashMap<" + getRight().toJava() + "> " + getLeft().toJava()
-						 + " = new HashMap<" + getRight().toJava() + ">()";
+		if (getType().getEnumType().equals(EnumType.MAP)) {
+			return tab() + getType() + " " + getLeft().toJava()
+						 + " = new " + getType() + "()";
 		}
 		return tab() + getType() + " " + getLeft().toJava();
 	}

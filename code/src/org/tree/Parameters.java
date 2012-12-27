@@ -14,16 +14,16 @@ public class Parameters extends AST {
 		ArrayList<Type> al = new ArrayList<Type>();
 		AST tmp = this;
 
-		if (getRight() == null && getLeft() == null)
+		if (getLeft() == null && getRight() == null)
 			return al;
 
-		while (tmp.getRight().getTag().equals(EnumTag.PARAMS)) {
-			al.add(tmp.getLeft().getType());
-			tmp = tmp.getRight();
+		while (tmp.getLeft().getTag().equals(EnumTag.PARAMS)) {
+			al.add(tmp.getRight().getType());
+			tmp = tmp.getLeft();
 		}
 
-		al.add(tmp.getLeft().getType());
 		al.add(tmp.getRight().getType());
+		al.add(tmp.getLeft().getType());
 		Collections.reverse(al);
 		return al;
 	}
@@ -31,7 +31,7 @@ public class Parameters extends AST {
 	public String toJava() {
 		if (getLeft() == null && getRight() == null)
 			return "";
-		return getRight().toJava() + ", " + getLeft().toJava();
+		return getLeft().toJava() + ", " + getRight().toJava();
 	}
 	
 }

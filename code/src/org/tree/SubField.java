@@ -9,7 +9,7 @@ public class SubField extends AST {
 	}
 
 	public String toJava() {
-		return getRight().toJava() + "." +  getLeft().toJava();
+		return getLeft().toJava() + "." +  getRight().toJava();
 	}
 	
 }

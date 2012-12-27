@@ -9,7 +9,7 @@ public class Functions extends AST {
 	}
 
 	public String toJava() {
-		return getRight().toJava() + "\n\n" + getLeft().toJava();
+		return getLeft().toJava() + "\n\n" + getRight().toJava();
 	}
 	
 }

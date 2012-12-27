@@ -12,18 +12,18 @@ public class VarStructDeclarations extends AST {
 	}
 
 	public String toJava() {
-		return getRight().toJava() + ";\n" + tab() + getLeft().toJava();
+		return getLeft().toJava() + ";\n" + tab() + getRight().toJava();
 	}
 
 	public ArrayList<AST> getFields() {
 		ArrayList<AST> res = new ArrayList<AST>();
 		AST tmp = this;
-		while (tmp.getRight().getTag().equals(EnumTag.VAR_STRUCTDECS)) {
-			res.add(tmp.getLeft());
-			tmp = tmp.getRight();
+		while (tmp.getLeft().getTag().equals(EnumTag.VAR_STRUCTDECS)) {
+			res.add(tmp.getRight());
+			tmp = tmp.getLeft();
 		}
-		res.add(tmp.getLeft());
 		res.add(tmp.getRight());
+		res.add(tmp.getLeft());
 		Collections.reverse(res);
 		return res;
 	}

@@ -78,7 +78,7 @@ definition ::=
 	;
 
 struct_decls ::=
-  struct_decls:ds struct_decl:d {: RESULT = new VarStructDeclarations(d, ds); :}
+  struct_decls:ds struct_decl:d {: RESULT = new VarStructDeclarations(ds, d); :}
   | struct_decl:d {: RESULT = d; :}
   ;
 
@@ -88,7 +88,7 @@ struct_decl ::=
   ;
 
 funcs ::=
-  funcs:fs funcDef:f {: RESULT = new Functions(f, fs); :}
+  funcs:fs funcDef:f {: RESULT = new Functions(fs, f); :}
   | funcDef:f {: RESULT = f; :}
   ;
 
@@ -135,7 +135,7 @@ parameters ::=
   ;
 
 param_list ::=
-  param_list:ps COMMA param:p {: RESULT = new Parameters(p, ps); :}
+  param_list:ps COMMA param:p {: RESULT = new Parameters(ps, p); :}
   | param:p {: RESULT = p; :}
   ;
 
@@ -145,7 +145,7 @@ param ::=
 
 decls_opt ::=
   decls_opt:dco decl:d
-    {: RESULT = new OptDeclarations(d, dco); :}
+    {: RESULT = new OptDeclarations(dco, d); :}
   | 
     {: RESULT = new OptDeclarations(null, null); :}
   ;
@@ -227,7 +227,7 @@ map_of ::=
 
 map_of_list ::=
   map_of_list:ml COMMA tuple:t
-    {: RESULT = new MapOf(t, ml); :}
+    {: RESULT = new MapOf(ml, t); :}
   | tuple:t
     {: RESULT = t; :}
   ;
@@ -304,6 +304,6 @@ ident ::=
 	;
 
 identFields ::=
-  identFields:idfs DOT ident:id {: RESULT = new SubField(id, idfs); :}
+  identFields:idfs DOT ident:id {: RESULT = new SubField(idfs, id); :}
   | ident:id {: RESULT = id; :}
   ;
