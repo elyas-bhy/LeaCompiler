@@ -6,6 +6,37 @@ import java.util.ArrayList;
 
 public class Verificator {
 
+	public static Type findType(AST node) {
+		if (node.getTag().equals(EnumTag.FUNCTION_CALL))
+			return Main.prototypes.findPrototype(node);
+		Type t = node.getType();
+		if (t == null)
+			t = Main.currentEnv.find(node.toJava());
+		return t;
+	}
+
+	public static void checkInitialized(AST node) {
+		if (node.getTag().equals(EnumTag.IDENT)) {
+			String var = node.getName();
+			if (Main.currentEnv.isDeclared(var) && !Main.currentEnv.isInitialized(var)) {
+				ErrorObject err = new ErrorObject("variable: " + var + " might not have been initialized");
+				Main.mParser.errors.add(err);
+			}
+		}
+		else if (node.getTag().equals(EnumTag.EXPRLIST)) {		
+			AST tmp = node;
+			if (tmp.getLeft() == null && tmp.getRight() == null)
+				return;
+
+			while (tmp.getLeft().getTag().equals(EnumTag.EXPRLIST)) {
+				checkInitialized(tmp.getRight());
+				tmp = tmp.getLeft();
+			}
+			checkInitialized(tmp.getRight());
+			checkInitialized(tmp.getLeft());
+		}
+	}
+ 
     public static boolean checkDeclared(AST node) {
 		if (node != null && node.getTag() != null) {
 			if (node.getTag().equals(EnumTag.IDENT)) {
@@ -18,15 +49,6 @@ public class Verificator {
 			}
 		}
 		return true;
-	}
-
-	public static Type findType(AST node) {
-		if (node.getTag().equals(EnumTag.FUNCTION_CALL))
-			return Main.prototypes.findPrototype(node);
-		Type t = node.getType();
-		if (t == null)
-			t = Main.currentEnv.find(node.toJava());
-		return t;
 	}
 
 	public static void checkCompatibleTypes(AST left, AST right) {

@@ -4,10 +4,11 @@ import org.gen.*;
 import java.util.ArrayList;
 
 public class FunctionCall extends AST {
-	
+
 	public FunctionCall(AST left, AST right) {
-		super(left, right, EnumTag.FUNCTION_CALL);	
-		Verificator.checkDeclared(right);	
+		super(left, right, EnumTag.FUNCTION_CALL);
+		Verificator.checkDeclared(right);
+		Verificator.checkInitialized(right);
 	}
 
 	public ArrayList<Type> getTypesList() {

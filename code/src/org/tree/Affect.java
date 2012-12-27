@@ -11,6 +11,7 @@ public class Affect extends AST {
 		Verificator.checkDeclared(left);
 		Verificator.checkDeclared(right);
 		Verificator.checkCompatibleTypes(left, right);
+		Main.currentEnv.set(left.toJava(), right.toJava());
 	}
 
 	public String toJava() {
@@ -19,9 +20,6 @@ public class Affect extends AST {
 		EnumTag rtag = getRight().getTag();
 
 		if (rtag.equals(EnumTag.FUNCTION_CALL)) {
-			if (!Main.currentEnv.isInitialized(lvar))
-				Main.currentEnv.set(lvar, getRight().toJava());
-
 			if (getRight().getLeft().toJava().equals(JavaMethods.READ.toLea())) {
 				sb.append(tab() + "if (mLeaCompilerConsole != null)\n");
 				CodeGenerator.tabLevel++;
@@ -31,7 +29,7 @@ public class Affect extends AST {
 			}
 		}
 
-		if (rtag.equals(EnumTag.MAPOF) || rtag.equals(EnumTag.TUPLE)) {
+		else if (rtag.equals(EnumTag.MAPOF) || rtag.equals(EnumTag.TUPLE)) {
 			if (!Main.currentEnv.isInitialized(lvar)) {
 				Main.currentEnv.set(lvar, getRight().toJava());
 				sb.append(tab() + lvar + " = new " + Main.currentEnv.find(lvar) + "();\n");		

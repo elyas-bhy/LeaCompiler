@@ -6,6 +6,8 @@ public class Operation extends AST {
 
 	public Operation(AST left, AST right, EnumTag tag, Type type) {
 		super(left, right, tag, type);
+		Verificator.checkInitialized(left);
+		Verificator.checkInitialized(right);
 	}
 	
 	public Operation(AST left, AST right, EnumTag tag) {

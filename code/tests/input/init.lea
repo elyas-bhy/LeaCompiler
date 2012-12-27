@@ -1,0 +1,14 @@
+
+procedure foo(i : int, j : int) {
+	a : int;
+	a := 1;
+}
+
+procedure main(s : array of string) {
+    a : int;
+    b : int;
+
+    //a := b + 1;		//OK
+    //a := foo(b, 5);	//OK
+    //foo(b, 5);		//OK
+}
