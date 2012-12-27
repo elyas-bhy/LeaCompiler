@@ -54,6 +54,8 @@ public class Prototype {
 
 			if (!name.equals(p.getName()))
 				return false;
+			if (returnType == null && p.getReturnType() != null)
+				return false;
 			if (returnType != null && !returnType.equals(p.getReturnType()))
 				return false;
 
@@ -72,15 +74,22 @@ public class Prototype {
 		return false;
 	}
 
-	public String toString() {
+	public String callToString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append(this.returnType + " " + this.name + "(");
+		sb.append(this.name + "(");
 		if (args.size() > 0) {
 			for(Type t : args)
 				sb.append(t + ", ");
 			sb = sb.delete(sb.length() -2, sb.length());
 		}
 		sb.append(")");
+		return sb.toString();
+	}
+
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.returnType + " ");
+		sb.append(this.callToString());
 		return sb.toString();
 	}
 	

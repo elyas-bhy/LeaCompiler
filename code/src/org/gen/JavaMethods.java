@@ -3,7 +3,6 @@ package org.gen;
 import org.tree.*;
 
 import java.lang.String;
-import java.util.ArrayList;
 
 public enum JavaMethods {
 	WRITE ("write", "System.out.print"),

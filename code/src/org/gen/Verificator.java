@@ -66,7 +66,8 @@ public class Verificator {
 	public static void checkProcedureCall(AST node) {
 		Prototype p = new Prototype(null, node.getLeft().getName(), node.getTypesList());
 		if (!Main.prototypes.contains(p)) {
-			ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
+			ErrorObject err = new ErrorObject(Errors.ILLEGAL_INSTR 
+				+ p.callToString() + " must be declared as a procedure.");
 			Main.mParser.errors.add(err);
 		}
 	}
