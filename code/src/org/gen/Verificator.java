@@ -22,8 +22,8 @@ public class Verificator {
 				ErrorObject err = new ErrorObject("variable: " + var + " might not have been initialized");
 				Main.mParser.errors.add(err);
 			}
-		}
-		else if (node.getTag().equals(EnumTag.EXPRLIST)) {		
+		}	
+		else if (node.getTag().equals(EnumTag.EXPRLIST)) {
 			AST tmp = node;
 			if (tmp.getLeft() == null && tmp.getRight() == null)
 				return;

@@ -6,7 +6,8 @@ public class Operation extends AST {
 
 	public Operation(AST left, AST right, EnumTag tag, Type type) {
 		super(left, right, tag, type);
-		Verificator.checkInitialized(left);
+		if (left != null)	// U_MINUS case
+			Verificator.checkInitialized(left);
 		Verificator.checkInitialized(right);
 	}
 	

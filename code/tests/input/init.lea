@@ -9,6 +9,8 @@ procedure main(s : array of string) {
     b : int;
 
     //a := b + 1;		//OK
+    a := 6;
+    a := b + 5 - a / 5;
     //a := foo(b, 5);	//OK
     //foo(b, 5);		//OK
 }
