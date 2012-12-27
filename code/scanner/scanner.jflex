@@ -99,6 +99,7 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "-"				{ return symbol(MySymbol.MINUS, yytext()); }
 "*"				{ return symbol(MySymbol.MULT, yytext()); }
 "/"				{ return symbol(MySymbol.DIV, yytext()); }
+"%"				{ return symbol(MySymbol.MOD, yytext()); }
 ","				{ return symbol(MySymbol.COMMA, yytext()); }
 "."				{ return symbol(MySymbol.DOT, yytext()); }
 ";"				{ return symbol(MySymbol.SEMIC, yytext()); }

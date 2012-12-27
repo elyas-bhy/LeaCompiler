@@ -9,6 +9,7 @@ public enum EnumTag {
   MINUS_U ("-"),
   MULT ("*"),
   DIV ("/"),
+  MOD ("%"),
   AFF ("="),
   EQ ("=="),
   DIFF ("!=") ,

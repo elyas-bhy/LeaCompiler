@@ -34,28 +34,28 @@ parser code {:
 :}
 
 
-terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE, LBRACKET, RBRACKET,
-    IF, ELSE, WHILE, REPEAT, FOR, IN, BOOLEAN,
-    ARRAY, OF, EXPRLIST, SET, MAP, STRUCT, RETURN,
-    AFF, AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV,
+terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE,
+    LBRACKET, RBRACKET, IF, ELSE, WHILE, REPEAT, FOR, IN, BOOLEAN,
+    ARRAY, OF, EXPRLIST, SET, MAP, STRUCT, RETURN, AFF, MOD,
+    AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV,
     FUNCTION, PROCEDURE, INT, FLOAT, STRING, CHAR;
 
 terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOL;
 
 non terminal Type type;
+non terminal EnumTag bin_op;
 non terminal AST program, expr, ident, funcs, instr, instrs, list_rec, identFields,
-                 block, funcDef, range, list, globalDecs, globalDec, struct_decl, struct_decls,
-                 definition, parameters, param_list, param, decl, map_of, map_of_list, tuple,
-                 fheader, decls_opt;
+                 block, funcDef, range, list, globalDecs, globalDec, 
+                 struct_decl, struct_decls, definition, parameters, param_list, param,
+                 decl, map_of, map_of_list, tuple, variable, fheader, decls_opt;
 
 
 precedence nonassoc ELSE;
 precedence nonassoc IF;
-precedence left AND;
-precedence left OR;
+precedence left AND, OR;
 precedence left LT, GT, LE, GE, EQ, DIFF;
 precedence left PLUS, MINUS;
-precedence left MULT, DIV;
+precedence left MULT, DIV, MOD;
 precedence left MINUS_U;
 
 program ::=
@@ -238,54 +238,66 @@ tuple ::=
   ;
 
 expr ::=
-	expr:e1 AND expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.AND, Verificator.getDominantType(e1, e2)); :}   // a && b
-	| expr:e1 OR expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.OR, Verificator.getDominantType(e1, e2)); :}    // a || b
-	| expr:e1 LT expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.LT, Verificator.getDominantType(e1, e2)); :}    // a < b
-	| expr:e1 GT expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.GT, Verificator.getDominantType(e1, e2)); :}    // a > b
-	| expr:e1 LE expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.LE, Verificator.getDominantType(e1, e2)); :}    // a <= b
-	| expr:e1 GE expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.GE, Verificator.getDominantType(e1, e2)); :}    // a >= b
-	| expr:e1 EQ expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.EQ, Verificator.getDominantType(e1, e2)); :}    // a = b
-	| expr:e1 DIFF expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.DIFF, Verificator.getDominantType(e1, e2)); :}  // a != b
-	| expr:e1 PLUS expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.PLUS, Verificator.getDominantType(e1, e2)); :}  // a + b
-	| expr:e1 MINUS expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.MINUS, Verificator.getDominantType(e1, e2)); :} // a - b
-	| expr:e1 MULT expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.MULT, Verificator.getDominantType(e1, e2)); :}  // a * b
-	| expr:e1 DIV expr:e2 
-    {: RESULT = new Operation(e1, e2, EnumTag.DIV, Verificator.getDominantType(e1, e2)); :}   // a / b
-	| MINUS expr:e 
+	expr:e1 bin_op:op expr:e2 
+    {: RESULT = new Operation(e1, e2, op, Verificator.getDominantType(e1, e2)); :}   // a && b
+  | MINUS expr:e 
     {: RESULT = new Operation(null, e, EnumTag.MINUS_U, e.getType()); :} %prec MINUS_U        // -a
   | identFields:i LPAR list:l RPAR
     {: RESULT = new FunctionCall(i, l); :} // foo(a, b, c)
   | identFields LBRACKET expr RBRACKET 
     {: RESULT = new AST(null, null); :}    // foo[a]
-  | INTEGER:i 
-    {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}     // 2
-  | FLOATING:f 
-    {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}  // 3.14
-  | STRINGEXP:st 
-    {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}  // "PI"
-  | CHAREXP:ch 
-    {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}      // 'P'
+  | variable:v 
+    {: RESULT = v; :}
   | identFields:id 
     {: RESULT = id; :} // a.b.foo
-  | BOOL:b 
-    {: RESULT = new Variable(EnumTag.BOOLEAN, b, new Type(EnumType.BOOLEAN)); :} // 'True'
   | map_of:ml 
     {: RESULT = ml; :} // {(a,b),(c,d)}
   | LPAR expr:e RPAR 
     {: e.setPriority(true); 
       RESULT = e; :}   // (a)
 	;
+
+bin_op ::=
+  AND
+    {: RESULT = EnumTag.AND; :}
+  | OR
+    {: RESULT = EnumTag.OR; :}
+  | LT
+    {: RESULT = EnumTag.LT; :}
+  | GT
+    {: RESULT = EnumTag.GT; :}
+  | LE
+    {: RESULT = EnumTag.LE; :}
+  | GE
+    {: RESULT = EnumTag.GE; :}
+  | EQ
+    {: RESULT = EnumTag.EQ; :}
+  | DIFF
+    {: RESULT = EnumTag.DIFF; :}
+  | PLUS
+    {: RESULT = EnumTag.PLUS; :}
+  | MINUS
+    {: RESULT = EnumTag.MINUS; :}
+  | MULT
+    {: RESULT = EnumTag.MULT; :}
+  | DIV
+    {: RESULT = EnumTag.DIV; :}
+  | MOD
+    {: RESULT = EnumTag.MOD; :}
+  ;
+
+variable ::=
+  INTEGER:i
+    {: RESULT = new Variable(EnumTag.INTEGER, i, new Type(EnumType.INT)); :}
+  | FLOATING:f
+    {: RESULT = new Variable(EnumTag.FLOATING, f, new Type(EnumType.FLOAT)); :}
+  | STRINGEXP:st
+    {: RESULT = new Variable(EnumTag.STRING, st, new Type(EnumType.STRING)); :}
+  | CHAREXP:ch
+    {: RESULT = new Variable(EnumTag.CHAR, ch, new Type(EnumType.CHAR)); :}
+  | BOOL:b
+    {: RESULT = new Variable(EnumTag.BOOLEAN, b, new Type(EnumType.BOOLEAN)); :}
+  ;
 
 ident ::=
 	IDENTIFIER:id {: RESULT = new Variable(EnumTag.IDENT, id); :}
