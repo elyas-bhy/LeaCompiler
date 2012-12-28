@@ -31,6 +31,7 @@ public class Prototypes {
 		// Include Lea default I/O methods
 		addPrimitive(JavaMethods.WRITE.toLea(), null, str);
 		addPrimitive(JavaMethods.WRITELN.toLea(), null, str);
+		addPrimitive(JavaMethods.WRITELN.toLea(), null, integer);
 		add(new Prototype(str, JavaMethods.READ.toLea(), args));
 	}
 

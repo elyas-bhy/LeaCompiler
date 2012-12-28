@@ -1,7 +1,6 @@
 package org.tree;
 
 import org.gen.*;
-import java.util.ArrayList;
 
 public class ExprList extends AST {
 

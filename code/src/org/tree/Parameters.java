@@ -1,8 +1,6 @@
 package org.tree;
 
 import org.gen.*;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class Parameters extends AST {
 	

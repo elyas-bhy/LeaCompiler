@@ -192,8 +192,10 @@ instr ::=
     {: RESULT = new Loop(e, b, EnumTag.WHILE); :}
   | REPEAT block:b WHILE LPAR expr:e RPAR SEMIC
     {: RESULT = new DoWhile(e, b); :}
-  | FOR ident:v IN range:r block:b
-    {: RESULT = new Loop(new ForRange(v, r), b, EnumTag.FOR); :}
+  | FOR ident:v IN range:r  {:
+      Main.currentEnv.set(v.getName(), r.getLeft().toJava()); :}
+    block:b {: 
+      RESULT = new Loop(new ForRange(v, r), b, EnumTag.FOR); :}
   | identFields:v AFF expr:e SEMIC
     {: RESULT = new Affect(v, e); :}
   | RETURN expr:e SEMIC
@@ -239,9 +241,9 @@ tuple ::=
 
 expr ::=
 	expr:e1 bin_op:op expr:e2 
-    {: RESULT = new Operation(e1, e2, op, Verificator.getDominantType(e1, e2)); :}   // a && b
+    {: RESULT = new Operation(e1, e2, op, Verificator.inferType(e1, e2)); :}   // a && b
   | MINUS expr:e 
-    {: RESULT = new Operation(null, e, EnumTag.MINUS_U, e.getType()); :} %prec MINUS_U        // -a
+    {: RESULT = new Operation(null, e, EnumTag.MINUS_U, e.getType()); :} %prec MINUS_U   // -a
   | identFields:i LPAR list:l RPAR
     {: RESULT = new FunctionCall(i, l); :} // foo(a, b, c)
   | identFields LBRACKET expr RBRACKET 

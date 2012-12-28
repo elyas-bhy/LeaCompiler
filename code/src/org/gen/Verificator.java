@@ -98,7 +98,7 @@ public class Verificator {
     	}
     }
 
-	public static Type getDominantType(AST e1, AST e2) {
+	public static Type inferType(AST e1, AST e2) {
 		if (!checkDeclared(e1) || !checkDeclared(e2))
 			return null;
 

@@ -99,7 +99,7 @@ public class Env {
 		}
 	}
 
-	public void set(String id, String value){
+	public void set(String id, String value) {
 		if (symbolTable.containsKey(id)) {
 			symbolTable.get(id).value = value;
 		}

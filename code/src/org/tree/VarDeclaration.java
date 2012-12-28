@@ -6,7 +6,7 @@ public class VarDeclaration extends AST {
 
 	public VarDeclaration(AST left, AST right, Type type) {
 		super(left, right, EnumTag.VARDEC, type);
-		Main.currentEnv.add(left.getName(),type);
+		Main.currentEnv.add(left.getName(), type);
 	}
 
 	public String toJava() {

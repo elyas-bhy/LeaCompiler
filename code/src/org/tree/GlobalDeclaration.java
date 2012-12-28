@@ -10,7 +10,8 @@ public class GlobalDeclaration extends AST {
 		super(left, right, EnumTag.GLOBAL_DEC);
 		Main.currentEnv.add(left.getName(), right.getType());
 
-		if (right.getTag().equals(EnumTag.VAR_STRUCTDECS) || right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
+		if (right.getTag().equals(EnumTag.VAR_STRUCTDECS) 
+		|| right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
 			Prototype emptyConst = new Prototype(new Type(EnumType.STRUCT, left.getName()), left.getName());
 			Prototype allFieldConst = new Prototype(new Type(EnumType.STRUCT, left.getName()), left.getName());
 			for (AST node : getRight().getFields())
@@ -25,7 +26,8 @@ public class GlobalDeclaration extends AST {
 		AST right = getRight();
 		StringBuffer sb = new StringBuffer();
 
-		if (right.getTag().equals(EnumTag.VAR_STRUCTDECS) || right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
+		if (right.getTag().equals(EnumTag.VAR_STRUCTDECS)
+		|| right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
 			// subclass declaration
 			Main.structs.add(this);
 			sb.append(tab() + "static class " + left.getName() + " {\n ");
