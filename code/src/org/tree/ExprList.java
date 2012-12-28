@@ -12,13 +12,6 @@ public class ExprList extends AST {
 		Verificator.checkDeclared(right);
 	}
 
-	public ArrayList<Type> getTypesList() {
-		ArrayList<Type> alt = new ArrayList<Type>();
-		for (AST node : getFields())
-			alt.add(Verificator.findType(node));
-		return alt;
-	}
-
 	public String toJava() {
 		if (getLeft() == null && getRight() == null)
 			return "";

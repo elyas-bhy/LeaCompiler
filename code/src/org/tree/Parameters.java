@@ -10,24 +10,6 @@ public class Parameters extends AST {
 		super(left, right, EnumTag.PARAMS);		
 	}
 
-	public ArrayList<Type> getTypesList() {
-		ArrayList<Type> al = new ArrayList<Type>();
-		AST tmp = this;
-
-		if (getLeft() == null && getRight() == null)
-			return al;
-
-		while (tmp.getLeft().getTag().equals(EnumTag.PARAMS)) {
-			al.add(tmp.getRight().getType());
-			tmp = tmp.getLeft();
-		}
-
-		al.add(tmp.getRight().getType());
-		al.add(tmp.getLeft().getType());
-		Collections.reverse(al);
-		return al;
-	}
-
 	public String toJava() {
 		if (getLeft() == null && getRight() == null)
 			return "";

@@ -134,9 +134,12 @@ public class AST {
     	return fields;
     }
 
-    public ArrayList<Type> getTypesList() {
-    	return null;
-    }
+	public ArrayList<Type> getTypesList() {
+		ArrayList<Type> alt = new ArrayList<Type>();
+		for (AST node : getFields())
+			alt.add(Verificator.findType(node));
+		return alt;
+	}
 
     public String toJava() {
     	return "";

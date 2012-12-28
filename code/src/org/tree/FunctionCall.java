@@ -12,14 +12,7 @@ public class FunctionCall extends AST {
 	}
 
 	public ArrayList<Type> getTypesList() {
-		ArrayList<Type> alt = new ArrayList<Type>();
-		AST right = getRight();
-
-		if (right.getTag().equals(EnumTag.EXPRLIST))
-			return right.getTypesList();
-
-		alt.add(Verificator.findType(right));
-		return alt;
+		return getRight().getTypesList();
 	}
 
 	public String toJava() {

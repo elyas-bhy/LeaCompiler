@@ -5,6 +5,6 @@ procedure main(s : array of string) {
 	write("Hello ");
 	writeln("world");
 	str := read();
-	writeln("Value: " + str);
+	//writeln("Value: " + str);
 	writeln("Finished");
 }

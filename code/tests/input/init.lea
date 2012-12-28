@@ -10,11 +10,19 @@ function bar(i : int, j : int) : int {
 	return i + a;
 }
 
+function bar2(i : int) : int {
+	a : int;
+	a := 1;
+	return i + a;
+}
+
 procedure main(s : array of string) {
     a : int;
     b : int;
 
+	b := 1;
     //a := b + 1;		//Detected
-    //foo(b);			//Detected
+    foo(b);				//Detected
     a := bar(b, 5);		//Detected
+    a := bar2(5);
 }

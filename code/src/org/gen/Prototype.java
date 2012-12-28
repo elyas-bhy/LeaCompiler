@@ -2,7 +2,6 @@ package org.gen;
 
 import org.tree.*;
 
-import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class Prototype {
 	}
 
 	public List<Type> getArgs() {
-		return Collections.unmodifiableList(this.args);
+		return args;
 	}
 
 	public int hashCode() {
@@ -80,7 +79,7 @@ public class Prototype {
 		if (args.size() > 0) {
 			for(Type t : args)
 				sb.append(t + ", ");
-			sb = sb.delete(sb.length() -2, sb.length());
+			sb = sb.delete(sb.length() - 2, sb.length());
 		}
 		sb.append(")");
 		return sb.toString();

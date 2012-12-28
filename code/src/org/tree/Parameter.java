@@ -9,6 +9,12 @@ public class Parameter extends AST {
 		super(left, right, EnumTag.PARAM, type);
 	}
 
+    public ArrayList<AST> getFields() {
+      ArrayList<AST> fields = new ArrayList<AST>();
+      fields.add(this);
+      return fields;
+    }
+    
 	public ArrayList<Type> getTypesList() {
 		ArrayList<Type> alt = new ArrayList<Type>();
 		alt.add(getType());
