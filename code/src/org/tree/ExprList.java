@@ -2,7 +2,6 @@ package org.tree;
 
 import org.gen.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ExprList extends AST {
 
@@ -15,18 +14,8 @@ public class ExprList extends AST {
 
 	public ArrayList<Type> getTypesList() {
 		ArrayList<Type> alt = new ArrayList<Type>();
-		if (getLeft() == null && getRight() == null)
-			return alt;	//no arguments
-
-		AST tmp = this;
-		while (tmp.getLeft().getTag().equals(EnumTag.EXPRLIST)) {
-			alt.add(Verificator.findType(tmp.getRight()));
-			tmp = tmp.getLeft();
-		}
-
-		alt.add(Verificator.findType(tmp.getRight()));
-		alt.add(Verificator.findType(tmp.getLeft()));
-		Collections.reverse(alt);
+		for (AST node : getFields())
+			alt.add(Verificator.findType(node));
 		return alt;
 	}
 

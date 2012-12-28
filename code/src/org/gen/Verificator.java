@@ -24,16 +24,8 @@ public class Verificator {
 			}
 		}	
 		else if (node.getTag().equals(EnumTag.EXPRLIST)) {
-			AST tmp = node;
-			if (tmp.getLeft() == null && tmp.getRight() == null)
-				return;
-
-			while (tmp.getLeft().getTag().equals(EnumTag.EXPRLIST)) {
-				checkInitialized(tmp.getRight());
-				tmp = tmp.getLeft();
-			}
-			checkInitialized(tmp.getRight());
-			checkInitialized(tmp.getLeft());
+			for (AST a : node.getFields())
+				checkInitialized(a);
 		}
 	}
  

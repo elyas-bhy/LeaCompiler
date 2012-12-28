@@ -15,6 +15,9 @@ procedure main(s : array of string) {
 	f2 : Foo;
 	bar : Bar;
 
+	a := 1;
+	b := 2;
+
 	// Struct tests
 	bar := Bar();
 	f := Foo();

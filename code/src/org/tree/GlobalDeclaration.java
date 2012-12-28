@@ -13,7 +13,7 @@ public class GlobalDeclaration extends AST {
 		if (right.getTag().equals(EnumTag.VAR_STRUCTDECS) || right.getTag().equals(EnumTag.VAR_STRUCTDEC)) {
 			Prototype emptyConst = new Prototype(new Type(EnumType.STRUCT, left.getName()), left.getName());
 			Prototype allFieldConst = new Prototype(new Type(EnumType.STRUCT, left.getName()), left.getName());
-			for (AST node : getFields())
+			for (AST node : getRight().getFields())
 				allFieldConst.addArg(node.getType());
 			Main.prototypes.add(emptyConst);
 			Main.prototypes.add(allFieldConst);
@@ -46,20 +46,10 @@ public class GlobalDeclaration extends AST {
 		return "";
 	}
 
-	public ArrayList<AST> getFields() {
-		ArrayList<AST> fields;
-		if (getRight().getTag().equals(EnumTag.VAR_STRUCTDEC)) {
-			fields = new ArrayList<AST>();
-			fields.add(getRight());
-		} else {
-			fields = getRight().getFields();
-		}
-		return fields;
-	}
 
 	private void declareConstructors(StringBuffer sb, AST left, AST right) {
 		// Retrieve declared fields of the subclass
-		ArrayList<AST> fields = getFields();
+		ArrayList<AST> fields = getRight().getFields();
 
 		// Emtpy constructor
 		sb.append(tab() + "public " + left.getName() + "() {\n");

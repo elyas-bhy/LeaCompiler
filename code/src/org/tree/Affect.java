@@ -30,10 +30,6 @@ public class Affect extends AST {
 		}
 
 		else if (rtag.equals(EnumTag.MAPOF) || rtag.equals(EnumTag.TUPLE)) {
-			if (!Main.currentEnv.isInitialized(lvar)) {
-				Main.currentEnv.set(lvar, getRight().toJava());
-				sb.append(tab() + lvar + " = new " + Main.currentEnv.find(lvar) + "();\n");		
-			}
 			if (rtag.equals(EnumTag.MAPOF)) {
 				for (AST node : getRight().getFields())
 					sb.append(tab() + lvar + ".put(" + node.toJava() + ");\n");
