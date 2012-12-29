@@ -16,8 +16,9 @@ public class FunctionCall extends AST {
 	}
 
 	public String toJava() {
-		if (Main.structs.keySet().contains(this.getLeft().getName()))
+		if (Main.structs.keySet().contains(getLeft().getName())) {
 			return "new " + getLeft().toJava() + "(" + getRight().toJava() + ")";
+		}
 		return getLeft().toJava() + "(" + getRight().toJava() + ")";
 	}
 	

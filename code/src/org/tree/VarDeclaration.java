@@ -7,6 +7,12 @@ public class VarDeclaration extends AST {
 	public VarDeclaration(AST left, AST right, Type type) {
 		super(left, right, EnumTag.VARDEC, type);
 		Main.currentEnv.add(left.getName(), type);
+
+		AST structFields = Main.structs.get(type.toString());
+		if (structFields != null)
+			for (AST node : structFields.getFields())
+				Main.currentEnv.add(left.getName() + "." + node.getName(),
+								    node.getType());
 	}
 
 	public String toJava() {

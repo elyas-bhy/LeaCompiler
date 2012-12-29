@@ -9,22 +9,27 @@ Bar = struct {
 }
 
 procedure main(s : array of string) {
-	a : int;
-	b : int;
+	i : int;
+	j : int;
 	f : Foo;
-	f2 : Foo;
 	bar : Bar;
 
-	a := 1;
-	b := 2;
+	i := 1;
+	j := 2;
 
 	// Struct tests
+
+	/*bar := Bar();
+	f := Foo(i, j, bar);
+	f.b.d := "7";*/
+
+
 	bar := Bar();
-	//f := Foo();
-	//f2 := f;
-	f := Foo(a, b, bar);
+	f := Foo();
+
 	f.x := 4;		//OK
-	//a := f.h;		//Detected
+	//i := f.h;		//Detected
 	//f.h := 4;		//Detected
 	//f.b.u := 5;	//Detected
+	f.b.d := "7";	//Detected
 }

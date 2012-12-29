@@ -1,7 +1,6 @@
 package org.gen;
 
 import org.tree.*;
-
 import java.util.ArrayList;
 
 public class Verificator {
@@ -16,13 +15,14 @@ public class Verificator {
 	}
 
 	public static void checkInitialized(AST node) {
-		if (node.getTag().equals(EnumTag.IDENT)) {
+		if (node.getTag().equals(EnumTag.IDENT)
+		 || node.getTag().equals(EnumTag.SUBFIELD)) {
 			String var = node.getName();
 			if (Main.currentEnv.isDeclared(var) && !Main.currentEnv.isInitialized(var)) {
 				ErrorObject err = new ErrorObject("variable: " + var + " might not have been initialized");
 				Main.mParser.errors.add(err);
 			}
-		}
+		}	
 		else if (node.getTag().equals(EnumTag.EXPRLIST)) {
 			for (AST a : node.getFields())
 				checkInitialized(a);
@@ -68,9 +68,7 @@ public class Verificator {
 				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
 				Main.mParser.errors.add(err);
 			}
-			else if (!left.getTag().equals(EnumTag.SUBFIELD)
-				  && !right.getTag().equals(EnumTag.SUBFIELD)) {
-				//Subfields objects are tested in checkSubfield() method
+			else {
 				ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
 				+ "[" + ltype + ": " + left.toJava() + "] and "
 				+ "[" + rtype + ": " + right.toJava() + "]");

@@ -1,6 +1,7 @@
 package org.tree;
 
 import org.gen.*;
+import java.util.ArrayList;
 
 public class Affect extends AST {
 
@@ -8,10 +9,28 @@ public class Affect extends AST {
 	public Affect(AST left, AST right) {
 		super(left, right, EnumTag.AFF);
 
+		handleConstructorCall(left, right);
 		Verificator.checkDeclared(left);
 		Verificator.checkDeclared(right);
 		Verificator.checkCompatibleTypes(left, right);
 		Main.currentEnv.set(left.toJava(), right.toJava());
+	}
+
+	private void handleConstructorCall(AST left, AST right) {
+		if (right.getTag().equals(EnumTag.FUNCTION_CALL)) {
+			AST structFields = Main.structs.get(right.getLeft().getName());
+			if (structFields != null) {
+				ArrayList<AST> args = right.getRight().getFields();
+				ArrayList<AST> fields = structFields.getFields();
+
+				if (args.size() == fields.size()) {
+					for (int i = 0; i < args.size(); i++)
+						Main.currentEnv.set(left.getName() + "." + fields.get(i).getName(),
+									 		args.get(i).toJava());
+				}
+			}
+		}
+
 	}
 
 	public String toJava() {
