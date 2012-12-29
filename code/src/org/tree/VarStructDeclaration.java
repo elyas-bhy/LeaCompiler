@@ -15,6 +15,10 @@ public class VarStructDeclaration extends AST {
       return fields;
     }
 
+    public String getName() {
+    	return getLeft().getName();
+    }
+
 	public String toJava() { 
 		return getType() + " " + getLeft().toJava();
 	}

@@ -5,7 +5,12 @@ import org.gen.*;
 public class SubField extends AST {
 	
 	public SubField(AST left, AST right) {
-		super(left, right, EnumTag.SUBFIELD);		
+		super(left, right, EnumTag.SUBFIELD);
+		Verificator.checkSubfield(this);
+	}
+
+	public String getName() {
+		return toJava();
 	}
 
 	public String toJava() {

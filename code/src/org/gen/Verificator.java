@@ -22,7 +22,7 @@ public class Verificator {
 				ErrorObject err = new ErrorObject("variable: " + var + " might not have been initialized");
 				Main.mParser.errors.add(err);
 			}
-		}	
+		}
 		else if (node.getTag().equals(EnumTag.EXPRLIST)) {
 			for (AST a : node.getFields())
 				checkInitialized(a);
@@ -68,7 +68,9 @@ public class Verificator {
 				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
 				Main.mParser.errors.add(err);
 			}
-			else {
+			else if (!left.getTag().equals(EnumTag.SUBFIELD)
+				  && !right.getTag().equals(EnumTag.SUBFIELD)) {
+				//Subfields objects are tested in checkSubfield() method
 				ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
 				+ "[" + ltype + ": " + left.toJava() + "] and "
 				+ "[" + rtype + ": " + right.toJava() + "]");
@@ -82,6 +84,25 @@ public class Verificator {
 		if (!Main.prototypes.contains(p)) {
 			ErrorObject err = new ErrorObject(Errors.ILLEGAL_INSTR 
 				+ p.callToString() + " must be declared as a procedure.");
+			Main.mParser.errors.add(err);
+		}
+	}
+
+	public static void checkSubfield(AST node) {
+		Type ltype = findType(node.getLeft());
+		String field = node.getRight().getName();
+		ArrayList<AST> structFields = Main.structs.get(ltype.toString()).getFields();
+		boolean typeFound = false;
+
+		for (AST a : structFields) {
+			if (a.getName().equals(field)) {
+				node.setType(a.getType());
+				typeFound = true;
+				break;
+			}
+		}
+		if (!typeFound) {
+			ErrorObject err = new ErrorObject(Errors.NO_SUCH_FIELD + ltype.toString() + "." + field);
 			Main.mParser.errors.add(err);
 		}
 	}

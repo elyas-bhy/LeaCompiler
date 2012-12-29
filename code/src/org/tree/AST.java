@@ -66,6 +66,10 @@ public class AST {
     	this.left = left;
     }
 
+    public void setType(Type t) {
+    	type = t;
+    }
+
     public AST getRight() {
     	return right;
     }

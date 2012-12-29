@@ -4,8 +4,7 @@ import org.tree.*;
 
 import java.io.FileReader;
 import java_cup.runtime.Symbol;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Main {
@@ -13,7 +12,7 @@ public class Main {
 	public static Env firstEnv = new Env();
 	public static Env currentEnv = firstEnv;
 	public static ArrayList<Env> functionEnvs = new ArrayList<Env>();
-	public static Set<AST> structs = new HashSet<AST>();
+	public static HashMap<String,AST> structs = new HashMap<String,AST>();
 	public static Prototypes prototypes = new Prototypes();
 	public static StringBuffer globals = new StringBuffer();
 	public static int envNum = 0;
