@@ -17,7 +17,6 @@ procedure main(s : array of string)
 {
 
   // Declarations
-  m : map of (int, string);
   str : string;
   str2 : string;
   t : bool;
@@ -51,10 +50,6 @@ procedure main(s : array of string)
   c := add1(a) + b; 
   //c := add1(bar) + b; 
   //t := add1(a);
-
-  // Hashmap tests
-  //m := {(d, "delta")};
-  m := {(a, "alpha"), (b, "beta")};
 
   // Priority tests
   a := -(2 + (c/2 + a)) * b;

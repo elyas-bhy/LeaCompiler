@@ -1,0 +1,11 @@
+
+procedure main(s : array of string) {
+
+  m : map of (int, string);
+  str : string;
+  a : int;
+  b : int;
+
+  //m := {(d, "delta")};
+  m := {(a, "alpha"), (b, "beta")};
+}

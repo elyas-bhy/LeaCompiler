@@ -110,8 +110,6 @@ fheader ::=
 block ::=
 	LBRACE {:
       Env n = new Env(Main.currentEnv);
-      if (Main.DEBUG) System.out.println("Creating new environment  " + n.getNum());
-      
       Main.currentEnv.putNext(n);
       Main.currentEnv = n;
 
@@ -121,7 +119,6 @@ block ::=
       }
 
     :} decls_opt:ds instrs:i RBRACE {:
-			if (Main.DEBUG) System.out.println("Closing environment");
       Main.currentEnv = Main.currentEnv.getPrev();
 		  RESULT = new Block(ds, i);
 		:}

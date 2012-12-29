@@ -17,7 +17,7 @@ public class Main {
 	public static StringBuffer globals = new StringBuffer();
 	public static int envNum = 0;
 	
-	public static Boolean DEBUG = false;
+	public static Boolean DEBUG = true;
 	public static Scanner mScanner = null;
 	public static Parser mParser = null;
 
@@ -26,20 +26,26 @@ public class Main {
 		AST root = null;
 		CodeGenerator cg = new CodeGenerator();
 		ArrayList<ErrorObject> scannerErrors, parserErrors;
+		int nbExceptions = 0;
 
 		try {
 			FileReader  myFile = new FileReader(args[0]);
 			mScanner = new Scanner(myFile);
 			mParser = new Parser(mScanner);
 		} catch (Exception e) {
+			nbExceptions++;
 			System.err.println("Invalid file");
 		}
 
 		try {
 			result = mParser.parse();
 		} catch (Exception e) {
-			System.err.println("Parse error: " + e);
-			e.printStackTrace();
+			nbExceptions++;
+			if (DEBUG) {
+				System.err.println("Parse error: " + e);
+				e.printStackTrace();
+			} else
+				System.err.println("A parsing error has occured.");
 		}
 
 		scannerErrors = mScanner.getErrors();
@@ -54,13 +60,21 @@ public class Main {
 			try {
 				root = (AST) result.value;
 			} catch (Exception e) {
-				System.err.println("Result error: " + e);
+				nbExceptions++;
+				if (DEBUG) {
+					System.err.println("Result error: " + e);
+				} else
+					System.err.println("An internal error has occured.");
 			}
-
 			cg.setRoot(root);
-			cg.generateCode("tests/output/" + args[1] + "/src/gen/Main.java");
+
+			if (nbExceptions == 0)
+				cg.generateCode("tests/output/" + args[1] + "/src/gen/Main.java");
 		}
-		else {
+
+		if (scannerErrors.size() != 0
+		 || parserErrors.size() != 0
+		 || nbExceptions != 0) {
 			System.err.println("\n\t>> Code generation aborted; see the compiler error output for details.");
 		}
 	}

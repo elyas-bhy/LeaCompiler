@@ -37,7 +37,11 @@ public class CodeGenerator {
 	public void generateCode(String filename) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(prologue());
-		sb.append(mRoot.toJava());
+		try {
+			sb.append(mRoot.toJava());
+		} catch (Exception e) {
+			System.err.println("An internal error has occured.");
+		}
 		sb.append(epilogue());
 		
 		try {
@@ -51,7 +55,7 @@ public class CodeGenerator {
 			bfw.write(sb.toString());
 			bfw.flush();
 		} catch (Exception e) {
-			System.out.println("Failed file creation: " + e);
+			System.err.println("Failed file creation: " + e);
 		}
 	}
 }
