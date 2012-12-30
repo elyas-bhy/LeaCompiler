@@ -17,6 +17,8 @@ public class Prototypes {
 		ArrayList<Type> args = new ArrayList<Type>();
 		Type integer = new Type(EnumType.INT);
 		Type str = new Type(EnumType.STRING);
+		Type map = new Type(EnumType.MAP);
+		Type entrySet = new Type(EnumType.ENTRY);
 
 		addPrimitive(EnumTag.PLUS.toString(), integer, integer, integer);
 		addPrimitive(EnumTag.PLUS.toString(), str, integer, str);
@@ -33,6 +35,9 @@ public class Prototypes {
 		addPrimitive(JavaMethods.WRITELN.toLea(), null, str);
 		addPrimitive(JavaMethods.WRITELN.toLea(), null, integer);
 		add(new Prototype(str, JavaMethods.READ.toLea(), args));
+
+		//Hashmap accessors & modifiers
+		addPrimitive(JavaMethods.PUT.toLea(), null, map, entrySet);
 	}
 
 

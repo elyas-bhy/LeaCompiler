@@ -5,8 +5,10 @@ import org.gen.*;
 public class Tuples extends AST {
 
 	public Tuples(AST left, AST right) {
-		super(left, right, EnumTag.TUPLES, new Type(EnumType.MAP));
-		//TODO change map type to real type
+		super(left, right, EnumTag.TUPLES);
+		//TODO
+		//check type uniformity of all tuples
+		//then assign type
 	}
 
 	public String toJava() {

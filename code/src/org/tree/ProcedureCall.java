@@ -13,7 +13,6 @@ public class ProcedureCall extends AST {
 	}
 
 	public ArrayList<Type> getTypesList() {
-		System.out.println("Right: " + getRight() + ": " + getRight().getTypesList());
 		return getRight().getTypesList();
 	}
 

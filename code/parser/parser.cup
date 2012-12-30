@@ -240,7 +240,7 @@ expr ::=
 	expr:e1 bin_op:op expr:e2 
     {: RESULT = new Operation(e1, e2, op, Verificator.inferType(e1, e2)); :}   // a && b
   | MINUS expr:e 
-    {: RESULT = new Operation(null, e, EnumTag.MINUS_U, e.getType()); :} %prec MINUS_U   // -a
+    {: RESULT = new Operation(null, e, EnumTag.MINUS_U, Verificator.findType(e)); :} %prec MINUS_U   // -a
   | identFields:i LPAR list:l RPAR
     {: RESULT = new FunctionCall(i, l); :} // foo(a, b, c)
   | identFields LBRACKET expr RBRACKET 

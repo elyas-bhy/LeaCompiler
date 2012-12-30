@@ -8,6 +8,10 @@ public class VarDeclaration extends AST {
 		super(left, right, EnumTag.VARDEC, type);
 		Main.currentEnv.add(left.getName(), type);
 
+		//implicit initialization of hashmap
+		if (type.getEnumType().equals(EnumType.MAP))
+			Main.currentEnv.set(left.getName(), "");
+
 		AST structFields = Main.structs.get(type.toString());
 		if (structFields != null)
 			for (AST node : structFields.getFields())

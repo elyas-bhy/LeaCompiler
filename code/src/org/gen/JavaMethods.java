@@ -7,7 +7,8 @@ import java.lang.String;
 public enum JavaMethods {
 	WRITE ("write", "System.out.print"),
 	WRITELN ("writeln", "System.out.println"),
-	READ ("read", "readLine");
+	READ ("read", "readLine"),
+	PUT ("put", "");
 
 	private final String leaMethod;
 	private final String javaMethod;

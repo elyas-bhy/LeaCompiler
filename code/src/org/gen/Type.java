@@ -105,9 +105,10 @@ public class Type {
 				return left.toString() + "[]";
 			case MAP:
 				return type.toString() + "<" + left.toString() + "," + right.toString() + ">";
+			case ENTRY:
+				return "<" + left.toString() + "," + right.toString() + ">";
 			case STRUCT:
 				return genericType;
-			//case ERROR: return "ERROR";
 		}
 		return "";
 	}
