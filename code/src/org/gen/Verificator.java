@@ -48,7 +48,8 @@ public class Verificator {
 		Type rtype = findType(right);
 
 		// resolve/infer types
-		if (right instanceof Operation) {
+		if (right instanceof Operation 
+		&& !right.getTag().equals(EnumTag.MINUS_U)) {
 			ArrayList<Type> args = new ArrayList<Type>();
 			args.add(findType(right.getLeft()));
 			args.add(findType(right.getRight()));
