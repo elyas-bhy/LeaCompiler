@@ -48,8 +48,8 @@ public class Affect extends AST {
 			}
 		}
 
-		else if (rtag.equals(EnumTag.MAPOF) || rtag.equals(EnumTag.TUPLE)) {
-			if (rtag.equals(EnumTag.MAPOF)) {
+		else if (rtag.equals(EnumTag.TUPLES) || rtag.equals(EnumTag.TUPLE)) {
+			if (rtag.equals(EnumTag.TUPLES)) {
 				for (AST node : getRight().getFields())
 					sb.append(tab() + lvar + ".put(" + node.toJava() + ");\n");
 			}

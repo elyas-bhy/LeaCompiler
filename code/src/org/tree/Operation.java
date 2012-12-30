@@ -1,6 +1,7 @@
 package org.tree;
 
 import org.gen.*;
+import java.util.ArrayList;
 
 public class Operation extends AST {
 
@@ -11,6 +12,12 @@ public class Operation extends AST {
 		Verificator.checkInitialized(right);
 	}
 	
+    public ArrayList<AST> getFields() {
+      ArrayList<AST> fields = new ArrayList<AST>();
+      fields.add(this);
+      return fields;
+    }
+    
 	public Operation(AST left, AST right, EnumTag tag) {
 		this(left, right, tag, null);		
 	}
