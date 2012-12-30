@@ -37,7 +37,7 @@ public class Prototypes {
 		add(new Prototype(str, JavaMethods.READ.toLea(), args));
 
 		//Hashmap accessors & modifiers
-		addPrimitive(JavaMethods.PUT.toLea(), null, map, entrySet);
+		addPrimitive(MapProcedures.PUT.toString(), null, map, entrySet);
 	}
 
 

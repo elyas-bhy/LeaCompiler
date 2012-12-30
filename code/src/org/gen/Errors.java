@@ -9,6 +9,7 @@ public enum Errors {
 	EXPECTED_TYPE ("expected type: "),
 	ILLEGAL_INSTR ("illegal instruction: "),
 	NO_SUCH_FIELD ("no such field: "),
+	UNCONSISTANT_ENTRYSET ("unconsistant entry set: mismatch between "),
 	VOID_RETURN ("cannot use return statement within a procedure"),
 	MISSING_RETURN ("missing return statement");
 

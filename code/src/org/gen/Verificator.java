@@ -79,9 +79,14 @@ public class Verificator {
 	}
 
 	public static void checkProcedureCall(AST node) {
+		//Disable checking for map procedures,
+		//as they are already checked elsewhere.
+		for (MapProcedures mp : MapProcedures.values())
+			if (mp.toString().equals(node.getLeft().getName()))
+				return;
+
 		Prototype p = new Prototype(null, node.getLeft().getName(), node.getTypesList());
 		if (!Main.prototypes.contains(p)) {
-			//Main.prototypes.dump();
 			ErrorObject err = new ErrorObject(Errors.ILLEGAL_INSTR 
 				+ p.callToString() + " must be declared as a procedure.");
 			Main.mParser.errors.add(err);
@@ -102,9 +107,23 @@ public class Verificator {
 			}
 		}
 		if (!typeFound) {
-			ErrorObject err = new ErrorObject(Errors.NO_SUCH_FIELD + ltype.toString() + "." + field);
+			ErrorObject err = new ErrorObject(Errors.NO_SUCH_FIELD
+								+ ltype.toString() + "." + field);
 			Main.mParser.errors.add(err);
 		}
+	}
+
+	public static void checkIdenticalEntryTypes(AST node) {
+		ArrayList<Type> entries = node.getTypesList();
+		Type first = entries.get(0);
+		for (Type t : entries) {
+			if (!t.equals(first)) {
+				ErrorObject err = new ErrorObject(Errors.UNCONSISTANT_ENTRYSET
+									+ first.toString() + " and " + t);
+				Main.mParser.errors.add(err);
+			}
+		}
+		node.setType(first);
 	}
 
     public static void checkReturns(AST node) {

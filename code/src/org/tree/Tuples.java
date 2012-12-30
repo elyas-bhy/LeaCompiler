@@ -1,14 +1,13 @@
 package org.tree;
 
 import org.gen.*;
+import java.util.ArrayList;
 
 public class Tuples extends AST {
 
 	public Tuples(AST left, AST right) {
 		super(left, right, EnumTag.TUPLES);
-		//TODO
-		//check type uniformity of all tuples
-		//then assign type
+		Verificator.checkIdenticalEntryTypes(this);
 	}
 
 	public String toJava() {
