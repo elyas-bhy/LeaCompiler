@@ -27,7 +27,8 @@ parser code {:
 
 	public void syntax_error(Symbol curSymbol) {
 		Scanner s = (Scanner) this.getScanner();
-		Parser.errors.add(new ErrorObject("expected \";\" before symbol: " + curSymbol.value));
+		Parser.errors.add(new ErrorObject("expected \";\" before symbol: "
+                                      + curSymbol.value));
 	}
 
 
@@ -36,7 +37,7 @@ parser code {:
 
 terminal SEMIC, COMMA, DOT, DDOT, COLON, LPAR, RPAR, LBRACE, RBRACE,
     LBRACKET, RBRACKET, IF, ELSE, WHILE, REPEAT, FOR, IN, BOOLEAN,
-    ARRAY, OF, EXPRLIST, SET, MAP, STRUCT, RETURN, AFF, MOD,
+    ARRAY, OF, EXPRLIST, MAP, STRUCT, RETURN, AFF, MOD,
     AND, OR, LT, GT, LE, GE, EQ, DIFF, PLUS, MINUS, MINUS_U, MULT, DIV,
     FUNCTION, PROCEDURE, INT, FLOAT, STRING, CHAR;
 

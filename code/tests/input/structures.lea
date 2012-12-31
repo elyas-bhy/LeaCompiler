@@ -8,6 +8,10 @@ Bar = struct {
   d : string;
 }
 
+procedure f1(i:int, b:Bar) {
+	i := 4;
+}
+
 procedure main(s : array of string) {
 	i : int;
 	j : int;
@@ -17,19 +21,18 @@ procedure main(s : array of string) {
 	i := 1;
 	j := 2;
 
-	// Struct tests
-
-	/*bar := Bar();
-	f := Foo(i, j, bar);
+	//Detected
+	/*f := Foo();
 	f.b.d := "7";*/
 
-
 	bar := Bar();
-	f := Foo();
+	f := Foo(i, j, bar);
+	if (f.b = null)
+		writeln("f.b is null");
 
 	f.x := 4;		//OK
+	f.b.d := "7";
 	//i := f.h;		//Detected
 	//f.h := 4;		//Detected
 	//f.b.u := 5;	//Detected
-	f.b.d := "7";	//Detected
 }

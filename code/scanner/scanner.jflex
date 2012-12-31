@@ -117,7 +117,6 @@ Floating =   {Num}\.{Num}[eE]-?{NumType}
 "string"		{ return symbol(MySymbol.STRING, yytext()); }
 "array"			{ return symbol(MySymbol.ARRAY, yytext()); }
 "of"			{ return symbol(MySymbol.OF, yytext()); }
-"set"			{ return symbol(MySymbol.SET, yytext()); }
 "map"			{ return symbol(MySymbol.MAP, yytext()); }
 "list"			{ return symbol(MySymbol.EXPRLIST, yytext()); }
 "struct"		{ return symbol(MySymbol.STRUCT, yytext()); }

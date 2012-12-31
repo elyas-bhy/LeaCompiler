@@ -19,20 +19,14 @@ public class Env {
 	private HashMap<String, SymbolTableEntry> symbolTable;
 	private int scopenum;
 
-
-	/*public Env(Env prev, Env next, ArbreSym root) {
-		this.prev = prev;
-		this.next = next;
-		this.root = root;
-		this.scopenum = num++;
-	}*/
-
 	public Env(Env prev, Env next) {
 		this.prev = prev;
 		this.next = next;
 		this.scopenum = num++;
 		this.symbolTable = new HashMap<String, SymbolTableEntry>();
-		//this(prev, next, null);
+		add("null", "", null);
+		//Temporary workaround until handling null objects
+		//is properly implemented
 	}
 
 	public Env(Env prev) {
