@@ -15,14 +15,10 @@ procedure main(s : array of string) {
   a := 1;
   b := 2;
 
-  //m := {(a, "delta")};
-  //m := {(foo(), "alpha"), (z, "beta")};
-
-  //put(m, {(a, "alpha")});
+  put(m, {(a, "alpha")});
   put(m, {(foo(), "alpha"), (b, "beta")});
   
   //put(m, {(a, "alpha"), (z, "l")});	//Detected
   //put(m, {(a, "alpha"), (b, 'l')});	//Detected
-
 
 }

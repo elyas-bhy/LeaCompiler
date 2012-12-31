@@ -1,6 +1,7 @@
 package org.tree;
 
 import org.gen.*;
+import java.util.ArrayList;
 
 public class Tuple extends AST {
 
@@ -15,6 +16,12 @@ public class Tuple extends AST {
 		Verificator.checkInitialized(left);
 		Verificator.checkInitialized(right);
 	}
+	
+    public ArrayList<AST> getFields() {
+      ArrayList<AST> fields = new ArrayList<AST>();
+      fields.add(this);
+      return fields;
+    }
 
 	public String toJava() {
 		return getLeft().toJava() + ", " + getRight().toJava();

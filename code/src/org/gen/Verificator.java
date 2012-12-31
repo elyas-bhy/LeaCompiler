@@ -116,14 +116,17 @@ public class Verificator {
 	public static void checkIdenticalEntryTypes(AST node) {
 		ArrayList<Type> entries = node.getTypesList();
 		Type first = entries.get(0);
+		boolean mismatch = false;
 		for (Type t : entries) {
 			if (!t.equals(first)) {
+				mismatch = true;
 				ErrorObject err = new ErrorObject(Errors.UNCONSISTANT_ENTRYSET
 									+ first.toString() + " and " + t);
 				Main.mParser.errors.add(err);
 			}
 		}
-		node.setType(first);
+		if (!mismatch)
+			node.setType(first);
 	}
 
     public static void checkReturns(AST node) {
