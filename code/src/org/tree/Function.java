@@ -15,6 +15,10 @@ public class Function extends AST {
 		this(left, null);
 	}
 
+	public Type getType() {
+		return getLeft().getType();
+	}
+
 	public String toJava() {
 		if (getRight() == null)
 			return "";	//No code generation for prototypes

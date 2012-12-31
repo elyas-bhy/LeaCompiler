@@ -107,15 +107,15 @@ public class AST {
     	return s;
     }
 
-    public int returnCount() {
-    	int count = 0;
+    public ArrayList<AST> getReturnStatements() {
+		ArrayList<AST> returns = new ArrayList<AST>();
     	if (this.tag.equals(EnumTag.RETURN))
-    		count += 1;
+    		returns.add(this);
     	if (this.left != null)
-    		count += this.left.returnCount();
+    		returns.addAll(left.getReturnStatements());
     	if (this.right != null)
-    		count += this.right.returnCount();
-    	return count;
+    		returns.addAll(right.getReturnStatements());
+    	return returns;
     }
 
     public ArrayList<AST> getFields() {

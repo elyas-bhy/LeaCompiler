@@ -130,14 +130,33 @@ public class Verificator {
 	}
 
     public static void checkReturns(AST node) {
+    	ArrayList<AST> returns = node.getReturnStatements();
     	ErrorObject err;
-    	if (node.getLeft().getType() == null && node.returnCount() > 0) {
+
+    	if (node.getLeft().getType() == null
+    		  && returns.size() > 0) {
     		err = new ErrorObject(Errors.VOID_RETURN.toString());
     		Main.mParser.errors.add(err);
     	}
-    	else if (node.getLeft().getType() != null && node.returnCount() == 0) {
-    		err = new ErrorObject(Errors.MISSING_RETURN.toString());
-    		Main.mParser.errors.add(err);
+    	else if (node.getLeft().getType() != null) {
+    		if (returns.size() == 0) {
+    			err = new ErrorObject(Errors.MISSING_RETURN.toString());
+    			Main.mParser.errors.add(err);
+    		}
+    		else {
+    			for (AST a : returns) {
+    				Type t = findType(a.getLeft());
+    				//if (!node.getType().equals(t)) {
+    				if (!node.getType().getEnumType().equals(t.getEnumType())) {
+    					err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
+    						+ a.toJava().replace("\t", "")
+    						+ "\n\tfound: " + t
+    						+ "\n\trequired: " + node.getType());
+    					Main.mParser.errors.add(err);
+
+    				}
+    			}
+    		}
     	}
     }
 
