@@ -89,7 +89,6 @@ public class Verificator {
 			}
 		}
 		else {
-			Main.prototypes.dump();
 			ErrorObject err = new ErrorObject(Errors.ILLEGAL_INSTR 
 				+ p.callToString() + " must be declared as a procedure.");
 			Main.mParser.errors.add(err);
