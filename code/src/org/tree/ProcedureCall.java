@@ -14,9 +14,12 @@ public class ProcedureCall extends AST {
 
     public ArrayList<AST> getFields() {
     	ArrayList<AST> fields = new ArrayList<AST>();
-    	if (getRight().getTag().equals(EnumTag.EXPRLIST))
+    	if (getRight().getTag().equals(EnumTag.EXPRLIST)) {
     		if (getRight().getLeft() == null && getRight().getRight() == null)
     			return fields;
+    		fields.addAll(getRight().getFields());
+    		return fields;
+    	}
     	fields.add(getRight());
     	return fields;
     }

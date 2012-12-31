@@ -18,7 +18,8 @@ public class Prototypes {
 		Type integer = new Type(EnumType.INT);
 		Type str = new Type(EnumType.STRING);
 		Type map = new Type(EnumType.MAP);
-		Type entrySet = new Type(EnumType.ENTRY);
+		Type entry = new Type(EnumType.ENTRY);
+		Type entries = new Type(EnumType.ENTRIES);
 
 		addPrimitive(EnumTag.PLUS.toString(), integer, integer, integer);
 		addPrimitive(EnumTag.PLUS.toString(), str, integer, str);
@@ -37,7 +38,8 @@ public class Prototypes {
 		add(new Prototype(str, JavaMethods.READ.toLea(), args));
 
 		//Hashmap accessors & modifiers
-		addPrimitive(MapProcedures.PUT.toString(), null, map, entrySet);
+		addPrimitive(MapProcedures.PUT.toString(), null, map, entry);
+		addPrimitive(MapProcedures.PUT.toString(), null, map, entries);
 		addPrimitive(MapProcedures.CLEAR.toString(), null, map);
 		addPrimitive(MapProcedures.SIZE.toString(), integer, map);
 	}

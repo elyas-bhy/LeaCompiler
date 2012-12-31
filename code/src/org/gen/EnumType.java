@@ -13,6 +13,7 @@ public enum EnumType {
 	ERROR ("error"),
 	MAP("HashMap"),
 	ENTRY("MapEntry"),
+	ENTRIES("MapEntries"),
 	STRUCT("generic type");
 
 	private final String tag;

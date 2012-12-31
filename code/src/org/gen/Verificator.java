@@ -79,14 +79,16 @@ public class Verificator {
 	}
 
 	public static void checkProcedureCall(AST node) {
-		//Disable checking for map procedures,
-		//as they are already checked elsewhere.
-		for (MapProcedures mp : MapProcedures.values())
-			if (mp.toString().equals(node.getLeft().getName()))
-				return;
-
 		Prototype p = new Prototype(null, node.getLeft().getName(), node.getTypesList());
-		if (!Main.prototypes.contains(p)) {
+		if (Main.prototypes.contains(p)) {
+
+			if (node.getLeft().getName().equals(MapProcedures.PUT.toString())) {
+				AST map = node.getFields().get(0);
+				Type mapTypes = findType(map);
+				checkIdenticalEntryTypes(node.getFields().get(1), mapTypes);
+			}
+		}
+		else {
 			ErrorObject err = new ErrorObject(Errors.ILLEGAL_INSTR 
 				+ p.callToString() + " must be declared as a procedure.");
 			Main.mParser.errors.add(err);
@@ -113,20 +115,16 @@ public class Verificator {
 		}
 	}
 
-	public static void checkIdenticalEntryTypes(AST node) {
+	public static void checkIdenticalEntryTypes(AST node, Type mapTypes) {
 		ArrayList<Type> entries = node.getTypesList();
-		Type first = entries.get(0);
-		boolean mismatch = false;
+		Type expectedType = new Type(mapTypes.getLeft(), mapTypes.getRight(), EnumType.ENTRY);
 		for (Type t : entries) {
-			if (!t.equals(first)) {
-				mismatch = true;
+			if (!t.equals(expectedType)) {
 				ErrorObject err = new ErrorObject(Errors.UNCONSISTANT_ENTRYSET
-									+ first.toString() + " and " + t);
+									+ mapTypes.toString() + " and " + t);
 				Main.mParser.errors.add(err);
 			}
 		}
-		if (!mismatch)
-			node.setType(first);
 	}
 
     public static void checkReturns(AST node) {
@@ -146,8 +144,7 @@ public class Verificator {
     		else {
     			for (AST a : returns) {
     				Type t = findType(a.getLeft());
-    				//if (!node.getType().equals(t)) {
-    				if (!node.getType().getEnumType().equals(t.getEnumType())) {
+    				if (!node.getType().equals(t)) {
     					err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
     						+ a.toJava().replace("\t", "")
     						+ "\n\tfound: " + t
@@ -170,7 +167,7 @@ public class Verificator {
 			return null;
 
 		if (t1.getEnumType().equals(t2.getEnumType()))
-			return new Type(t1, t2, t1.getEnumType());
+			return new Type(t1.getEnumType());
 		return null;
     }
 
