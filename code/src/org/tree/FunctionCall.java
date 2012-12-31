@@ -11,15 +11,29 @@ public class FunctionCall extends AST {
 		Verificator.checkInitialized(right);
 	}
 
-	public ArrayList<Type> getTypesList() {
-		return getRight().getTypesList();
-	}
+    public ArrayList<AST> getFields() {
+    	ArrayList<AST> fields = new ArrayList<AST>();
+    	if (getRight().getTag().equals(EnumTag.EXPRLIST))
+    		if (getRight().getLeft() == null && getRight().getRight() == null)
+    			return fields;
+    	fields.add(getRight());
+    	return fields;
+    }
 
 	public String toJava() {
+		String function = getLeft().toJava();
 		if (Main.structs.keySet().contains(getLeft().getName())) {
-			return "new " + getLeft().toJava() + "(" + getRight().toJava() + ")";
+			return "new " + function + "(" + getRight().toJava() + ")";
 		}
-		return getLeft().toJava() + "(" + getRight().toJava() + ")";
+
+		else if (function.equals(MapProcedures.SIZE.toString())) {
+			StringBuffer sb = new StringBuffer();
+			sb.append(getRight().toJava());
+			sb.append("." + function);
+			sb.append("()");
+			return sb.toString();
+		}
+		return function + "(" + getRight().toJava() + ")";
 	}
 	
 }

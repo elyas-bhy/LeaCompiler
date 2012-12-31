@@ -104,9 +104,13 @@ public class Type {
 			case ARRAY:
 				return left.toString() + "[]";
 			case MAP:
-				return type.toString() + "<" + left.toString() + "," + right.toString() + ">";
+				if (left != null && right != null)
+					return type.toString() + "<" + left.toString() + "," + right.toString() + ">";
+				return type.toString();
 			case ENTRY:
-				return "<" + left.toString() + "," + right.toString() + ">";
+				if (left != null && right != null)
+					return "<" + left.toString() + "," + right.toString() + ">";
+				return type.toString();
 			case STRUCT:
 				return genericType;
 		}

@@ -38,20 +38,17 @@ public class Prototypes {
 
 		//Hashmap accessors & modifiers
 		addPrimitive(MapProcedures.PUT.toString(), null, map, entrySet);
+		addPrimitive(MapProcedures.CLEAR.toString(), null, map);
+		addPrimitive(MapProcedures.SIZE.toString(), integer, map);
 	}
 
 
-	private void addPrimitive(String identifier, Type returnType, Type arg1) {
+	private void addPrimitive(String identifier, Type returnType, Type...arg) {
 		ArrayList<Type> args = new ArrayList<Type>();
-		args.add(arg1);
-		Prototype p = new Prototype(returnType, identifier, args);
-		add(p);
-	}
-
-	private void addPrimitive(String identifier, Type returnType, Type arg1, Type arg2) {
-		ArrayList<Type> args = new ArrayList<Type>();
-		args.add(arg1);
-		args.add(arg2);
+		if (arg != null) {
+			for (Type t : arg)
+				args.add(t);
+		}
 		Prototype p = new Prototype(returnType, identifier, args);
 		add(p);
 	}

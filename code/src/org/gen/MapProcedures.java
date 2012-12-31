@@ -4,7 +4,9 @@ import org.tree.*;
 import java.lang.String;
 
 public enum MapProcedures {
-	PUT ("put");
+	PUT ("put"),
+	CLEAR ("clear"),
+	SIZE ("size");
 
 	private final String leaProcedure;
 

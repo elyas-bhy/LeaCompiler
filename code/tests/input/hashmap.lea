@@ -3,7 +3,6 @@ function foo() : int {
 	return 1;
 }
 
-
 procedure main(s : array of string) {
 
   m : map of (int, string);
@@ -17,6 +16,8 @@ procedure main(s : array of string) {
 
   put(m, {(a, "alpha")});
   put(m, {(foo(), "alpha"), (b, "beta")});
+  writeln(size(m));
+  clear(m);
   
   //put(m, {(a, "alpha"), (z, "l")});	//Detected
   //put(m, {(a, "alpha"), (b, 'l')});	//Detected
