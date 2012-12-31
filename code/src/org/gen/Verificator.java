@@ -89,6 +89,7 @@ public class Verificator {
 			}
 		}
 		else {
+			Main.prototypes.dump();
 			ErrorObject err = new ErrorObject(Errors.ILLEGAL_INSTR 
 				+ p.callToString() + " must be declared as a procedure.");
 			Main.mParser.errors.add(err);
@@ -119,7 +120,8 @@ public class Verificator {
 		ArrayList<Type> entries = node.getTypesList();
 		Type expectedType = new Type(mapTypes.getLeft(), mapTypes.getRight(), EnumType.ENTRY);
 		for (Type t : entries) {
-			if (!t.equals(expectedType)) {
+			if (!t.getLeft().equals(expectedType.getLeft())
+			 || !t.getRight().equals(expectedType.getRight())) {
 				ErrorObject err = new ErrorObject(Errors.UNCONSISTANT_ENTRYSET
 									+ mapTypes.toString() + " and " + t);
 				Main.mParser.errors.add(err);

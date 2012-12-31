@@ -8,10 +8,6 @@ Bar = struct {
   d : string;
 }
 
-procedure f1(i:int, b:Bar) {
-	i := 4;
-}
-
 procedure main(s : array of string) {
 	i : int;
 	j : int;
