@@ -198,6 +198,8 @@ instr ::=
     {: RESULT = new Affect(v, e); :}
   | RETURN expr:e SEMIC
     {: RESULT = new Return(e, null); :}
+  | RETURN SEMIC
+    {: RESULT = new Return(null, null); :}
   | identFields:i LPAR list:l RPAR SEMIC
     {: RESULT = new ProcedureCall(i, l); :}  
   | error SEMIC

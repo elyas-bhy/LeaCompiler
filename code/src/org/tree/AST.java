@@ -109,11 +109,11 @@ public class AST {
 
     public ArrayList<AST> getReturnStatements() {
 		ArrayList<AST> returns = new ArrayList<AST>();
-    	if (this.tag.equals(EnumTag.RETURN))
+    	if (tag.equals(EnumTag.RETURN) && left != null)
     		returns.add(this);
-    	if (this.left != null)
+    	if (left != null)
     		returns.addAll(left.getReturnStatements());
-    	if (this.right != null)
+    	if (right != null)
     		returns.addAll(right.getReturnStatements());
     	return returns;
     }
