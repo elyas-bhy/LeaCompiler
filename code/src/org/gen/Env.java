@@ -123,26 +123,6 @@ public class Env {
 		return null;
 	}
 
-	public Integer getIntValue(String id) {
-		if (symbolTable.containsKey(id)) {
-			String val = symbolTable.get(id).value;
-			if (isInteger(val))
-				return Integer.parseInt(val);
-			return getIntValue(val);
-		}
-		return null;
-	}
-
-	private boolean isInteger(String input) {
-		try {
-			Integer.parseInt(input);
-			return true;
-		}
-		catch (Exception e) {
-			return false;
-		}
-	}
-
 	public void dump() {
 		System.out.println("Dump env: " + scopenum);
 		for (SymbolTableEntry s : symbolTable.values())

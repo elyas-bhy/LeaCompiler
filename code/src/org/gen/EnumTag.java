@@ -33,9 +33,7 @@ public enum EnumTag {
   TUPLE("tuple"),
   TYPETUPLE("typetuple"),
   RETURN("return"),
-
   ARR_INIT("arr_init"),
-  ARR_SLOT("arr_slot"),
 
   IF ("if"), 
   THENELSE ("thenelse"),

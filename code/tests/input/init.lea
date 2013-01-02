@@ -22,16 +22,11 @@ procedure main(args : array of string) {
     z : string;
     c : array of int;
 
-
 	a := 1;
 	b := a;
-    c := array of int[b];
-    c[0] := 4;
-    c[b] := b;
-    b := c[b];
 
-    foo(c[b]);
+    foo(b);
     //a := b + 1;       //Detected
-    a := bar(b, 5);		//Detected
+    a := bar(b, 5);
     a := bar2(5);
 }

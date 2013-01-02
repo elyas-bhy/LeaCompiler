@@ -9,8 +9,6 @@ public class Verificator {
 		EnumTag tag = node.getTag();
 		if (tag.equals(EnumTag.FUNCTION_CALL))
 			return Main.prototypes.findPrototype(node);
-		if (tag.equals(EnumTag.ARR_SLOT))
-			return findType(node.getLeft()).getLeft();
 
 		Type t = node.getType();
 		if (t == null) {
