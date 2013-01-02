@@ -6,6 +6,7 @@ public class ForEach extends AST {
 	
 	public ForEach(AST left, AST right, Type type) {
 		super(left, right, EnumTag.FOR_EACH, type);
+		Verificator.checkForEach(this);
 	}
 
 	public String toJava() {

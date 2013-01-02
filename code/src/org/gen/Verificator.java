@@ -70,7 +70,6 @@ public class Verificator {
 				node.setType(varType.getLeft());
 				if (slotType == null || !slotType.getEnumType().equals(EnumType.INT)) {
 
-
     				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
     					+ node.toJava().replace("\t", "")
     					+ "\n\tfound: " + slotType
@@ -135,6 +134,22 @@ public class Verificator {
 			Main.mParser.errors.add(err);
 		}
 	}
+
+	public static void checkForEach(AST node) {
+		AST var = node.getRight();
+		Type iterator = node.getType();
+		if (var.getTag().equals(EnumTag.IDENT)) {
+			Type t = findType(var).getLeft();
+			if (!iterator.equals(t)) {
+				
+				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
+    				+ node.getName().replace("\t", "")
+    				+ "\n\tfound: " + iterator
+    				+ "\n\trequired: " + t);
+    			Main.mParser.errors.add(err);
+			}
+		}
+	} 
 
 	public static void checkSubfield(AST node) {
 		Type ltype = findType(node.getLeft());

@@ -39,6 +39,7 @@ public class FunctionCall extends AST {
 
 		else if (function.equals(ArrayLib.LEN.toString()))
 			return getRight().toJava() + ".length";
+		
 		return function + "(" + getRight().toJava() + ")";
 	}
 	
