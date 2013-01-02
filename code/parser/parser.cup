@@ -192,9 +192,13 @@ instr ::=
   | REPEAT block:b WHILE LPAR expr:e RPAR SEMIC
     {: RESULT = new DoWhile(e, b); :}
   | FOR ident:v IN range:r  {:
-      Main.currentEnv.set(v.getName(), r.getLeft().toJava()); :}
+      Main.currentEnv.set(v.getName(), ""); :}
     block:b {: 
       RESULT = new Loop(new ForRange(v, r), b, EnumTag.FOR); :}
+  | FOR type:t ident:v IN identFields:id  {:
+      Main.currentEnv.add(v.getName(), "", t); :}
+    block:b {: 
+      RESULT = new Loop(new ForEach(v, id, t), b, EnumTag.FOR); :}
   | identFields:v AFF expr:e SEMIC
     {: RESULT = new Affect(v, e); :}
   | RETURN expr:e SEMIC
@@ -208,9 +212,7 @@ instr ::=
 
 range ::=
   LBRACKET expr:e1 DDOT expr:e2 RBRACKET {: RESULT = new Range(e1, e2); :}
-  | LBRACKET list:l RBRACKET {: RESULT = l; :}
-  | LBRACE list:l RBRACE {:RESULT = l; :}
-  | identFields:id {: RESULT = id; :}
+  | expr:e {: RESULT = e; :}
   ;
 
 list ::=  // used in list affectation and in function call
@@ -247,8 +249,8 @@ expr ::=
     {: RESULT = new Operation(null, e, EnumTag.MINUS_U, Verificator.findType(e)); :} %prec MINUS_U  // -a
   | identFields:i LPAR list:l RPAR
     {: RESULT = new FunctionCall(i, l); :} // foo(a, b, c)
-  | ARRAY OF type:t LBRACKET expr:e RBRACKET 
-    {: RESULT = new ArrayInit(t, e); :}    // array of int[a]
+  | type:t LBRACKET expr:e RBRACKET 
+    {: RESULT = new ArrayInit(t, e); :}    // int[a]
   | variable:v 
     {: RESULT = v; :}
   | identFields:id 

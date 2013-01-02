@@ -9,9 +9,18 @@ public class ForRange extends AST {
 	}
 
 	public String toJava() {
-		String tmp = getLeft().toJava();
-		return tmp + " = " + getRight().getLeft().toJava() + "; " 
-		     + tmp + " < " + getRight().getRight().toJava() + "; " + tmp + "++";
+		String id = getLeft().toJava();
+		String start, end;
+		
+		if (getRight().getTag().equals(EnumTag.RANGE)) {
+			start = getRight().getLeft().toJava();
+			end = getRight().getRight().toJava();
+		} else {
+			start = "0";
+			end = getRight().toJava();
+		}
+		return id + " = " + start + "; " 
+		     + id + " < " + end + "; " + id + "++";
 	}
 	
 }

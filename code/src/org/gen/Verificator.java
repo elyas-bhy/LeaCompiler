@@ -123,7 +123,7 @@ public class Verificator {
 		Prototype p = new Prototype(null, node.getLeft().getName(), node.getTypesList());
 		if (Main.prototypes.contains(p)) {
 
-			if (node.getLeft().getName().equals(MapProcedures.PUT.toString())) {
+			if (node.getLeft().getName().equals(MapLib.PUT.toString())) {
 				AST map = node.getFields().get(0);
 				Type mapTypes = findType(map);
 				checkIdenticalEntryTypes(node.getFields().get(1), mapTypes);

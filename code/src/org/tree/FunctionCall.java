@@ -29,13 +29,16 @@ public class FunctionCall extends AST {
 			return "new " + function + "(" + getRight().toJava() + ")";
 		}
 
-		else if (function.equals(MapProcedures.SIZE.toString())) {
+		else if (function.equals(MapLib.SIZE.toString())) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(getRight().toJava());
 			sb.append("." + function);
 			sb.append("()");
 			return sb.toString();
 		}
+
+		else if (function.equals(ArrayLib.LEN.toString()))
+			return getRight().toJava() + ".length";
 		return function + "(" + getRight().toJava() + ")";
 	}
 	

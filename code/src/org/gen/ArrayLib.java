@@ -3,14 +3,12 @@ package org.gen;
 import org.tree.*;
 import java.lang.String;
 
-public enum MapProcedures {
-	PUT ("put"),
-	CLEAR ("clear"),
-	SIZE ("size");
+public enum ArrayLib {
+	LEN ("len");
 
 	private final String leaProcedure;
 
-	private MapProcedures (String leaProcedure) {
+	private ArrayLib (String leaProcedure) {
 		this.leaProcedure = leaProcedure;
 	}
 

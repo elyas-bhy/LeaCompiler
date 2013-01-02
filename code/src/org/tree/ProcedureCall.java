@@ -27,12 +27,12 @@ public class ProcedureCall extends AST {
 	public String toJava() {
 		String procedure = getLeft().toJava();
 
-		for (JavaMethods m : JavaMethods.values()) {
+		for (IOLib m : IOLib.values()) {
 			if (m.toLea().equals(procedure))
 				return tab() + m + "(" + getRight().toJava() + ");";
 		}
 
-		if (procedure.equals(MapProcedures.PUT.toString())) {
+		if (procedure.equals(MapLib.PUT.toString())) {
 			StringBuffer sb = new StringBuffer();
 			for (AST a : getRight().getRight().getFields()) {
 				sb.append(tab() + getRight().getLeft().toJava());
@@ -47,7 +47,7 @@ public class ProcedureCall extends AST {
 			//Remove trailing carriage return.
 		}
 
-		else if (procedure.equals(MapProcedures.CLEAR.toString())) {
+		else if (procedure.equals(MapLib.CLEAR.toString())) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(tab() + getRight().toJava());
 			sb.append("." + procedure);

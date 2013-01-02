@@ -10,7 +10,7 @@ public class Loop extends AST {
 
 	public String toJava() {
 		StringBuffer sb = new StringBuffer();
-		sb.append(tab() + getTag() + " (" + getLeft().toJava() + " ) {\n");
+		sb.append(tab() + getTag() + " (" + getLeft().toJava() + ") {\n");
 		sb.append(getRight().toJava() + "\n");
 		sb.append(tab() + "}");
 		return sb.toString();

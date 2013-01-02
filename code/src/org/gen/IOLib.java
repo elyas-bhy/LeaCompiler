@@ -4,7 +4,7 @@ import org.tree.*;
 
 import java.lang.String;
 
-public enum JavaMethods {
+public enum IOLib {
 	WRITE ("write", "System.out.print"),
 	WRITELN ("writeln", "System.out.println"),
 	READ ("read", "readLine");
@@ -12,7 +12,7 @@ public enum JavaMethods {
 	private final String leaMethod;
 	private final String javaMethod;
 
-	private JavaMethods (String leaMethod, String javaMethod) {
+	private IOLib (String leaMethod, String javaMethod) {
 		this.leaMethod = leaMethod;
 		this.javaMethod = javaMethod;
 	}

@@ -8,13 +8,21 @@ function foo(i : int, j : int) : int {
 procedure main(args : array of string) {
     a : int;
     b : int;
+    i : int;
     s : string;
     c : array of int;
 
 	a := 10;
 	b := 1;
-    c := array of int[a];
-    c[0] := 4;
-    c[b] := b;
+    c := int[a];
+
+    for i in len(c) {
+    	c[i] := i;
+    }
+
+    for int elem in c {
+    	writeln(elem);
+    }
+
     a := foo(c[b], 5);
 }

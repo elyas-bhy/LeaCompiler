@@ -39,7 +39,7 @@ public class Affect extends AST {
 		EnumTag rtag = getRight().getTag();
 
 		if (rtag.equals(EnumTag.FUNCTION_CALL)) {
-			if (getRight().getLeft().toJava().equals(JavaMethods.READ.toLea())) {
+			if (getRight().getLeft().toJava().equals(IOLib.READ.toLea())) {
 				sb.append(tab() + "if (mLeaCompilerConsole != null)\n");
 				CodeGenerator.tabLevel++;
 				sb.append(tab() + lvar + " = mLeaCompilerConsole.readLine();");

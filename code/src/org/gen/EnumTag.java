@@ -40,6 +40,7 @@ public enum EnumTag {
 
   FOR("for"),
   FOR_RANGE("for_i_in_range"),
+  FOR_EACH("for_each"),
   WHILE ("while"), 
   DOWHILE ("do"), 
   BLOCK("block"),

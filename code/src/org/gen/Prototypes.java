@@ -20,6 +20,7 @@ public class Prototypes {
 		Type map = new Type(EnumType.MAP);
 		Type entry = new Type(EnumType.ENTRY);
 		Type entries = new Type(EnumType.ENTRIES);
+		Type array = new Type(EnumType.ARRAY);
 
 		addPrimitive(EnumTag.PLUS.toString(), integer, integer, integer);
 		addPrimitive(EnumTag.PLUS.toString(), str, integer, str);
@@ -32,16 +33,19 @@ public class Prototypes {
 		//TODO complete
 
 		// Include Lea default I/O methods
-		addPrimitive(JavaMethods.WRITE.toLea(), null, str);
-		addPrimitive(JavaMethods.WRITELN.toLea(), null, str);
-		addPrimitive(JavaMethods.WRITELN.toLea(), null, integer);
-		add(new Prototype(str, JavaMethods.READ.toLea(), args));
+		addPrimitive(IOLib.WRITE.toLea(), null, str);
+		addPrimitive(IOLib.WRITELN.toLea(), null, str);
+		addPrimitive(IOLib.WRITELN.toLea(), null, integer);
+		add(new Prototype(str, IOLib.READ.toLea(), args));
 
 		//Hashmap accessors & modifiers
-		addPrimitive(MapProcedures.PUT.toString(), null, map, entry);
-		addPrimitive(MapProcedures.PUT.toString(), null, map, entries);
-		addPrimitive(MapProcedures.CLEAR.toString(), null, map);
-		addPrimitive(MapProcedures.SIZE.toString(), integer, map);
+		addPrimitive(MapLib.PUT.toString(), null, map, entry);
+		addPrimitive(MapLib.PUT.toString(), null, map, entries);
+		addPrimitive(MapLib.CLEAR.toString(), null, map);
+		addPrimitive(MapLib.SIZE.toString(), integer, map);
+
+		//Array functions
+		addPrimitive(ArrayLib.LEN.toString(), integer, array);
 	}
 
 
