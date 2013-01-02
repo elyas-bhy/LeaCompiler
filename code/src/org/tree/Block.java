@@ -6,6 +6,7 @@ public class Block extends AST {
 
     public Block(AST left, AST right) {
         super(left, right, EnumTag.BLOCK);
+        Verificator.checkUnreachableStmts(right);
     }
 
     public String toJava() {

@@ -12,6 +12,7 @@ public enum Errors {
 	UNCONSISTANT_ENTRYSET ("unconsistant entry set: mismatch between "),
 	INCOMPATIBLE_T ("incompatible types: "),
 	INCOMPATIBLE_RET ("incompatible return type: "),
+	UNREACHABLE ("unreachable statement: "),
 	VOID_RETURN ("cannot use return statement within a procedure"),
 	MISSING_RETURN ("missing return statement");
 

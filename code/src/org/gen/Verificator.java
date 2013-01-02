@@ -141,7 +141,7 @@ public class Verificator {
 		if (var.getTag().equals(EnumTag.IDENT)) {
 			Type t = findType(var).getLeft();
 			if (!iterator.equals(t)) {
-				
+
 				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
     				+ node.getName().replace("\t", "")
     				+ "\n\tfound: " + iterator
@@ -181,6 +181,23 @@ public class Verificator {
 									+ mapTypes.toString() + " and " + t);
 				Main.mParser.errors.add(err);
 			}
+		}
+	}
+
+	public static void checkUnreachableStmts(AST node) {
+		if (node.getTag().equals(EnumTag.SUCC)) {
+
+			int retCount = 0;
+			for (AST a : node.getFields()) {
+				if (a.getTag().equals(EnumTag.RETURN))
+					retCount++;
+			}
+			if (retCount > 0)
+				if (!node.getRight().getTag().equals(EnumTag.RETURN)) {
+					ErrorObject err = new ErrorObject(Errors.UNREACHABLE.toString()
+						+ node.getRight().toJava().replace("\t", ""));
+					Main.mParser.errors.add(err);
+				}
 		}
 	}
 
