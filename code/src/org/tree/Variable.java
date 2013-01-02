@@ -6,11 +6,13 @@ import java.util.ArrayList;
 public class Variable extends AST {
 	
 	public Variable(EnumTag tag, String val, Type type) {
-		super(tag, val, type);		
+		super(tag, val, type);
 	}
 
-	public Variable(EnumTag tag, String val) {
+	public Variable(EnumTag tag, String val, AST slot) {
 		super(tag, val);
+		setLeft(slot);
+		Verificator.checkSlots(this);
 	}
 
     public ArrayList<AST> getFields() {
@@ -19,14 +21,9 @@ public class Variable extends AST {
       return fields;
     }
 
-	public ArrayList<Type> getTypesList() {
-		ArrayList<Type> alt = new ArrayList<Type>();
-		alt.add(Verificator.findType(this));
-		return alt;
-	}
-
 	public String toJava() {
-		return getName();
+		return getName()
+		+ ((getLeft() != null) ? "[" + getLeft().toJava() + "]" : "");
 	}
 	
 }

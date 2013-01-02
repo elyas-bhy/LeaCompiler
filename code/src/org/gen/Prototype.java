@@ -64,7 +64,8 @@ public class Prototype {
 				for (int i = 0; i < size; i++) {
 					if (args.get(i) == null || args2.get(i) == null)
 						return false;
-					if (!args.get(i).getEnumType().equals(args2.get(i).getEnumType()))
+					if (!args.get(i).equals(args2.get(i)))
+					//if (!args.get(i).getEnumType().equals(args2.get(i).getEnumType()))
 						return false;
 				}
 				return true;

@@ -6,31 +6,47 @@ import java.util.ArrayList;
 public class Verificator {
 
 	public static Type findType(AST node) {
-		if (node.getTag().equals(EnumTag.FUNCTION_CALL))
+		EnumTag tag = node.getTag();
+		if (tag.equals(EnumTag.FUNCTION_CALL))
 			return Main.prototypes.findPrototype(node);
+		if (tag.equals(EnumTag.ARR_SLOT))
+			return findType(node.getLeft()).getLeft();
+
 		Type t = node.getType();
-		if (t == null)
-			t = Main.currentEnv.find(node.toJava());
+		if (t == null) {
+			String var;
+			//Workaround to get array slot type
+			if (tag.equals(EnumTag.IDENT) && node.getLeft() != null)
+				var = node.getName();
+			else
+				var = node.toJava();
+			t = Main.currentEnv.find(var);
+		}
 		return t;
 	}
 
 	public static void checkInitialized(AST node) {
-		if (node.getTag().equals(EnumTag.IDENT)
-		 || node.getTag().equals(EnumTag.SUBFIELD)) {
-			String var = node.getName();
-			if (Main.currentEnv.isDeclared(var) && !Main.currentEnv.isInitialized(var)) {
-				ErrorObject err = new ErrorObject("variable: " + var + " might not have been initialized");
-				Main.mParser.errors.add(err);
+		if (node != null) {
+			if (node.getTag().equals(EnumTag.IDENT)
+		 	|| node.getTag().equals(EnumTag.SUBFIELD)) {
+
+				String var = node.getName();
+				if (Main.currentEnv.isDeclared(var)
+				&& !Main.currentEnv.isInitialized(var)) {
+					ErrorObject err = new ErrorObject("variable: " + var 
+						+ " might not have been initialized");
+					Main.mParser.errors.add(err);
+				}
 			}
-		}	
-		else if (node.getTag().equals(EnumTag.EXPRLIST)) {
-			for (AST a : node.getFields())
-				checkInitialized(a);
+			else if (node.getTag().equals(EnumTag.EXPRLIST)) {
+				for (AST a : node.getFields())
+					checkInitialized(a);
+			}
 		}
 	}
  
     public static boolean checkDeclared(AST node) {
-		if (node != null && node.getTag() != null) {
+		if (node != null) {
 			if (node.getTag().equals(EnumTag.IDENT)) {
 				String var = node.getName();
 				if (!Main.currentEnv.isDeclared(var)) {
@@ -41,6 +57,30 @@ public class Verificator {
 			}
 		}
 		return true;
+	}
+
+	public static void checkSlots(AST node) {
+		AST slot = node.getLeft();
+		if (slot != null) {
+			checkDeclared(slot);
+			checkInitialized(slot);
+
+			Type varType = Verificator.findType(node);
+			Type slotType = Verificator.findType(slot);
+
+			if (varType != null ) {
+				node.setType(varType.getLeft());
+				if (slotType == null || !slotType.getEnumType().equals(EnumType.INT)) {
+
+
+    				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
+    					+ node.toJava().replace("\t", "")
+    					+ "\n\tfound: " + slotType
+    					+ "\n\trequired: " + new Type(EnumType.INT));
+    				Main.mParser.errors.add(err);
+				}
+			}
+		}
 	}
 
 	public static void checkCompatibleTypes(AST left, AST right) {
@@ -63,9 +103,12 @@ public class Verificator {
 			}
 		} 
 
-		else if (rtype == null || ltype == null || !rtype.getEnumType().equals(ltype.getEnumType())) {
+		else if (rtype == null || ltype == null
+			 || !rtype.getEnumType().equals(ltype.getEnumType())) {
 			if (right.getTag().equals(EnumTag.FUNCTION_CALL)) {
-				Prototype p = new Prototype(ltype, right.getLeft().toJava(), right.getTypesList());
+				Prototype p = new Prototype(ltype,
+											right.getLeft().toJava(),
+											right.getTypesList());
 				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
 				Main.mParser.errors.add(err);
 			}
@@ -146,7 +189,7 @@ public class Verificator {
     			for (AST a : returns) {
     				Type t = findType(a.getLeft());
     				if (!node.getType().equals(t)) {
-    					err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
+    					err = new ErrorObject(Errors.INCOMPATIBLE_RET.toString() 
     						+ a.toJava().replace("\t", "")
     						+ "\n\tfound: " + t
     						+ "\n\trequired: " + node.getType());

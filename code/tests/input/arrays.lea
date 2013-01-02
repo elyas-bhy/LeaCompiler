@@ -1,0 +1,20 @@
+
+function foo(i : int, j : int) : int {
+	a : int;
+	a := 1;
+	return i + a;
+}
+
+procedure main(args : array of string) {
+    a : int;
+    b : int;
+    s : string;
+    c : array of int;
+
+	a := 10;
+	b := 1;
+    c := array of int[a];
+    c[0] := 4;
+    c[b] := b;
+    a := foo(c[b], 5);
+}

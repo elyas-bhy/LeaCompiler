@@ -8,23 +8,23 @@ public class Type {
 	private Type left;
 	private Type right;
 	private EnumType type;
-	private Integer integer; // array size
+	private String size;	//array size
 	private String genericType;
 
-	public Type(Type left, Type right, Integer i, EnumType type) {
+	public Type(Type left, Type right, String s, EnumType type) {
 		this.left = left;
 		this.right = right;
-		this.integer = i;
+		this.size = s;
 		this.type = type;
 		this.genericType = null;
 	}
 
 	public Type(Type left, Type right, EnumType type) {
-		this(left, right, 0, type);
+		this(left, right, "", type);
 	}
 
 	public Type(Type left, Type right) {
-		this(left, right, 0, null);
+		this(left, right, "", null);
 	}
 
 	public Type(EnumType type) {
@@ -67,7 +67,7 @@ public class Type {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		//result = prime * result + ((integer == null) ? 0 : integer.hashCode());
+		//result = prime * result + ((size == null) ? 0 : size.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((genericType == null) ? 0 : genericType.hashCode());
 		return result;
@@ -94,7 +94,7 @@ public class Type {
 			case BOOLEAN:
 				return type.toString();
 			case ARRAY:
-				return left.toString() + "[]";
+				return left.toString() + "[" + size + "]";
 			case MAP:
 				if (left != null && right != null)
 					return type.toString() + "<" + left.toString() + "," + right.toString() + ">";

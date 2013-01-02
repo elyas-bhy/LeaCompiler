@@ -46,13 +46,14 @@ terminal String IDENTIFIER, INTEGER, FLOATING, STRINGEXP, CHAREXP, BOOL;
 non terminal Type type;
 non terminal EnumTag bin_op;
 non terminal AST program, expr, ident, funcs, instr, instrs, list_rec, identFields,
-                 block, funcDef, range, list, globalDecs, globalDec, 
+                 block, funcDef, range, list, globalDecs, globalDec, opt_slot,
                  struct_decl, struct_decls, definition, parameters, param_list, param,
                  decl, map_of, map_of_list, tuple, variable, fheader, decls_opt;
 
 
 precedence nonassoc ELSE;
 precedence nonassoc IF;
+precedence right LBRACKET;
 precedence left AND, OR;
 precedence left LT, GT, LE, GE, EQ, DIFF;
 precedence left PLUS, MINUS;
@@ -243,11 +244,11 @@ expr ::=
 	expr:e1 bin_op:op expr:e2 
     {: RESULT = new Operation(e1, e2, op, Verificator.inferType(e1, e2)); :}   // a && b
   | MINUS expr:e 
-    {: RESULT = new Operation(null, e, EnumTag.MINUS_U, Verificator.findType(e)); :} %prec MINUS_U   // -a
+    {: RESULT = new Operation(null, e, EnumTag.MINUS_U, Verificator.findType(e)); :} %prec MINUS_U  // -a
   | identFields:i LPAR list:l RPAR
     {: RESULT = new FunctionCall(i, l); :} // foo(a, b, c)
-  | identFields LBRACKET expr RBRACKET 
-    {: RESULT = new AST(null, null); :}    // foo[a]
+  | ARRAY OF type:t LBRACKET expr:e RBRACKET 
+    {: RESULT = new ArrayInit(t, e); :}    // array of int[a]
   | variable:v 
     {: RESULT = v; :}
   | identFields:id 
@@ -302,8 +303,15 @@ variable ::=
   ;
 
 ident ::=
-	IDENTIFIER:id {: RESULT = new Variable(EnumTag.IDENT, id); :}
+	IDENTIFIER:id opt_slot:slot
+    {: RESULT = new Variable(EnumTag.IDENT, id, slot); :}
 	;
+
+opt_slot ::=
+  LBRACKET expr:e RBRACKET {: RESULT = e; :}
+  | {: RESULT = null; :}
+  ;
+
 
 identFields ::=
   identFields:idfs DOT ident:id {: RESULT = new SubField(idfs, id); :}

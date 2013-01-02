@@ -34,6 +34,9 @@ public enum EnumTag {
   TYPETUPLE("typetuple"),
   RETURN("return"),
 
+  ARR_INIT("arr_init"),
+  ARR_SLOT("arr_slot"),
+
   IF ("if"), 
   THENELSE ("thenelse"),
 
@@ -65,7 +68,7 @@ public enum EnumTag {
   FUNCTION_TYPE("function_type"),
   FUNCTION_CORE("function_core"),
 
-  PROGRAM("function_program");
+  PROGRAM("program");
 	
 	
   private final String tag;

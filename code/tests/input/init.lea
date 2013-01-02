@@ -16,13 +16,22 @@ function bar2(i : int) : int {
 	return i + a;
 }
 
-procedure main(s : array of string) {
+procedure main(args : array of string) {
     a : int;
     b : int;
+    z : string;
+    c : array of int;
 
-	b := 1;
-    //a := b + 1;		//Detected
-    foo(b);				//Detected
+
+	a := 1;
+	b := a;
+    c := array of int[b];
+    c[0] := 4;
+    c[b] := b;
+    b := c[b];
+
+    foo(c[b]);
+    //a := b + 1;       //Detected
     a := bar(b, 5);		//Detected
     a := bar2(5);
 }
