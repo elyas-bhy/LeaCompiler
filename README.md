@@ -58,4 +58,20 @@ $ ant run-output -Dprog_name=<testName>
 
 ### Cleaning Code
 
-Cleaning the LeaCompiler code and tests code works the same way as
+You can clean the code of the LeaCompiler simply by running :
+
+```
+$ ant clean
+```
+
+You can also choose to clean a particular set of compiled tests :
+
+```
+$ ant clean-output -Dprog_name=<testName>
+```
+
+Or you can simply clean the entire project, including tests and compiler :
+
+```
+$ ant clean-all
+```

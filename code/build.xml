@@ -115,7 +115,7 @@
   <!-- ================================= 
        target: clean              
        ================================= -->
-  <target name="clean-all" depends="clean-code">
+  <target name="clean-all" depends="clean">
     <delete dir="${tests.dir}/output"/>
     <mkdir dir="${tests.dir}/output"/>
   </target>
@@ -123,23 +123,18 @@
   <!-- ================================= 
        target: clean              
        ================================= -->
-  <target name="clean" depends="clean-output,clean-code"/>
+  <target name="clean">
+    <delete file="${src.dir}/org/gen/Scanner.java"/>
+    <delete file="${src.dir}/org/gen/Parser.java"/>
+    <delete file="${src.dir}/org/gen/MySymbol.java"/>
+    <delete dir="${bin.dir}"/>
+  </target>
 
   <!-- ================================= 
        target: clean-output              
        ================================= -->
   <target name="clean-output">
     <delete dir="${tests.dir}/output/${prog_name}" />
-  </target>
-
-  <!-- ================================= 
-       target: clean-code              
-       ================================= -->
-  <target name="clean-code">
-    <delete file="${src.dir}/org/gen/Scanner.java"/>
-    <delete file="${src.dir}/org/gen/Parser.java"/>
-    <delete file="${src.dir}/org/gen/MySymbol.java"/>
-    <delete dir="${bin.dir}"/>
   </target>
 
 </project>
