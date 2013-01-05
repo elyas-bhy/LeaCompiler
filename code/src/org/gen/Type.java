@@ -94,7 +94,9 @@ public class Type {
 			case BOOLEAN:
 				return type.toString();
 			case ARRAY:
-				return left.toString() + "[" + size + "]";
+				if (left != null)
+					return left.toString() + "[" + size + "]";
+				return type.toString();
 			case MAP:
 				if (left != null && right != null)
 					return type.toString() + "<" + left.toString() + "," + right.toString() + ">";
