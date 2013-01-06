@@ -14,7 +14,9 @@ public class Program extends AST {
 		sb.append(tab() + "static Console mLeaCompilerConsole = System.console();\n\n");
 		if (getLeft() != null)
 			sb.append(getLeft().toJava());
-		sb.append(Main.globals + "\n" + getRight().toJava());
+		sb.append(Main.globals + "\n");
+		sb.append(getRight().toJava());
+		sb.append("\n}");
 		return sb.toString();
 	}
 	

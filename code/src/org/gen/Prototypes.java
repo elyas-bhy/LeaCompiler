@@ -95,7 +95,7 @@ public class Prototypes {
 			if (p.getName().equals(tmp.getName()) && p.getArgs().equals(tmp.getArgs()))
 				return p.getReturnType();
 		}
-		// No matching signature
+		// No matching signature found
 		return null;
 	}
 

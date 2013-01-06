@@ -19,7 +19,7 @@ public class CodeGenerator {
 		mRoot = root;
 	}
 
-	public StringBuffer prologue() {
+	public StringBuffer headers() {
 		//Includes the java headers (libraries and packages)
 		StringBuffer sb = new StringBuffer();
 		sb.append("package gen;\n\n");
@@ -29,20 +29,14 @@ public class CodeGenerator {
 		return sb;
 	}
 
-	public String epilogue() {
-		//Add the closing bracket of the Java class
-		return "\n}";
-	}
-
 	public void generateCode(String filename) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(prologue());
+		sb.append(headers());
 		try {
 			sb.append(mRoot.toJava());
 		} catch (Exception e) {
 			System.err.println("An internal error has occured.");
 		}
-		sb.append(epilogue());
 		
 		try {
 			File f = new File(filename);
