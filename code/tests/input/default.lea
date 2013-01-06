@@ -1,59 +1,34 @@
 MAX = 500;
+hello = "Hello ";
+b = "b";
 
-hello = "world";
-b = 'c';
-
-function add1(i : int) : int
-{
-  a : int;
-  b : int;
-  a := 1;
-  b := 2;
-  a := add1(b); 
-  return i+1;
+function add1(i : int) : int {
+  return i + 1;
 }
 
-procedure main(s : array of string)
-{
+procedure main(args : array of string) {
 
   // Declarations
-  str : string;
-  str2 : string;
+  message : string;
+  s : string;
   t : bool;
   a : int;
   b : int;
   c : int;
-  d : int;
-  j : int;
 
   // Basic instructions
-  a := 452;
+  a := 15;
   b := -5;
-  c := 0;
   t := true;
-  str := "rr";
-  str2 := str + "tt";
-
-  // Undefined variables
-   
-  //Detected
-  //c := u + 1;
-  //z := 55;
-  //c := add1(u, v);
-  //c := add1(u);
-  //add1(jimmy);
-  //c := (u);
-  //c := add1(t);
-  //c := a + b + t;
+  s := "world!";
+  message := hello + s;
 
   // Function calls
   c := add1(a) + b; 
-  //c := add1(bar) + b; 
-  //t := add1(a);
 
-  // Priority tests
+  // Priority handling
   a := -(2 + (c/2 + a)) * b;
   
-  writeln("Finished");
+  writeln(message);
 
 }

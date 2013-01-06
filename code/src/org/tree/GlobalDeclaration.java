@@ -21,6 +21,8 @@ public class GlobalDeclaration extends AST {
 				allFieldConst.addArg(node.getType());
 			Main.prototypes.add(emptyConst);
 			Main.prototypes.add(allFieldConst);
+		} else {
+			Main.currentEnv.set(left.getName(), right.toJava());
 		}
 	}
 
