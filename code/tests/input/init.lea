@@ -20,7 +20,6 @@ procedure main(args : array of string) {
     a : int;
     b : int;
     z : string;
-    c : array of int;
 
 	a := 1;
 	b := a;

@@ -13,8 +13,8 @@ import java.util.Collections;
 // tag: node label (cf EnumTag)
 
 
-public class AST { 
-	private int id;   // used in toDot
+public class AST {
+    private int id;
     private AST left;
     private AST right;
     private EnumTag tag;    // node label
@@ -150,21 +150,21 @@ public class AST {
     }
 
     public String toString() {
-      String result = new String();
-      result += tag.toString();
+        String result = new String();
+        result += tag.toString();
 
-      if ((left != null) || (right != null)) {
-          result +="(";
-        if (left != null)
-          result += left.toString();
-        if (right != null){
-          result+=",";
-          if (right.tag == EnumTag.SUCC || right.tag == EnumTag.THENELSE)
-            result+="\n\n\t";
-          result += right.toString();
+        if ((left != null) || (right != null)) {
+            result += "(";
+            if (left != null)
+                result += left.toString();
+            if (right != null) {
+                result += ",";
+                if (right.tag == EnumTag.SUCC || right.tag == EnumTag.THENELSE)
+                    result += "\n\n\t";
+                result += right.toString();
+            }
+            result += ")";
         }
-        result+=")";
-      }
-      return result;
+        return result;
     }
 }

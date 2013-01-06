@@ -5,8 +5,7 @@ import java.lang.String;
 public enum Errors {
 	UNDEF_VARIABLE ("undefined variable: "),
 	UNDEF_REF ("undefined reference: "),
-	TYPE_MISMATCH ("type mismatch: between "),
-	EXPECTED_TYPE ("expected type: "),
+	NOT_INIT ("might not have been initialized"),
 	ILLEGAL_INSTR ("illegal instruction: "),
 	NO_SUCH_FIELD ("no such field: "),
 	UNCONSISTANT_ENTRYSET ("unconsistant entry set: mismatch between "),

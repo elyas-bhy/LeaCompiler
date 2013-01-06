@@ -32,7 +32,7 @@ public class Verificator {
 				if (Main.currentEnv.isDeclared(var)
 				&& !Main.currentEnv.isInitialized(var)) {
 					ErrorObject err = new ErrorObject("variable: " + var 
-						+ " might not have been initialized");
+						+ " " + Errors.NOT_INIT);
 					Main.mParser.errors.add(err);
 				}
 			}
@@ -70,7 +70,7 @@ public class Verificator {
 				node.setType(varType.getLeft());
 				if (slotType == null || !slotType.getEnumType().equals(EnumType.INT)) {
 
-    				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
+    				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T 
     					+ node.toJava().replace("\t", "")
     					+ "\n\tfound: " + slotType
     					+ "\n\trequired: " + new Type(EnumType.INT));
@@ -80,7 +80,9 @@ public class Verificator {
 		}
 	}
 
-	public static void checkCompatibleTypes(AST left, AST right) {
+	public static void checkCompatibleTypes(AST node) {
+		AST left = node.getLeft();
+		AST right = node.getRight();
 		Type ltype = findType(left);	//expected type
 		Type rtype = findType(right);
 
@@ -93,8 +95,6 @@ public class Verificator {
 			Prototype p = new Prototype(ltype, right.getTag().toString(), args);
 
 			if (!Main.prototypes.contains(p)) {
-				// TODO provide a more explicit error message
-				// (mentionning expected type / type found)
 				ErrorObject err = new ErrorObject(Errors.UNDEF_REF + p.toString());
 				Main.mParser.errors.add(err);
 			}
@@ -110,9 +110,10 @@ public class Verificator {
 				Main.mParser.errors.add(err);
 			}
 			else {
-				ErrorObject err = new ErrorObject(Errors.TYPE_MISMATCH 
-				+ "[" + ltype + ": " + left.toJava() + "] and "
-				+ "[" + rtype + ": " + right.toJava() + "]");
+				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T 
+    				+ node.toJava().replace("\t", "")
+    				+ "\n\tfound: " + ltype
+    				+ "\n\trequired: " + rtype);
 				Main.mParser.errors.add(err);
 			}
 		}
@@ -142,7 +143,7 @@ public class Verificator {
 			Type t = findType(var).getLeft();
 			if (!iterator.equals(t)) {
 
-				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T.toString() 
+				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T 
     				+ node.getName().replace("\t", "")
     				+ "\n\tfound: " + iterator
     				+ "\n\trequired: " + t);
@@ -194,7 +195,7 @@ public class Verificator {
 			}
 			if (retCount > 0)
 				if (!node.getRight().getTag().equals(EnumTag.RETURN)) {
-					ErrorObject err = new ErrorObject(Errors.UNREACHABLE.toString()
+					ErrorObject err = new ErrorObject(Errors.UNREACHABLE
 						+ node.getRight().toJava().replace("\t", ""));
 					Main.mParser.errors.add(err);
 				}
@@ -219,7 +220,7 @@ public class Verificator {
     			for (AST a : returns) {
     				Type t = findType(a.getLeft());
     				if (!node.getType().equals(t)) {
-    					err = new ErrorObject(Errors.INCOMPATIBLE_RET.toString() 
+    					err = new ErrorObject(Errors.INCOMPATIBLE_RET 
     						+ a.toJava().replace("\t", "")
     						+ "\n\tfound: " + t
     						+ "\n\trequired: " + node.getType());

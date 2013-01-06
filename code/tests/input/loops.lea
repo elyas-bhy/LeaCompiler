@@ -1,5 +1,5 @@
 
-procedure main(s : array of string)
+procedure main(args : array of string)
 {
   a : int;
   b : int;

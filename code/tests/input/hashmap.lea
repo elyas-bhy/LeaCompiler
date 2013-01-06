@@ -3,7 +3,7 @@ function foo() : int {
 	return 1;
 }
 
-procedure main(s : array of string) {
+procedure main(args : array of string) {
 
   m : map of (int, string);
   str : string;

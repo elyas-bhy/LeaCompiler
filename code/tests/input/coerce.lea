@@ -2,7 +2,7 @@ function foo(a : int) : int {
 	return a+1;
 }
 
-procedure main(s : array of string) {
+procedure main(args : array of string) {
 	str : string;
 	res : string;
 	n : int;

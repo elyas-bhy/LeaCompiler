@@ -12,7 +12,7 @@ public class Affect extends AST {
 		handleConstructorCall(left, right);
 		Verificator.checkDeclared(left);
 		Verificator.checkDeclared(right);
-		Verificator.checkCompatibleTypes(left, right);
+		Verificator.checkCompatibleTypes(this);
 		Main.currentEnv.set(left.toJava(), right.toJava());
 	}
 

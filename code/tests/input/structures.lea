@@ -8,7 +8,7 @@ Bar = struct {
   d : string;
 }
 
-procedure main(s : array of string) {
+procedure main(args : array of string) {
 	i : int;
 	j : int;
 	f : Foo;
@@ -17,18 +17,19 @@ procedure main(s : array of string) {
 	i := 1;
 	j := 2;
 
-	//Detected
+	// Error detected
 	/*f := Foo();
-	f.b.d := "7";*/
+	f.b.d := "7"; */
 
 	bar := Bar();
 	f := Foo(i, j, bar);
 	if (f.b = null)
 		writeln("f.b is null");
-
-	f.x := 4;		//OK
+	f.x := 4;
 	f.b.d := "7";
-	//i := f.h;		//Detected
-	//f.h := 4;		//Detected
-	//f.b.u := 5;	//Detected
+
+	// Errors detected
+	/*i := f.h;
+	f.h := 4;
+	f.b.u := 5; */
 }

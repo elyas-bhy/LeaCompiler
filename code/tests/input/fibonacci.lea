@@ -6,7 +6,7 @@ function fibonacci(n : int) : int {
     return fibonacci(n-1) + fibonacci(n-2);
 }
 
-procedure main(s : array of string) {
+procedure main(args : array of string) {
     i : int;
     for i in [0 .. 5] {
         writeln(fibonacci(i));

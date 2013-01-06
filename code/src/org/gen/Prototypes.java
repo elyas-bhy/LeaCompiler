@@ -64,6 +64,12 @@ public class Prototypes {
 		addOp(operator, integer, chr, chr);
 	}
 
+	private void addOp(String identifier, Type returnType, Type arg1, Type arg2) {
+		addPrimitive(identifier, returnType, arg1, arg2);
+		if (!arg1.equals(arg2))
+			addPrimitive(identifier, returnType, arg2, arg1);
+	}
+
 	private void addWriter(String identifier) {
 		addPrimitive(identifier, null, str);
 		addPrimitive(identifier, null, integer);
@@ -72,13 +78,6 @@ public class Prototypes {
 		addPrimitive(identifier, null, bool);
 		add(new Prototype(null, identifier, mArgs));
 	}
-
-	private void addOp(String identifier, Type returnType, Type arg1, Type arg2) {
-		addPrimitive(identifier, returnType, arg1, arg2);
-		if (!arg1.equals(arg2))
-			addPrimitive(identifier, returnType, arg2, arg1);
-	}
-
 
 	private void addPrimitive(String identifier, Type returnType, Type...arg) {
 		ArrayList<Type> args = new ArrayList<Type>();
