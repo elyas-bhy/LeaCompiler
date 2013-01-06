@@ -7,11 +7,13 @@ import java.util.ArrayList;
 public class Prototypes {
 
 	private HashSet<Prototype> prototypes;
+	private ArrayList<Type> mArgs = new ArrayList<Type>();
 
 	private Type integer = new Type(EnumType.INT);
 	private Type floating = new Type(EnumType.FLOAT);
 	private Type str = new Type(EnumType.STRING);
 	private Type chr = new Type(EnumType.CHAR);
+	private Type bool = new Type(EnumType.BOOLEAN);
 	private Type map = new Type(EnumType.MAP);
 	private Type entry = new Type(EnumType.ENTRY);
 	private Type entries = new Type(EnumType.ENTRIES);
@@ -23,7 +25,6 @@ public class Prototypes {
 	}
 
 	private void initialize() {
-		ArrayList<Type> args = new ArrayList<Type>();
 
 		// Arithmetic operations
 		addOperations(EnumTag.PLUS.toString());
@@ -39,10 +40,9 @@ public class Prototypes {
 		addOp(EnumTag.PLUS.toString(), str, str, chr);
 
 		// Lea default I/O methods
-		addPrimitive(IOLib.WRITE.toLea(), null, str);
-		addPrimitive(IOLib.WRITELN.toLea(), null, str);
-		addPrimitive(IOLib.WRITELN.toLea(), null, integer);
-		add(new Prototype(str, IOLib.READ.toLea(), args));
+		addWriter(IOLib.WRITE.toLea());
+		addWriter(IOLib.WRITELN.toLea());
+		add(new Prototype(str, IOLib.READ.toLea(), mArgs));
 
 		//Hashmap accessors & modifiers
 		addPrimitive(MapLib.PUT.toString(), null, map, entry);
@@ -62,6 +62,15 @@ public class Prototypes {
 		addOp(operator, integer, integer, integer);
 		addOp(operator, integer, integer, chr);
 		addOp(operator, integer, chr, chr);
+	}
+
+	private void addWriter(String identifier) {
+		addPrimitive(identifier, null, str);
+		addPrimitive(identifier, null, integer);
+		addPrimitive(identifier, null, floating);
+		addPrimitive(identifier, null, chr);
+		addPrimitive(identifier, null, bool);
+		add(new Prototype(null, identifier, mArgs));
 	}
 
 	private void addOp(String identifier, Type returnType, Type arg1, Type arg2) {
