@@ -1,14 +1,15 @@
-package org.gen;
+package org.lealib;
 
-import org.tree.*;
 import java.lang.String;
 
-public enum ArrayLib {
-	LEN ("len");
+public enum MapLib {
+	PUT ("put"),
+	CLEAR ("clear"),
+	SIZE ("size");
 
 	private final String leaProcedure;
 
-	private ArrayLib (String leaProcedure) {
+	private MapLib (String leaProcedure) {
 		this.leaProcedure = leaProcedure;
 	}
 

@@ -1,6 +1,7 @@
 package org.gen;
 
 import org.tree.*;
+import org.lealib.*;
 import java.util.ArrayList;
 
 public class Verificator {

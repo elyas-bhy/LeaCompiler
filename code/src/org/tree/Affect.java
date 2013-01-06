@@ -1,6 +1,7 @@
 package org.tree;
 
 import org.gen.*;
+import org.lealib.*;
 import java.util.ArrayList;
 
 public class Affect extends AST {

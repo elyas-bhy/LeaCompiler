@@ -1,6 +1,7 @@
 package org.gen;
 
 import org.tree.*;
+import org.lealib.*;
 import java.util.HashSet;
 import java.util.ArrayList;
 
@@ -44,13 +45,13 @@ public class Prototypes {
 		addWriter(IOLib.WRITELN.toLea());
 		add(new Prototype(str, IOLib.READ.toLea(), mArgs));
 
-		//Hashmap accessors & modifiers
+		// Hashmap accessors & modifiers
 		addPrimitive(MapLib.PUT.toString(), null, map, entry);
 		addPrimitive(MapLib.PUT.toString(), null, map, entries);
 		addPrimitive(MapLib.CLEAR.toString(), null, map);
 		addPrimitive(MapLib.SIZE.toString(), integer, map);
 
-		//Array functions
+		// Array functions
 		addPrimitive(ArrayLib.LEN.toString(), integer, array);
 	}
 
