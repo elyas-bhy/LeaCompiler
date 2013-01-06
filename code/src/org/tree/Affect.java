@@ -42,7 +42,11 @@ public class Affect extends AST {
 			if (getRight().getLeft().toJava().equals(IOLib.READ.toLea())) {
 				sb.append(tab() + "if (mLeaCompilerConsole != null)\n");
 				CodeGenerator.tabLevel++;
-				sb.append(tab() + lvar + " = mLeaCompilerConsole.readLine();");
+				sb.append(tab() + lvar + " = mLeaCompilerConsole.readLine();\n");
+				CodeGenerator.tabLevel--;
+				sb.append(tab() + "else\n");
+				CodeGenerator.tabLevel++;
+				sb.append(tab() + lvar + " = null;");
 				CodeGenerator.tabLevel--;
 				return sb.toString();
 			}
