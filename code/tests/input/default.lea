@@ -3,32 +3,31 @@ hello = "Hello ";
 b = "b";
 
 function add1(i : int) : int {
-  return i + 1;
+	return i + 1;
 }
 
 procedure main(args : array of string) {
 
-  // Declarations
-  message : string;
-  s : string;
-  t : bool;
-  a : int;
-  b : int;
-  c : int;
+	// Declarations
+	message : string;
+	s : string;
+	t : bool;
+	a : int;
+	b : int;
+	c : int;
 
-  // Basic instructions
-  a := 15;
-  b := -5;
-  t := true;
-  s := "world!";
-  message := hello + s;
+	// Basic instructions
+	a := 15;
+	b := -5;
+	t := true;
+	s := "world!";
+	message := hello + s;
 
-  // Function calls
-  c := add1(a) + b; 
+	// Function calls
+	c := add1(a) + b; 
 
-  // Priority handling
-  a := -(2 + (c/2 + a)) * b;
-  
-  writeln(message);
+	// Priority handling
+	a := -(2 + (c/2 + a)) * b;
 
+	writeln(message);
 }

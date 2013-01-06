@@ -8,7 +8,7 @@ function fibonacci(n : int) : int {
 
 procedure main(args : array of string) {
     i : int;
-    for i in [0 .. 5] {
+    for i in [0 .. 10] {
         writeln(fibonacci(i));
     }
 }

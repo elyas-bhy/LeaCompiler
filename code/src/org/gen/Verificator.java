@@ -126,7 +126,7 @@ public class Verificator {
 			if (node.getLeft().getName().equals(MapLib.PUT.toString())) {
 				AST map = node.getFields().get(0);
 				Type mapTypes = findType(map);
-				checkIdenticalEntryTypes(node.getFields().get(1), mapTypes);
+				checkEntryTypes(node.getFields().get(1), mapTypes);
 			}
 		}
 		else {
@@ -172,7 +172,7 @@ public class Verificator {
 		}
 	}
 
-	public static void checkIdenticalEntryTypes(AST node, Type mapTypes) {
+	public static void checkEntryTypes(AST node, Type mapTypes) {
 		ArrayList<Type> entries = node.getTypesList();
 		Type expectedType = new Type(mapTypes.getLeft(), mapTypes.getRight(), EnumType.ENTRY);
 		for (Type t : entries) {

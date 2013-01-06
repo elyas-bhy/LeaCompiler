@@ -11,7 +11,7 @@ procedure main(args : array of string)
   c := 1;
 
   // If / else blocks
-  /*if (a >= b) {
+  if (a >= b) {
     c := c + 1;
     if (c < 10)
       write("foo");
@@ -22,14 +22,14 @@ procedure main(args : array of string)
 
   // For loops
   for j in [0 .. c+2] {
-    //a := b * (2 + j);
-    b := b + 10;
+    c := c + j;
   }
 
   // Dowhile loops
   repeat {
     c := c - 1;
-  } while (c > 0); */
+  } while (c > 0);
+  
   writeln("Finished");
 
 }
