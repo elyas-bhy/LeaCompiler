@@ -78,14 +78,13 @@ $ ant clean-all
 
 ### Notes
 
-Please note that all test files must have a .lea extension, and whenever using the -Dprog_name=<testName> option, <testName> should be the filename of the test (omitting the ".lea" suffix).
+Please note that all test files must have a .lea extension, and whenever using the ``` -Dprog_name=<testName> ```option, ```<testName>``` should be the filename of the test (omitting the ".lea" suffix).
 
-Also, due to the nature of the buildfile, whenever using ``` ant run-output ``` on a Lea file containing a call to *read()*, the instruction ``` System.console() ``` will return null, which will cause *read()* to skip waiting.
+Also, due to the nature of the buildfile, whenever using ``` ant run-output ``` on a Lea file containing a call to *read()*, the instruction ``` System.console() ``` will return null, which will cause *read()* to be skipped.
 If you want to execute the compiled output in this case, please run the following: 
 
 ```
 $ ant run -Dprog_name=<testName>
 $ java -jar tests/output/<testName>/lib/<testName>.jar
-
 ``` 
 
