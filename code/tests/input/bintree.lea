@@ -5,14 +5,16 @@ Tree = struct {
   key : string;
 }
 
-function depthFirstSearch(root : Tree) : string {
+
+// Depth-first search
+function DFS(root : Tree) : string {
 	s : string;
 	
 	s := root.key;
 	if (root.left != null)
-		s := s + depthFirstSearch(root.left);
+		s := s + DFS(root.left);
 	if (root.right != null)
-		s := s + depthFirstSearch(root.right);
+		s := s + DFS(root.right);
 
 	return s;
 }
@@ -28,6 +30,5 @@ procedure main (args : array of string) {
 	root.left := node;
 	root.key := "a";
 
-	writeln(depthFirstSearch(root));
-	
+	writeln(DFS(root));		//prints "ab"
 }
