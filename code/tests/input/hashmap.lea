@@ -4,22 +4,19 @@ function foo() : int {
 }
 
 procedure main(args : array of string) {
+	m : map of (int, string);
+	a : int;
+	b : int;
+	z : int;
 
-  m : map of (int, string);
-  str : string;
-  a : int;
-  b : int;
-  z : int;
+	a := 1;
+	b := 2;
 
-  a := 1;
-  b := 2;
+	put(m, {(a, "alpha")});
+	put(m, {(foo(), "alpha"), (b, "beta")});
+	writeln(size(m));
+	clear(m);
 
-  put(m, {(a, "alpha")});
-  put(m, {(foo(), "alpha"), (b, "beta")});
-  writeln(size(m));
-  clear(m);
-  
-  //put(m, {(a, "alpha"), (z, "l")});	//Detected
-  //put(m, {(a, "alpha"), (b, 'l')});	//Detected
-
+	//put(m, {(a, "alpha"), (z, "l")});	//Detected
+	//put(m, {(a, "alpha"), (b, 'l')});	//Detected
 }

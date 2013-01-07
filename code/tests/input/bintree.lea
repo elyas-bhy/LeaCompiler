@@ -1,0 +1,33 @@
+
+Tree = struct {
+  left : Tree;
+  right : Tree;
+  key : string;
+}
+
+function depthFirstSearch(root : Tree) : string {
+	s : string;
+	
+	s := root.key;
+	if (root.left != null)
+		s := s + depthFirstSearch(root.left);
+	if (root.right != null)
+		s := s + depthFirstSearch(root.right);
+
+	return s;
+}
+
+procedure main (args : array of string) {
+	root : Tree;
+	node : Tree;
+
+	node := Tree();
+	node.key := "b";
+
+	root := Tree();
+	root.left := node;
+	root.key := "a";
+
+	writeln(depthFirstSearch(root));
+	
+}

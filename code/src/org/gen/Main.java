@@ -11,7 +11,7 @@ public class Main {
 
 	public static Env firstEnv = new Env();
 	public static Env currentEnv = firstEnv;
-	public static ArrayList<Env> functionEnvs = new ArrayList<Env>();
+	public static Env lastEnv = firstEnv;
 	public static HashMap<String,AST> structs = new HashMap<String,AST>();
 	public static Prototypes prototypes = new Prototypes();
 	public static StringBuffer globals = new StringBuffer();

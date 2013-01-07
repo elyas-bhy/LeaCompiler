@@ -112,9 +112,9 @@ public class Verificator {
 			}
 			else {
 				ErrorObject err = new ErrorObject(Errors.INCOMPATIBLE_T 
-    				+ node.toJava().replace("\t", "")
-    				+ "\n\tfound: " + ltype
-    				+ "\n\trequired: " + rtype);
+					+ node.toJava().replace("\t", "")
+					+ "\n\tfound: " + ltype
+					+ "\n\trequired: " + rtype);
 				Main.mParser.errors.add(err);
 			}
 		}

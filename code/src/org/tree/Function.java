@@ -7,8 +7,12 @@ public class Function extends AST {
 	
 	public Function(AST left, AST right) {
 		super(left, right, EnumTag.FUNCTION);
-		if (right != null)
+		if (right != null) {
+			Env tmp = Main.currentEnv;
+			Main.currentEnv = Main.lastEnv;
 			Verificator.checkReturns(this);
+			Main.currentEnv = tmp;
+		}
 	}
 
 	public Function(AST left) { // prototype

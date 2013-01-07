@@ -113,14 +113,14 @@ block ::=
 	LBRACE {:
       Env n = new Env(Main.currentEnv);
       Main.currentEnv.putNext(n);
+      Main.lastEnv = Main.currentEnv;
       Main.currentEnv = n;
 
-      if (Main.currentEnv.getPrev().equals(Main.firstEnv)) {
-        Main.functionEnvs.add(Main.currentEnv);
+      if (Main.currentEnv.getPrev().equals(Main.firstEnv))
         Main.currentEnv.add(Parser.params);
-      }
 
     :} decls_opt:ds instrs:i RBRACE {:
+      Main.lastEnv = Main.currentEnv;
       Main.currentEnv = Main.currentEnv.getPrev();
 		  RESULT = new Block(ds, i);
 		:}
@@ -244,7 +244,7 @@ tuple ::=
 
 expr ::=
 	expr:e1 bin_op:op expr:e2 
-    {: RESULT = new Operation(e1, e2, op, Verificator.inferType(e1, e2)); :}   // a && b
+    {: RESULT = new Operation(e1, e2, op, Verificator.inferType(e1, e2)); :}   // a op b
   | MINUS expr:e 
     {: RESULT = new Operation(null, e, EnumTag.MINUS_U, Verificator.findType(e)); :} %prec MINUS_U  // -a
   | identFields:i LPAR list:l RPAR
@@ -254,12 +254,12 @@ expr ::=
   | variable:v 
     {: RESULT = v; :}
   | identFields:id 
-    {: RESULT = id; :} // a.b.foo
+    {: RESULT = id; :}    // a.b.foo
   | map_of:ml 
-    {: RESULT = ml; :} // {(a,b),(c,d)}
+    {: RESULT = ml; :}    // {(a,b),(c,d)}
   | LPAR expr:e RPAR 
     {: e.setPriority(true); 
-      RESULT = e; :}   // (a)
+      RESULT = e; :}      // (a)
 	;
 
 bin_op ::=

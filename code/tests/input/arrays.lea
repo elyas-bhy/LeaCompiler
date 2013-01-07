@@ -4,25 +4,23 @@ function foo(i : int) : int {
 	a := 1;
 	return i + a;
 }
-
 procedure main(args : array of string) {
-    a : int;
-    b : int;
-    i : int;
-    s : string;
-    c : array of int;
+	a : int;
+	b : int;
+	i : int;
+	c : array of int;
 
 	a := 10;
 	b := 1;
-    c := int[a];
+	c := int[a];
 
-    for i in len(c) {
-    	c[i] := i;
-    }
+	for i in len(c) {
+		c[i] := i;
+	}
 
-    for int elem in c {
-    	writeln(elem);
-    }
+	for int elem in c {
+		writeln(elem);
+	}
 
-    a := foo(c[b]);
+	a := foo(c[b]);
 }
